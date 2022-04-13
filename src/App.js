@@ -1,11 +1,16 @@
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Routing from './routes';
+import ThemeConfig from './theme';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Test
-    </div>
-  );
-}
+    <ThemeConfig>
+      <BrowserRouter>
+        <Routing />
+      </BrowserRouter>
+    </ThemeConfig>
+
+  )
+};
 
 export default App;

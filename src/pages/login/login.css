@@ -1,0 +1,12 @@
+.container {
+    font-family: sans-serif;
+    text-align: center;
+    background: #02a7e92c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+  

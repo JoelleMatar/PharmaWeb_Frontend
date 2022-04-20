@@ -1,11 +1,14 @@
 import * as React from "react";
 import { useRoutes } from "react-router-dom";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
+import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import PharmacyDashboard from "./pages/pharmacyDashboard/PharmacyDashboard";
 import SignUp from "./pages/signup/SignUp";
 
 function Routing() {
     let element = useRoutes([
+        // AUTH
         {
             path: "/auth",
             // element: <LogoOnlyLayout />,
@@ -17,6 +20,28 @@ function Routing() {
                 {
                     path: "signup",
                     element: <SignUp />,
+                }
+            ],
+        },
+        // HOME
+        {
+            path: "/home",
+            // element: <LogoOnlyLayout />,
+            children: [
+                {
+                    path: "",
+                    element: <Home />,
+                }
+            ],
+        },
+        // PHAMRACY
+        {
+            path: "/pharmacy",
+            // element: <LogoOnlyLayout />,
+            children: [
+                {
+                    path: "dashboard",
+                    element: <PharmacyDashboard />,
                 }
             ],
         },

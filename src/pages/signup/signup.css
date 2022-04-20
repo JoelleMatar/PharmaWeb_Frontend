@@ -9,7 +9,11 @@
     height: 100vh;
     position: relative;
 }
-
+  
 .button:hover {
     background-color: #F8AF86;
 }
+
+/* .bgPic {
+    background-image: url("../../assets/medical_care_movn.svg");
+} */

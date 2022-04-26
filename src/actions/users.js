@@ -21,9 +21,10 @@ export const login = (formData) => async (dispatch) => {
     }
 };
 
-export const signup = (formData) => async (dispatch) => {
+export const signUpBuyer = (formData) => async (dispatch) => {
     try {
-        const { data } = await api.signUp(formData);
+        console.log("dataa", data)
+        const { data } = await api.signUpBuyer(formData);
 
         // dispatch({ type: AUTH, data });
 

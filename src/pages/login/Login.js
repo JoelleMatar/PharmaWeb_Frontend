@@ -86,7 +86,7 @@ const Login = () => {
 
     return (
         <div className="container">
-            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column' }}>
+            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column', overflowY: 'scroll' }}>
                 <Grid container md={12} sm={12} xs={12}>
                     <Grid item md={6} sm={6} xs={12}>
                         <Box sx={{ display: 'flex', marginTop: '30px' }}>
@@ -157,7 +157,7 @@ const Login = () => {
                     <Grid item md={6} sm={6} xs={12}>
                         <CardMedia
                             component="img"
-                            sx={{ width: '100%', height: '100%', margin: 'auto', }}
+                            sx={{ width: '100%', margin: 'auto', maxWidth: '100%', height: 'auto' }}
                             image={loginImg}
                             alt="Live from space album cover"
                         />

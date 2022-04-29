@@ -29,6 +29,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import PharmacyRegistration from "./PharmacyRegistration";
 
 const SignUp = () => {
     const theme = useTheme();
@@ -160,8 +161,8 @@ const SignUp = () => {
             city: '',
             phoneNumber: '',
             registrationYear: '',
-            deliveryOption: '',
-            paymentOption: '',
+            deliveryOption: deliveryOption,
+            paymentOption: paymentOption,
             // pharmacyLicense: ''
         },
         validationSchema: SignUpPharmacySchema,
@@ -356,217 +357,10 @@ const SignUp = () => {
                         </Card>
                     ) :
                     registerP ? (
-                        <Card sx={{ display: 'flex', width: '60%', height: '85%', flexDirection: 'column' }}>
-                            <div className="bgPic">
-                                <Typography component="div" variant="h5" sx={{ marginTop: '20px' }}>
-                                    Pharmacy Registration
-                                </Typography>
-
-                                <form onSubmit={formikPharmacy.handleSubmit}>
-                                    <Grid container md={12} sm={12} xs={12}>
-                                        <Grid item md={6} sm={6} xs={12}>
-                                            <div>
-                                                <TextField
-                                                    required
-                                                    id="outlined-required"
-                                                    label="Pharmacy Name"
-                                                    type={'text'}
-                                                    name="pharmacyName"
-                                                    value={formikPharmacy.values.pharmacyName}
-                                                    onChange={formikPharmacy.handleChange}
-                                                    onBlur={formikPharmacy.handleBlur}
-                                                    placeholder="Enter Pharmacy Name"
-                                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                />
-                                                {formikPharmacy.touched.pharmacyName && formikPharmacy.errors.pharmacyName ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.pharmacyName}</div></span> : null}
-                                            </div>
-
-                                            <div>
-                                                <TextField
-                                                    required
-                                                    id="outlined-required"
-                                                    label="City"
-                                                    type={'text'}
-                                                    name="city"
-                                                    value={formikPharmacy.values.city}
-                                                    onChange={formikPharmacy.handleChange}
-                                                    onBlur={formikPharmacy.handleBlur}
-                                                    placeholder="Enter City"
-                                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                />
-                                                {formikPharmacy.touched.city && formikPharmacy.errors.city ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.city}</div></span> : null}
-                                            </div>
-
-                                            <div>
-                                                <TextField
-                                                    required
-                                                    id="outlined-required"
-                                                    label="Phone Number"
-                                                    type={'number'}
-                                                    name="phoneNumber"
-                                                    value={formikPharmacy.values.phoneNumber}
-                                                    onChange={formikPharmacy.handleChange}
-                                                    onBlur={formikPharmacy.handleBlur}
-                                                    placeholder="Enter Your Phone Number"
-                                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                />
-                                                {formikPharmacy.touched.phoneNumber && formikPharmacy.errors.phoneNumber ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.phoneNumber}</div></span> : null}
-                                            </div>
-
-                                            <div>
-                                                <TextField
-                                                    required
-                                                    id="outlined-required"
-                                                    label="Email"
-                                                    type={'email'}
-                                                    name="email"
-                                                    value={formikPharmacy.values.email}
-                                                    onChange={formikPharmacy.handleChange}
-                                                    onBlur={formikPharmacy.handleBlur}
-                                                    placeholder="Enter Your Email"
-                                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                />
-                                                {formikPharmacy.touched.email && formikPharmacy.errors.email ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.email}</div></span> : null}
-                                            </div>
-
-                                            <div>
-                                                <TextField
-                                                    required
-                                                    id="outlined-required"
-                                                    label="Registration Year"
-                                                    type={'number'}
-                                                    name="registrationYear"
-                                                    value={formikPharmacy.values.registrationYear}
-                                                    onChange={formikPharmacy.handleChange}
-                                                    onBlur={formikPharmacy.handleBlur}
-                                                    placeholder="Enter Registration Year"
-                                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                />
-                                                {formikPharmacy.touched.registrationYear && formikPharmacy.errors.registrationYear ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.registrationYear}</div></span> : null}
-                                            </div>
-                                        </Grid>
-                                        <Grid item md={6} sm={6} xs={12}>
-                                            <CardContent>
-                                                <div>
-                                                    <FormControl sx={{ width: '80%', marginTop: '5px', marginBottom: '10px' }}>
-                                                        <InputLabel id="deliveryOption">Delivery Options</InputLabel>
-                                                        <Select
-                                                            labelId="deliveryOption-label"
-                                                            id="deliveryOptionID"
-                                                            multiple
-                                                            value={deliveryOption}
-                                                            onChange={handleDeliveryOptionChange}
-                                                            input={<OutlinedInput label="Delivery Options" />}
-                                                            renderValue={(selected) => selected.join(', ')}
-                                                        >
-                                                            {deliveryOptions.map((option) => (
-                                                                <MenuItem key={option} value={option}>
-                                                                    <Checkbox checked={deliveryOption.indexOf(option) > -1} />
-                                                                    <ListItemText primary={option} />
-                                                                </MenuItem>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-                                                </div>
-
-                                                <div>
-                                                    <FormControl sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}>
-                                                        <InputLabel id="paymentOption">Payment Options</InputLabel>
-                                                        <Select
-                                                            labelId="paymentOption-label"
-                                                            id="paymentOptionID"
-                                                            multiple
-                                                            value={paymentOption}
-                                                            onChange={handlePaymentOptionChange}
-                                                            input={<OutlinedInput label="Payment Options" />}
-                                                            renderValue={(selected) => selected.join(', ')}
-                                                        >
-                                                            {paymentOptions.map((option) => (
-                                                                <MenuItem key={option} value={option}>
-                                                                    <Checkbox checked={paymentOption.indexOf(option) > -1} />
-                                                                    <ListItemText primary={option} />
-                                                                </MenuItem>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-                                                </div>
-
-
-                                                <div>
-                                                    <TextField
-                                                        required
-                                                        id="outlined-required"
-                                                        label="Password"
-                                                        type={showPassword ? 'text' : 'password'}
-                                                        name="password"
-                                                        value={formikPharmacy.values.password}
-                                                        onChange={formikPharmacy.handleChange}
-                                                        onBlur={formikPharmacy.handleBlur}
-                                                        handleShowPassword={handleShowPassword}
-                                                        placeholder="Enter Your Password"
-                                                        sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                        InputProps={{
-                                                            endAdornment: (
-                                                                <InputAdornment position="end">
-                                                                    {
-                                                                        showPassword ? <VisibilityOffIcon onClick={handleShowPassword} sx={{ cursor: 'pointer' }} /> : <VisibilityIcon onClick={handleShowPassword} sx={{ cursor: 'pointer' }} />
-                                                                    }
-
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                    >
-                                                    </TextField>
-                                                    {formikPharmacy.touched.password && formikPharmacy.errors.password ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.password}</div></span> : null}
-                                                </div>
-                                                <div>
-                                                    <TextField
-                                                        required
-                                                        id="outlined-required"
-                                                        label="Confirm Password"
-                                                        type={showPassword ? 'text' : 'password'}
-                                                        name="confirmPassword"
-                                                        value={formikPharmacy.values.confirmPassword}
-                                                        onChange={formikPharmacy.handleChange}
-                                                        onBlur={formikPharmacy.handleBlur}
-                                                        handleShowPassword={handleShowPassword}
-                                                        placeholder="Enter Your Password Again"
-                                                        sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                                                        InputProps={{
-                                                            endAdornment: (
-                                                                <InputAdornment position="end">
-                                                                    {
-                                                                        showPassword ? <VisibilityOffIcon onClick={handleShowPassword} sx={{ cursor: 'pointer' }} /> : <VisibilityIcon onClick={handleShowPassword} sx={{ cursor: 'pointer' }} />
-                                                                    }
-
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                    >
-                                                    </TextField>
-                                                    {formikPharmacy.touched.confirmPassword && formikPharmacy.errors.confirmPassword ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formikPharmacy.errors.confirmPassword}</div></span> : null}
-                                                </div>
-
-                                                <div>
-                                                    <label for="file-upload" class="custom-file-upload" >
-                                                        <DriveFolderUploadIcon sx={{marginTop: "5px"}} /> Upload Pharmacy License
-                                                    </label>
-                                                    <input id="file-upload" type="file" />
-                                                </div>
-
-                                            </CardContent>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="button" >Sign Up</Button>
-
-                                </form>
-                                <a style={{ cursor: 'pointer', marginRight: '50px', float: 'right', marginTop: '20px', color: '#F8AF86' }} onClick={goToLogin}>Already have an account?</a>
-                            </div>
-                        </Card>
+                        <PharmacyRegistration />
                     ) :
                         (
-                            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column' }}>
+                            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column', overflowY: 'scroll' }}>
                                 <Grid container md={12} sm={12} xs={12}>
                                     <Grid item md={6} sm={6} xs={12}>
                                         <Box sx={{ display: 'flex', marginTop: '30px' }}>
@@ -604,7 +398,7 @@ const SignUp = () => {
                                     <Grid item md={6} sm={6} xs={12}>
                                         <CardMedia
                                             component="img"
-                                            sx={{ width: '100%', height: '100%', margin: 'auto', }}
+                                            sx={{  maxWidth: '100%', height: 'auto'}}
                                             image={signUpImg}
                                             alt="Live from space album cover"
                                         />

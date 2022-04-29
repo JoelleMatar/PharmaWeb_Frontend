@@ -1,6 +1,12 @@
+import Logo from "../../../src/assets/logo.svg";
+import Navbar from "../../components/navbar/Navbar";
+
 const Home = () => {
     return (
-        <div>Home</div>
+        <div>
+            <Navbar />
+        </div>
+        
     )
 }
 

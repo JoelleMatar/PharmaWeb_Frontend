@@ -95,7 +95,7 @@ export default function AccountPopover() {
         <Box sx={{ my: 1.5, px: 2.5, textAlign: 'center' }}>
           <Typography variant="subtitle1" noWrap>
             {/* {user.result.firstName} {user.result.lastName} */}
-            {user.firstName} {user.lastName}
+            {user.firstName} {user.lastName} || {user.pharmacyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {/* {user.result.email} */}

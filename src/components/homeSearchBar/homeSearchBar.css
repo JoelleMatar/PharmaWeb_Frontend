@@ -2,10 +2,44 @@
     height: 500px;
     width: 100%;
     max-width: 100%;
+    position: relative;
+    text-align: center;
 }
 
 img {
-    height: 100%; 
-    width: 100%; 
-    object-fit:fill
+    height: 100%;
+    width: 100%;
+    object-fit: fill
+}
+
+.text {
+    top: 50px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    font-size: 30px;
+    color: white;
+    /* transform: translate(-50%, -20%); */
+}
+
+.searchBar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 5px;
+
+}
+
+@media only screen and (min-width: 600px) {
+    .searchBar {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .searchBar {
+        width: 60%;
+    }
 }

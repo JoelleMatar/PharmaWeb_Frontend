@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
-import { signUpBuyer } from "../../api/index";
+import { signUpPharmacy } from "../../api/index";
 import { useNavigate } from "react-router";
 
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -63,8 +63,6 @@ const PharmacyRegistration = () => {
         city: Yup.string().required("City is required"),
         phoneNumber: Yup.string().required("Phone Number is required"),
         registrationYear: Yup.string().required("Registration Year is required"),
-        deliveryOption: Yup.array().required("Delivery Option is required"),
-        paymentOption: Yup.array().required("Payment Option is required"),
         pharmacyLicense: Yup.string().required("Pharmacy License is required"),
     });
 
@@ -81,22 +79,28 @@ const PharmacyRegistration = () => {
             city: values.city,
             phoneNumber: values.phoneNumber,
             registrationYear: values.registrationYear,
-            deliveryOption: values.deliveryOption,
-            paymentOption: values.paymentOption,
             pharmacyLicense: values.pharmacyLicense
         }
+        if(deliveryOption.length === 0) return alert("Please select delivery option");
+        if(paymentOption.length === 0) return alert("Please select payment option");
+
+        form.deliveryOptions = deliveryOption;
+        form.paymentOptions = paymentOption;
+
         console.log("form", form);
 
-        // try {
-        //     const success = await signUpPharmacy(form);
-        //     console.log("succ",success);
-        //     if (success.data.result == true) {
-        //         navigate("/home");
-        //     }
-        // }
-        // catch (error) {
-        //     console.log("error", error);
-        // }
+        try {
+            const success = await signUpPharmacy(form);
+            console.log("succ",success);
+            if (success.data.result.role === 1) {
+                console.log("success ", success);
+                localStorage.setItem('profile', JSON.stringify(success.data.result));
+                navigate("/pharmacy/dashboard");
+            }
+        }
+        catch (error) {
+            console.log("error", error);
+        }
 
     };
 
@@ -108,8 +112,6 @@ const PharmacyRegistration = () => {
             city: '',
             phoneNumber: '',
             registrationYear: '',
-            deliveryOption: [],
-            paymentOption: [],
             pharmacyLicense: ''
         },
         validationSchema: SignUpPharmacySchema,
@@ -130,8 +132,9 @@ const PharmacyRegistration = () => {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
+        
     };
-
+console.log("deliveryOption", deliveryOption);
     const handlePaymentOptionChange = (event) => {
         const {
             target: { value },
@@ -252,7 +255,7 @@ const PharmacyRegistration = () => {
                                                 labelId="deliveryOption-label"
                                                 id="deliveryOptionID"
                                                 multiple
-                                                value={formik.values.deliveryOption}
+                                                value={deliveryOption}
                                                 onChange={handleDeliveryOptionChange}
                                                 input={<OutlinedInput label="Delivery Options" />}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -274,7 +277,7 @@ const PharmacyRegistration = () => {
                                                 labelId="paymentOption-label"
                                                 id="paymentOptionID"
                                                 multiple
-                                                value={formik.values.paymentOption}
+                                                value={paymentOption}
                                                 onChange={handlePaymentOptionChange}
                                                 input={<OutlinedInput label="Payment Options" />}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -349,7 +352,7 @@ const PharmacyRegistration = () => {
                                         <label for="file-upload" className="custom-file-upload" >
                                             <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Pharmacy License
                                         </label>
-                                        <input id="file-upload" type="file" onChange={formik.handleChange} value={formik.values.pharmacyLicense} />
+                                        <input id="file-upload" name="pharmacyLicense" type="file" onChange={formik.handleChange} value={formik.values.pharmacyLicense} />
                                     </div>
 
                                 </CardContent>

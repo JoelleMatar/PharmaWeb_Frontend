@@ -54,11 +54,12 @@ const Login = () => {
             console.log("succ", success);
             if (success.data.result.role === 0) {
                 console.log("success ", success);
-
+                localStorage.setItem('profile', JSON.stringify(success.data.result));
                 navigate("/home");
             }
             else if (success.data.result.role === 1) {
                 console.log("success ", success);
+                localStorage.setItem('profile', JSON.stringify(success.data.result));
                 navigate("/pharmacy/dashboard");
             }
         }

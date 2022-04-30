@@ -1,12 +1,11 @@
-import Logo from "../../../src/assets/logo.svg";
-import Navbar from "../../components/navbar/Navbar";
+import HomeSearchBar from "../../components/homeSearchBar/HomeSearchBar";
 
 const Home = () => {
     return (
         <div>
-            <Navbar />
+            <HomeSearchBar />
         </div>
-        
+
     )
 }
 

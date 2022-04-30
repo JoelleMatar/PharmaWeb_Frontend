@@ -23,7 +23,7 @@ export default function AccountPopover() {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
   const MENU_OPTIONS = [
     {
@@ -47,7 +47,7 @@ export default function AccountPopover() {
   };
 
   const logout = () => {
-
+    localStorage.removeItem('profile');
     navigate('/auth/login');
 
   };
@@ -90,12 +90,12 @@ export default function AccountPopover() {
           vertical: 'top',
           horizontal: 'left',
         }}
-        sx={{ width:' 250px' }}
+        
       >
-        <Box sx={{ my: 1.5, px: 2.5 }}>
+        <Box sx={{ my: 1.5, px: 2.5, textAlign: 'center' }}>
           <Typography variant="subtitle1" noWrap>
             {/* {user.result.firstName} {user.result.lastName} */}
-            Joelle
+            {user.firstName} {user.lastName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {/* {user.result.email} */}
@@ -105,27 +105,27 @@ export default function AccountPopover() {
         <Divider sx={{ my: 1 }} />
 
         {MENU_OPTIONS.map((option) => (
-          <>
+          <div style={{ marginTop: '10px'}}>
           <MenuItem
             key={option.label}
             to={option.linkTo}
             component={RouterLink}
             onClick={handleClose}
-            sx={{ typography: 'body2', py: 1, px: 2.5 }}
+            sx={{ typography: 'body2', width: '150px'}}
           >
             <Box
               component={Icon}
               sx={{
                 mr: 2,
-                width: 24,
-                height: 24
+                width: 40,
+                height: 24,
               }}
             />
 
             {option.label}
           </MenuItem>
           <br></br>
-          </>
+          </div>
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>

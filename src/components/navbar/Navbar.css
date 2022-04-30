@@ -334,6 +334,7 @@ html {
     color: #fff;
     word-wrap: no-wrap;
   }
+
   
   .menu-btn {
     display: none;
@@ -423,6 +424,7 @@ html {
     .menu-link:hover {
       background: #f5f5f5;
     }
+
   }
   
   /* Hamurger Menu */

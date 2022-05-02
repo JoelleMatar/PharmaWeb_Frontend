@@ -29,7 +29,7 @@ export default function AccountPopover() {
     {
       label: 'Profile',
 
-      linkTo: '/profile'
+      linkTo: '/pharmacy/dashboard'
     },
     {
       label: 'My Orders',
@@ -37,6 +37,8 @@ export default function AccountPopover() {
       linkTo: '/wishlist'
     },
   ];
+
+  console.log("user", user);
 
 
   const handleOpen = () => {
@@ -90,12 +92,12 @@ export default function AccountPopover() {
           vertical: 'top',
           horizontal: 'left',
         }}
+        sx={{zIndex: 1000}}
         
       >
         <Box sx={{ my: 1.5, px: 2.5, textAlign: 'center' }}>
           <Typography variant="subtitle1" noWrap>
-            {/* {user.result.firstName} {user.result.lastName} */}
-            {user.firstName} {user.lastName} || {user.pharmacyName}
+            {user.role === 0 ? user.firstName + " " + user.lastName : user.pharmacyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {/* {user.result.email} */}

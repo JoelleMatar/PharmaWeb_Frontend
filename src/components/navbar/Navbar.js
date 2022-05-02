@@ -15,14 +15,17 @@ export default function (props) {
     //     setisLogged(true);
     // }
 
+    var loggedUser;
+
     useEffect(() => {
-        const loggedUser = localStorage.getItem("profile");
+       loggedUser = localStorage.getItem("profile");
         if (loggedUser) {
             setisLogged(true);
         }
 
-        console.log("loggd user", loggedUser);
+        
     }, []);
+console.log("loggd user", loggedUser);
 
     return (
         <header className="header">

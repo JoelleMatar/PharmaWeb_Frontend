@@ -9,7 +9,8 @@
 img {
     height: 100%;
     width: 100%;
-    object-fit: fill
+    object-fit: fill;
+    margin-top: 80px;
 }
 
 .text {
@@ -19,6 +20,7 @@ img {
     position: absolute;
     font-size: 30px;
     color: white;
+    margin-top: 100px;
     /* transform: translate(-50%, -20%); */
 }
 
@@ -29,7 +31,7 @@ img {
     transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 5px;
-
+    margin-top: 80px;
 }
 
 @media only screen and (min-width: 600px) {

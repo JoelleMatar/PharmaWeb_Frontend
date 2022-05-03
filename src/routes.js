@@ -4,6 +4,7 @@ import PharmacyProducts from "./components/pharmacy/pharmcyProducts.js/PharmacyP
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import PharmaciesList from "./pages/pharmaciesList/pharmaciesList";
 import PharmacyDashboard from "./pages/pharmacyDashboard/PharmacyDashboard";
 import SignUp from "./pages/signup/SignUp";
 
@@ -38,6 +39,10 @@ function Routing() {
                 {
                     path: "",
                     element: <Home />,
+                },
+                {
+                    path: "pharmacies",
+                    element: <PharmaciesList />,
                 }
             ],
         },
@@ -52,7 +57,11 @@ function Routing() {
                 },
                 {
                     path: "products",
-                    element: <PharmacyProducts />,
+                    element: <PharmacyDashboard />,
+                },
+                {
+                    path: "add-product",
+                    element: <PharmacyDashboard />,
                 }
             ],
         },

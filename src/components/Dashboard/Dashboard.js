@@ -34,6 +34,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import { Button, ListItem } from '@mui/material';
 import { useState } from "react";
 import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
+import AddProduct from '../pharmacy/addProduct/AddProduct';
 
 const drawerWidth = 240;
 
@@ -72,88 +73,197 @@ function DashboardContent() {
     };
 
     return (
-        <Box
-            component="main"
-            sx={{
-                backgroundColor: (theme) =>
-                    theme.palette.mode === 'light'
-                        ? theme.palette.grey[100]
-                        : theme.palette.grey[900],
-                flexGrow: 1,
-                height: '100vh',
-                // overflow: 'auto',
-            }}
-        >
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Grid container spacing={3}>
-                    {/* Chart */}
-                    <Grid item xs={12} md={8} lg={9}>
-                        <Paper
-                            sx={{
-                                p: 2,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                height: 240,
-                            }}
-                        >
-                            <Chart />
-                        </Paper>
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px' }}>
+                <Divider />
+
+                <MainListItems />
+
+                <Divider />
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                        marginTop: '160px'
+                    }}
+                >
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+            </Drawer>
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '100vh',
+                    paddingLeft: "180px"
+                }}
+            >
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <Grid container spacing={3}>
+                        {/* Chart */}
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: 240,
+                                }}
+                            >
+                                <Chart />
+                            </Paper>
+                        </Grid>
+                        {/* Recent Deposits */}
+                        <Grid item xs={12} md={4} lg={3}>
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: 240,
+                                }}
+                            >
+                                <Deposits />
+                            </Paper>
+                        </Grid>
+                        {/* Recent Orders */}
+                        <Grid item xs={12}>
+                            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                                <Orders />
+                            </Paper>
+                        </Grid>
                     </Grid>
-                    {/* Recent Deposits */}
-                    <Grid item xs={12} md={4} lg={3}>
-                        <Paper
-                            sx={{
-                                p: 2,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                height: 240,
-                            }}
-                        >
-                            <Deposits />
-                        </Paper>
-                    </Grid>
-                    {/* Recent Orders */}
-                    <Grid item xs={12}>
-                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <Orders />
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
+                </Container>
+            </Box>
+
         </Box>
+
     );
 }
 
 function ProductsContent() {
     const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
+    const addProduct = () => {
+        console.log("add product");
+        window.location.href = "http://localhost:3000/pharmacy/add-product"
+    };
+
+    return (
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
+
+                <MainListItems />
+
+                <Divider />
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                        marginTop: '160px'
+                    }}
+                >
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '100vh',
+                    paddingLeft: "180px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4, fontSize: "64px" }}>
+                    <Grid container spacing={3}>
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Button variant="contained" sx={{ marginRight: '0' }} color="primary" onClick={addProduct}>Add Product</Button>
+                        </Grid>
+
+                        <PharmacyProducts />
+                    </Grid>
+                </Container>
+            </Box>
+        </Box>
+
+    );
+}
+
+function AddProductContent() {
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
     const addProduct = () => {
         console.log("add product")
     };
 
     return (
-        <Box
-            component="main"
-            sx={{
-                backgroundColor: (theme) =>
-                    theme.palette.mode === 'light'
-                        ? theme.palette.grey[100]
-                        : theme.palette.grey[900],
-                flexGrow: 1,
-                height: '100vh',
-                paddingLeft: "180px"
-                // overflow: 'auto',
-            }}
-        >
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4, fontSize: "64px" }}>
-                <Grid container spacing={3}>
-                    <Grid item md={12} sm={12} xs={12}>
-                        <Button variant="contained" sx={{ marginRight: '0' }} color="primary" onClick={addProduct}>Add Product</Button>
-                    </Grid>
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
 
-                    <PharmacyProducts />
-                </Grid>
-            </Container>
+                <MainListItems />
+
+                <Divider />
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                        marginTop: '160px'
+                    }}
+                >
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '100vh',
+                    paddingLeft: "180px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <AddProduct />
+                </Container>
+            </Box>
         </Box>
+
     );
 }
 
@@ -163,91 +273,14 @@ export default function Dashboard() {
         setOpen(!open);
     };
 
-    const urlDashboard = 'http://localhost:3000/pharmacy/dashboard';
-    const urlProducts = 'http://localhost:3000/pharmacy/products';
-
-    const [isdashboard, setIsDashboard] = useState(true);
-    const [isproducts, setIsProducts] = useState(false);
-
-    const dashboardCheck = () => {
-        setIsDashboard(true);
-        setIsProducts(false);
-        window.history.pushState({}, null, '/pharmacy/dashboard')
-    }
-
-    const productsCheck = () => {
-        setIsDashboard(false);
-        setIsProducts(true);
-        window.history.pushState({}, null, '/pharmacy/products')
-    }
-
     return (
         <ThemeProvider theme={mdTheme}>
-            <Box sx={{ display: 'flex', marginTop: '80px' }}>
-                <CssBaseline />
-                <Drawer variant="permanent" open={open} sx={{ marginTop: '80px' }}>
-                    <Divider />
-
-                    <List component="nav" sx={{ paddingLeft: '10px' }}>
-                        <ListItem onClick={() => dashboardCheck()} sx={{ cursor: 'pointer' }}>
-                            <ListItemIcon>
-                                <DashboardIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Dashboard" sx={{ width: '240px' }} />
-                        </ListItem>
-                        <br />
-                        <ListItem onClick={() => productsCheck()} sx={{ cursor: 'pointer' }}>
-                            <ListItemIcon>
-                                <CategoryIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Products" sx={{ width: '240px' }} />
-                        </ListItem>
-                        <br />
-                        <ListItem onClick={() => dashboardCheck()} sx={{ cursor: 'pointer' }}>
-                            <ListItemIcon>
-                                <ShoppingCartIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Orders" sx={{ width: '240px' }} />
-                        </ListItem>
-                        <br />
-                        <ListItem onClick={() => dashboardCheck()} sx={{ cursor: 'pointer' }}>
-                            <ListItemIcon>
-                                <NotificationsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Notifications" sx={{ width: '240px' }} />
-                        </ListItem>
-                        <br />
-                        <ListItem onClick={() => dashboardCheck()} sx={{ cursor: 'pointer' }}>
-                            <ListItemIcon>
-                                <PeopleIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Pharmacy Profile" sx={{ width: '240px' }} />
-                        </ListItem>
-                    </List>
-
-                    <Divider />
-                    <Toolbar
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            px: [1],
-                            marginTop: '160px'
-                        }}
-                    >
-                        <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </Toolbar>
-                </Drawer>
-
-                {
-                    isdashboard ? <DashboardContent /> :
-                        isproducts ? <ProductsContent /> : <DashboardContent />
-                }
-
-            </Box>
+            {
+                window.location.href === "http://localhost:3000/pharmacy/dashboard" ? <DashboardContent /> :
+                    window.location.href === "http://localhost:3000/pharmacy/products" ? <ProductsContent /> :
+                        window.location.href === "http://localhost:3000/pharmacy/add-product" ? <AddProductContent /> :
+                            <DashboardContent />
+            }
         </ThemeProvider>
     )
-
 }

@@ -154,7 +154,7 @@ html {
 
   
   .logo {
-    width: 25px;
+    width: 100px;
     height: 100%;
     position: relative;
   }
@@ -406,7 +406,11 @@ html {
       transform: translateX(-100%);
       transition: all 0.3s ease-out;
     }
-  
+
+    .is-active {
+      color: #F8AF86;
+    }
+
     .menu-item--play {
       display: block;
       -webkit-transform: translateX(0);

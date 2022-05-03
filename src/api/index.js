@@ -14,3 +14,4 @@ API.interceptors.request.use((req) => {
 export const login = (formData) => API.post('/user/login', formData);
 export const signUpBuyer = (formData) => API.post('/user/signup/buyer', formData);
 export const signUpPharmacy = (formData) => API.post('/user/signup/pharmacy', formData);
+export const getPharmaciesList = () => API.get('/user/pharmaciesList');

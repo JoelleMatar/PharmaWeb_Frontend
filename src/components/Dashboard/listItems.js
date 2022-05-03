@@ -35,14 +35,14 @@ const MainListItems = () => {
 
     return (
         <List component="nav" sx={{ paddingLeft: '25px' }}>
-            <ListItem onClick={() => dashboardCheck()}>
+            <ListItem button component="a" href="/pharmacy/dashboard">
                 <ListItemIcon>
                     <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" sx={{ marginTop: '20px', width: '240px' }} />
             </ListItem>
             <br />
-            <ListItem onClick={() => productsCheck()}>
+            <ListItem button component="a" href="/pharmacy/products">
                 <ListItemIcon>
                     <PeopleIcon />
                 </ListItemIcon>

@@ -42,12 +42,6 @@
         "Ingredient": "STARCH"
     },
     {
-        "Ingredient": "STARCH"
-    },
-    {
-        "Ingredient": "STARCH"
-    },
-    {
         "Ingredient": "SORBITOL SOLUTION"
     },
     {
@@ -58,27 +52,6 @@
     },
     {
         "Ingredient": "SODIUM STARCH GLYCOLATE TYPE A"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
-    },
-    {
-        "Ingredient": "SODIUM PHOSPHATE"
     },
     {
         "Ingredient": "SODIUM PHOSPHATE"
@@ -318,9 +291,6 @@
         "Ingredient": "LACTIC ACID"
     },
     {
-        "Ingredient": "LACTIC ACID"
-    },
-    {
         "Ingredient": "INK BLUE TEKPRINT SB-6018"
     },
     {
@@ -528,13 +498,10 @@
         "Ingredient": "ACESULFAME"
     },
     {
-        "Ingredient": "1,4-SORBITAN"
+        "Ingredient": 1
     },
     {
-        "Ingredient": "1,2,6-HEXANETRIOL"
-    },
-    {
-        "Ingredient": ".ALPHA.-TOCOPHEROL"
+        "Ingredient": 1
     },
     {
         "Ingredient": ".ALPHA.-TOCOPHEROL"

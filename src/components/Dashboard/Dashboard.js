@@ -80,7 +80,7 @@ function DashboardContent() {
 
                 <MainListItems />
 
-                <Divider />
+                {/* <Divider />
                 <Toolbar
                     sx={{
                         display: 'flex',
@@ -93,7 +93,7 @@ function DashboardContent() {
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
-                </Toolbar>
+                </Toolbar> */}
             </Drawer>
             <Box
                 component="main"
@@ -104,7 +104,7 @@ function DashboardContent() {
                             : theme.palette.grey[900],
                     flexGrow: 1,
                     height: '100vh',
-                    paddingLeft: "180px"
+                    paddingLeft: "250px"
                 }}
             >
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -168,7 +168,7 @@ function ProductsContent() {
 
                 <MainListItems />
 
-                <Divider />
+                {/* <Divider />
                 <Toolbar
                     sx={{
                         display: 'flex',
@@ -181,7 +181,7 @@ function ProductsContent() {
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
-                </Toolbar>
+                </Toolbar> */}
             </Drawer>
 
             <Box
@@ -193,14 +193,14 @@ function ProductsContent() {
                             : theme.palette.grey[900],
                     flexGrow: 1,
                     height: '100vh',
-                    paddingLeft: "180px"
-                    // overflow: 'auto',
+                    paddingLeft: "250px",
+                    overflowY: 'scroll',
                 }}
             >
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4, fontSize: "64px" }}>
                     <Grid container spacing={3}>
                         <Grid item md={12} sm={12} xs={12}>
-                            <Button variant="contained" sx={{ marginRight: '0' }} color="primary" onClick={addProduct}>Add Product</Button>
+                            <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0',  }} color="primary" onClick={addProduct}>Add Product</Button>
                         </Grid>
 
                         <PharmacyProducts />
@@ -229,7 +229,7 @@ function AddProductContent() {
 
                 <MainListItems />
 
-                <Divider />
+                {/* <Divider />
                 <Toolbar
                     sx={{
                         display: 'flex',
@@ -242,7 +242,7 @@ function AddProductContent() {
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
-                </Toolbar>
+                </Toolbar> */}
             </Drawer>
 
             <Box
@@ -254,7 +254,7 @@ function AddProductContent() {
                             : theme.palette.grey[900],
                     flexGrow: 1,
                     height: '100vh',
-                    paddingLeft: "180px"
+                    paddingLeft: "250px"
                     // overflow: 'auto',
                 }}
             >

@@ -6,7 +6,7 @@ import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
 // material
 import { alpha } from '@material-ui/core/styles';
-import { Button, Box, Divider,  Typography, Avatar, IconButton } from '@material-ui/core';
+import { IconButton, Button, Box, Divider,  Typography, Avatar } from '@mui/material';
 // components
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -80,6 +80,7 @@ export default function AccountPopover() {
         <Avatar src="" alt="photoURL" />
       </IconButton>
 
+
       <Menu
         open={open}
         onClose={handleClose}
@@ -107,13 +108,13 @@ export default function AccountPopover() {
         <Divider sx={{ my: 1 }} />
 
         {MENU_OPTIONS.map((option) => (
-          <div style={{ marginTop: '10px'}}>
+          <div style={{ marginTop: '10px', marginBottom: '-20px'}}>
           <MenuItem
             key={option.label}
             to={option.linkTo}
             component={RouterLink}
             onClick={handleClose}
-            sx={{ typography: 'body2', width: '150px'}}
+            sx={{ typography: 'body2', width: '150px',}}
           >
             <Box
               component={Icon}

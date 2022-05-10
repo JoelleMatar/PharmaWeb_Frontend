@@ -6,26 +6,11 @@ import "./Navbar.css";
 import Logo from "../../../src/assets/test.png";
 import AccountPopover from "./AccountPopover";
 
-export default function (props) {
-    const [isLogged, setisLogged] = useState(false);
+const Navbar = () => {
+    const [isLogged, setisLogged] = useState(localStorage.getItem("profile"));
 
-    // const loggedUser = localStorage.getItem("profile");
+    console.log("hello", isLogged)
 
-    // if(loggedUser) {
-    //     setisLogged(true);
-    // }
-
-    var loggedUser;
-
-    useEffect(() => {
-        loggedUser = localStorage.getItem("profile");
-        if (loggedUser) {
-            setisLogged(true);
-        }
-
-
-    }, []);
-    console.log("loggd user", loggedUser);
 
     return (
         <header className="header">
@@ -52,9 +37,17 @@ export default function (props) {
                         menu={
                             <ul className="menu-list">
                                 <li className="menu-item is-active menu-item--play">
-                                    <a href="#" className="menu-link" >
-                                        Medical Products
-                                    </a>
+                                    {
+                                        window.location.href === "http://localhost:3000/home/products" ? (
+                                            <a href="/home/products" className="menu-link" style={{ color: '#F8AF86' }}>
+                                                Medical Products
+                                            </a>
+                                        ) : (
+                                            <a href="/home/products" className="menu-link">
+                                                Medical Products
+                                            </a>
+                                        )
+                                    }
                                 </li>
                                 <li className="menu-item menu-item--play">
                                     {
@@ -82,12 +75,14 @@ export default function (props) {
                                 </li>
                                 {
                                     isLogged ? (
+                                        console.log("youhouuuu"),
                                         <li className="menu-item is-active menu-item--play">
                                             <a className="menu-link">
                                                 <AccountPopover />
                                             </a>
                                         </li>
                                     ) : (
+                                        console.log("notttt logged"),
                                         <li className="menu-item is-active menu-item--play">
                                             <a href="/auth/login" className="menu-link log" style={{ fontWeight: 'bolder', color: '#F8AF86' }}>
                                                 Login/Register
@@ -104,3 +99,5 @@ export default function (props) {
         </header>
     );
 }
+
+export default Navbar;

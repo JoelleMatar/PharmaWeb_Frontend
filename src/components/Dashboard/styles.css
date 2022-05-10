@@ -3,3 +3,7 @@
     background-color: #f5f5f5;
     border-top: black;
 }
+
+.btnAdd:hover {
+    background-color: #019890;
+}

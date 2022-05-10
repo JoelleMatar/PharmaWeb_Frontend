@@ -17,5 +17,8 @@ export const signUpPharmacy = (formData) => API.post('/user/signup/pharmacy', fo
 export const getPharmaciesList = () => API.get('/user/pharmaciesList');
 
 
+
 // PRODUCTS
 export const createProduct = (formData) => API.post('/products/pharmacy/add-product', formData);
+export const getProducts = () => API.get('/products/pharmacy/productsList');
+export const getProductsbySearch = (search) => API.get(`/products/pharmacy/productsList/${search}`);

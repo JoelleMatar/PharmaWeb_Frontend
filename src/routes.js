@@ -6,6 +6,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import PharmaciesList from "./pages/pharmaciesList/pharmaciesList";
 import PharmacyDashboard from "./pages/pharmacyDashboard/PharmacyDashboard";
+import ProductsList from "./pages/productsList/ProductsList";
 import SignUp from "./pages/signup/SignUp";
 
 function Routing() {
@@ -43,6 +44,10 @@ function Routing() {
                 {
                     path: "pharmacies",
                     element: <PharmaciesList />,
+                },
+                {
+                    path: "products",
+                    element: <ProductsList />,
                 }
             ],
         },

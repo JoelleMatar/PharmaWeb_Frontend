@@ -22,21 +22,21 @@ const ProductsList = () => {
     console.log("products", products)
 
     return (
-        <Grid container>
+        <Grid container sx={{width: '100%'}}>
             <Navbar />
-            <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'center' }}>
+            <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '7%' }}>
                 <Typography variant="h4" sx={{color: '#00B8B0',}} gutterBottom>
                     Products List
                 </Typography>
             </Grid>
 
             <Grid item>
-                <Box sx={{ flexGrow: 1,  width: '90%' }}>
-                    <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2} sx={{ paddingTop: '40px', marginLeft: '5%' }}>
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                    <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={3} sx={{ paddingTop: '40px', marginLeft: '6%' }}>
                         {
                             products.map((product) => {
                                 return (
-                                    <Grid item xs={12} sm={4} md={4} key={product._id}>
+                                    <Grid item xs={12} sm={4} md={3} key={product._id}>
                                         <HomeProductCard product={product} />
                                     </Grid>
                                 )

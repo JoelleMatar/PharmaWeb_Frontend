@@ -21,21 +21,21 @@ const PharmaciesList = () => {
     console.log("pharmacies", pharmacies)
 
     return (
-        <Grid container>
+        <Grid container sx={{width: '90%'}}>
             <Navbar />
-            <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'center' }}>
+            <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '6%' }}>
                 <Typography variant="h4" sx={{color: '#00B8B0',}} gutterBottom>
                     Phamracies List
                 </Typography>
             </Grid>
 
             <Grid item>
-                <Box sx={{ flexGrow: 1,  width: '90%' }}>
+                <Box sx={{ flexGrow: 1,  width: '100%' }}>
                     <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2} sx={{ paddingTop: '40px', marginLeft: '5%' }}>
                         {
                             pharmacies.map((pharmacy) => {
                                 return (
-                                    <Grid item xs={12} sm={4} md={3} key={pharmacy._id}>
+                                    <Grid item xs={12} sm={4} md={4} key={pharmacy._id}>
                                         <HomePharmacyCard pharmacy={pharmacy} />
                                     </Grid>
                                 )

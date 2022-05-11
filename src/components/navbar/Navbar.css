@@ -217,76 +217,7 @@ html {
     -webkit-transition: -webkit-transform 0.5s;
     transition: transform 0.5s;
   }
-  
-  /* .hover-effect2 span:last-child {
-    position: relative;
-    text-decoration: none;
-  }
-  
-  .hover-effect2 span:last-child:before,
-  .hover-effect2 span:last-child:after {
-    content: "";
-    position: absolute;
-    bottom: 1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #ffffff;
-  }
-  
-  .hover-effect2 span:last-child:before {
-    opacity: 0;
-    -webkit-transform: translateY(-8px);
-    transform: translateY(-8px);
-    transition: opacity 0s,
-      -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
-    transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s,
-      -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .hover-effect2 span:last-child:after {
-    opacity: 0;
-    -webkit-transform: translateY(4px);
-    transform: translateY(4px);
-    transition: opacity 0.2s,
-      -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0.2s;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .hover-effect2 span:last-child:hover:before,
-  .hover-effect2 span:last-child:hover:after,
-  .hover-effect2 span:last-child:focus:before,
-  .hover-effect2 span:last-child:focus:after {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  
-  .hover-effect2 span:last-child:hover:before,
-  .hover-effect2 span:last-child:focus:before {
-    transition: opacity 0.2s,
-      -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0.2s;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .hover-effect2 span:last-child:hover:after,
-  .hover-effect2 span:last-child:focus:after {
-    transition: opacity 0s 0.2s,
-      -webkit-transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0s 0.2s;
-    transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0s 0.2s,
-      -webkit-transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  } */
-  
+
   .hover-effect2:hover {
     -webkit-mask-image: linear-gradient(
       -75deg,
@@ -315,13 +246,13 @@ html {
     position: fixed;
     z-index: 100;
     width: 100%;
-    background: #f5f5f5;
+    background: #ffa26cd7;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   }
   
   .logo {
     float: left;
-    margin: 10px 20px;
+    margin: 5px 20px;
   }
   
   .logo-title {
@@ -376,10 +307,11 @@ html {
   
   .menu-link {
     display: block;
-    color: #00B8B0;
+    color: white;
     text-decoration: none;
-    line-height: 5em;
-    height: 5em;
+    line-height: 80px;
+    height: 80px;
+    font-size: 18px;
     padding: 0 1.5em;
     word-wrap: no-wrap;
     transition: all 0.3s ease;
@@ -387,7 +319,9 @@ html {
   
   .menu-link:hover,
   .menu-link:focus {
-    color: #F8AF86;
+    color: #00B8B0;
+    border-bottom-style: solid;
+    border-bottom-color: #00B8B0;
   }
   
   @media (max-width: 768px) {
@@ -408,7 +342,7 @@ html {
     }
 
     .is-active {
-      color: #F8AF86;
+      color: #00B8B0;
     }
 
     .menu-item--play {

@@ -1,5 +1,5 @@
 .searchArea {
-    height: 500px;
+    height: 600px;
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -19,7 +19,7 @@ img {
     right: 0;
     position: absolute;
     font-size: 30px;
-    color: white;
+    color: #00B8B0;
     margin-top: 100px;
     /* transform: translate(-50%, -20%); */
 }

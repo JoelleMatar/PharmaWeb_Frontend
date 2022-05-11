@@ -136,7 +136,8 @@ const top100Films = [
 const HomeSearchBar = () => {
     return (
         <div className="searchArea">
-            <img src={homeBG} style={{ opacity: '0.8' }} />
+            <img src="https://img.freepik.com/free-vector/pharmacy-medical-shop-concept_74855-7815.jpg?w=1060&t=st=1652301307~exp=1652301907~hmac=8cda76f71ca72686366ae34780e35b40d12ecbf80f6017c97d2f02f0a66baf6f" style={{ opacity: '0.6' }} />
+            {/* <a href='https://www.freepik.com/vectors/health'>Health vector created by rawpixel.com - www.freepik.com</a> */}
             <div className="text">
                 <Typewriter
 

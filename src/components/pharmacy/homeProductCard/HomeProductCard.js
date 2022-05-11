@@ -7,22 +7,24 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "./HomeProductCard.css";
+import Divider from '@mui/material/Divider';
 
 export default function HomeProductCard({ product }) {
     const theme = useTheme();
 
     return (
-        <Card sx={{ display: 'flex' }}>
-            <div style={{width: '120px', height: '120px'}}>
+        <Card sx={{ maxWidth: 300 }}>
+            <div style={{width: '120px', height: '120px', margin: 'auto'}}>
                 <CardMedia
                 component="img"
-                sx={{ width: '100%', height: '100%', marginTop: '20px', marginLeft: '10px' }}
+                sx={{ width: '100%', height: '100%', marginTop: '20px' }}
                 image={product.image}
                 alt={product.productName}
             />
             </div>
+            <Divider sx={{marginTop: '20px', color: '#ffa26cd7'}} />
             
-            <Box sx={{width: '60%', marginLeft: '40px' }}>
+            <Box sx={{width: '100%', }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="h5">
                         {product.productName}
@@ -34,8 +36,8 @@ export default function HomeProductCard({ product }) {
                         <b>Quantity: </b> {product.quantity}
                     </Typography>
                 </CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                    <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', width: '100%', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary">View More</Button>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                    <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }}>View More</Button>
                 </Box>
             </Box>
 

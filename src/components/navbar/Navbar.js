@@ -3,7 +3,7 @@ import ResponsiveMenu from "react-responsive-navbar";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import "./Navbar.css";
-import Logo from "../../../src/assets/test.png";
+import Logo from "../../../src/assets/logoPharma.png";
 import AccountPopover from "./AccountPopover";
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
                                 <li className="menu-item is-active menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/products" ? (
-                                            <a href="/home/products" className="menu-link" style={{ color: '#F8AF86' }}>
+                                            <a href="/home/products" className="menu-link" style={{ color: '#00B8B0',  borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
                                                 Medical Products
                                             </a>
                                         ) : (
@@ -52,7 +52,7 @@ const Navbar = () => {
                                 <li className="menu-item menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/pharmacies" ? (
-                                            <a href="/home/pharmacies" className="menu-link" style={{ color: '#F8AF86' }}>
+                                            <a href="/home/pharmacies" className="menu-link" style={{ color: '#00B8B0',  borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
                                                 Pharmacies
                                             </a>
                                         ) : (

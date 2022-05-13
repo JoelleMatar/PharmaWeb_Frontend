@@ -253,12 +253,12 @@ function AddProductContent() {
                             ? theme.palette.grey[100]
                             : theme.palette.grey[900],
                     flexGrow: 1,
-                    height: '100vh',
+                    // height: '100vh',
                     paddingLeft: "250px"
                     // overflow: 'auto',
                 }}
             >
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Container  sx={{ mt: 4, mb: 4, height: ''}}>
                     <AddProduct />
                 </Container>
             </Box>

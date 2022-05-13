@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 
-import { getProducts, getProductsbySearch } from '../../../api';
+import { getPharmacyProducts, getPharmacyProductsbySearch, getProducts, getProductsbySearch } from '../../../api';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -202,7 +202,7 @@ EnhancedTableToolbar.propTypes = {
 export default function PharmacyProducts() {
   const [productsList, setProductsList] = useState([]);
   const [state, setState] = useState('');
-
+  const loggedUser = JSON.parse(localStorage.getItem('profile'));
   const handleSearch = (value) => {
     setState(value);
   }
@@ -210,7 +210,7 @@ export default function PharmacyProducts() {
   console.log("searchhhh", state);
 
   useEffect(async () => {
-    const products = state !== '' ? await getProductsbySearch(state) : await getProducts();
+    const products = state !== '' ? await getPharmacyProductsbySearch(loggedUser._id, state) : await getPharmacyProducts(loggedUser._id);
 
     setProductsList(products.data);
 

@@ -13,6 +13,8 @@ import { createProduct } from "../../../api";
 import { useNavigate } from "react-router";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Switch from '@mui/material/Switch';
+import "./AddProduct.css";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -86,11 +88,15 @@ const AddProduct = () => {
         }
     ];
 
+    const loggedUser = JSON.parse(localStorage.getItem('profile'));
+    console.log("loggedUser", loggedUser._id);
+
     const addProductSchema = Yup.object({
         productName: Yup.string().required("Product Name is required"),
         price: Yup.string().required("Price is required"),
         quantity: Yup.string().required("Quantity is required"),
         stock: Yup.string().required("Stock is required"),
+        category: Yup.boolean().required("Category is required"),
     });
 
     const formik = useFormik({
@@ -99,6 +105,8 @@ const AddProduct = () => {
             price: 0,
             quantity: 0,
             stock: 0,
+            description: '',
+            category: false,
         },
         validationSchema: addProductSchema,
         onSubmit: (values) => {
@@ -116,6 +124,9 @@ const AddProduct = () => {
             price: values.price,
             quantity: values.quantity,
             stock: values.stock,
+            description: values.description,
+            category: values.category,
+            pharmaId: loggedUser._id
         }
         if (formProducts.length === 0) return alert("Please select form");
         if (ingredient.length === 0) return alert("Please select ingredients");
@@ -190,11 +201,10 @@ const AddProduct = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <Grid container >
-
-                <Typography variant="h4" sx={{ marginLeft: '35%' }}>Add New Product</Typography>
-                <Grid item md={6} sm={6} xs={12}>
+        <form onSubmit={formik.handleSubmit} >
+            <Typography variant="h4" sx={{ marginBottom: '20px', color: '#019890', marginLeft: '5%' }}>Add New Product</Typography>
+            <Grid container sx={{ textAlign: 'center' }}>
+                <Grid item md={6} sm={6} xs={12} sx={{ textAlign: 'center' }}>
                     <div>
                         <TextField
                             required
@@ -210,24 +220,89 @@ const AddProduct = () => {
                         />
                         {formik.touched.productName && formik.errors.productName ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.productName}</div></span> : null}
                     </div>
-                    <div>
-                        {/* <TextField
-                        id="outlined-required"
-                        label="Dosage"
-                        type={'text'}
-                        name="dosage"
-                        // value={formik.values.lastName}
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        placeholder="Enter Product Dose"
-                        sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                    /> */}
-                        {/* {formik.touched.lastName && formik.errors.lastName ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.lastName}</div></span> : null} */}
+                    <Grid container>
+                        <Grid item md={6} sm={6} xs={6}>
+                            <div>
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Price"
+                                    type={'number'}
+                                    name="price"
+                                    value={formik.values.price}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    placeholder="Enter Product Price"
+                                    sx={{ width: '80%', marginTop: '20px', marginBottom: '10px', marginLeft: '55px' }}
+                                />
+                                {formik.touched.price && formik.errors.price ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.price}</div></span> : null}
+                            </div>
+                        </Grid>
+                        <Grid item md={6} sm={6} xs={6}>
+                            <div style={{ width: '80%', marginTop: '30px', marginBottom: '40px', fontSize: '18px', marginLeft: '40px' }}>
+                                <span>High Dose</span>
+                                <Switch name="category" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                            </div>
+                        </Grid>
+                    </Grid>
 
+                    <div>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Stock"
+                            type={'number'}
+                            name="stock"
+                            value={formik.values.stock}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            placeholder="Enter Product Stock"
+                            className="price"
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
+                        />
+                        {formik.touched.stock && formik.errors.stock ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.stock}</div></span> : null}
+                    </div>
+                    <div>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Quantity"
+                            type={'number'}
+                            name="quantity"
+                            className="qty"
+                            value={formik.values.quantity}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            placeholder="Enter maximum quantity to be sold"
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
+                        />
+                        {formik.touched.quantity && formik.errors.quantity ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.quantity}</div></span> : null}
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-required"
+                            multiline
+                            rows={4}
+                            label="Description"
+                            type={'multiline'}
+                            name="description"
+                            className="Description"
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            placeholder="Enter description"
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
+                        />
+                    </div>
+                </Grid>
+                <Grid item md={6} sm={6} xs={12}>
+
+
+                    <div>
                         <Autocomplete
                             multiple
                             id="tags-filled"
-                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px', marginLeft: '10%' }}
                             options={dosage}
                             onChange={(event, value) => handleDosageChange(event, value)}
                             freeSolo
@@ -245,23 +320,10 @@ const AddProduct = () => {
                         />
                     </div>
                     <div>
-                        {/* <TextField
-                        required
-                        id="outlined-required"
-                        label="Form"
-                        type={'text'}
-                        name="form"
-                        // value={formik.values.phoneNumber}
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        placeholder="Enter Product Form"
-                        sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                    /> */}
-                        {/* {formik.touched.phoneNumber && formik.errors.phoneNumber ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.phoneNumber}</div></span> : null} */}
                         <Autocomplete
                             multiple
                             id="tags-outlined"
-                            sx={{ width: '80%', marginTop: '30px', marginBottom: '10px' }}
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px', marginLeft: '10%' }}
                             options={productFormTypes}
                             onChange={(event, value) => handleFormChange(event, value)}
                             getOptionLabel={(productFormTypes) => productFormTypes.name}
@@ -281,16 +343,11 @@ const AddProduct = () => {
                         <Autocomplete
                             multiple
                             id="tags-filled"
-                            sx={{ width: '80%', marginTop: '30px', marginBottom: '10px' }}
+                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px', marginLeft: '10%' }}
                             options={ProductIngredient.map((option) => option.Ingredient)}
                             defaultValue={[ProductIngredient[13].Ingredient]}
                             onChange={(event, value) => handleIngredientChange(event, value)}
                             freeSolo
-                            // renderTags={(value, getTagProps) =>
-                            //     value.map((option, index) => (
-                            //         <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-                            //     ))
-                            // }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
@@ -303,54 +360,7 @@ const AddProduct = () => {
                             )}
                         />
                     </div>
-                </Grid>
-                <Grid item md={6} sm={6} xs={12}>
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Stock"
-                            type={'number'}
-                            name="stock"
-                            value={formik.values.stock}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            placeholder="Enter Product Stock"
-                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                        />
-                        {formik.touched.stock && formik.errors.stock ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.stock}</div></span> : null}
-                    </div>
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Quantity"
-                            type={'number'}
-                            name="quantity"
-                            value={formik.values.quantity}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            placeholder="Enter maximum quantity to be sold"
-                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                        />
-                        {formik.touched.quantity && formik.errors.quantity ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.quantity}</div></span> : null}
-                    </div>
 
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Price"
-                            type={'number'}
-                            name="price"
-                            value={formik.values.price}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            placeholder="Enter Product Price"
-                            sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
-                        />
-                        {formik.touched.price && formik.errors.price ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.price}</div></span> : null}
-                    </div>
                     <div>
                         <label for="file-upload" className="custom-file-upload" >
                             <AddPhotoAlternateIcon sx={{ marginTop: "5px" }} /> Upload Product Image
@@ -364,11 +374,11 @@ const AddProduct = () => {
 
                 </Grid>
                 <Grid item md={12} sm={12} xs={12} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                    <Button type="submit" variant="contained" sx={{ width: '30%', marginTop: '70px', backgroundColor: '#00B8B0' }} className="button" >Create Product</Button>
+                    <Button type="submit" variant="contained" sx={{ width: '30%', marginTop: '70px', backgroundColor: '#00B8B0', height: '50px' }} className="button" >Create Product</Button>
                 </Grid>
 
                 <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%', backgroundColor: '#019890' }}>
                         Product added successfully!
                     </Alert>
                 </Snackbar>

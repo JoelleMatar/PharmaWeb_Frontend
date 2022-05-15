@@ -2,3 +2,15 @@
     font-size: 20px;
     color: black;
 }
+
+.suggestions {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #00B8B0;
+    text-align: center;
+    /* margin-left: 8%; */
+}
+
+.listItem:hover {
+    background-color: #ffffff;
+}

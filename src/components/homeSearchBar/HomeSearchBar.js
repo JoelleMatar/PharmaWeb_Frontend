@@ -5,25 +5,46 @@ import "./homeSearchBar.css";
 import homeBG from "../../assets/homeSearchBg.jpg";
 import { Typography } from '@mui/material';
 import Typewriter from "typewriter-effect";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getProducts } from '../../api';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import SearchedProductSuggestions from './SearchedProductSuggestions/SearchedProductSuggestions';
 
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+
 const HomeSearchBar = () => {
+    const myRef = useRef(null)
+//    const executeScroll = () => scrollToRef(myRef)
+
     const [drugs, setDrugs] = useState([]);
     const [search, setSearch] = useState('');
+    const [isSearched, setIsSearched] = useState(false);
 
     useEffect(async () => {
         const result = await getProducts();
 
-        setDrugs(result);
+        let uniqueDrugs = [];
+        result.data.data.forEach((c) => {
+            console.log("c", c)
+            if (!uniqueDrugs.includes(c.productName)) {
+                uniqueDrugs.push(c.productName);
+            }
+        });
+
+
+        console.log("uniqueChars", uniqueDrugs);
+
+
+        setDrugs(uniqueDrugs);
     }, []);
     console.log("drugss", drugs);
 
-   const handleSearchChange = (searchedDrug, params) => {
+    const handleSearchChange = (searchedDrug, params) => {
         setSearch(params);
+        setIsSearched(true);
+
+        myRef.current.scrollIntoView()
     }
 
     return (
@@ -49,7 +70,7 @@ const HomeSearchBar = () => {
                     freeSolo
                     id="free-solo-2-demo"
                     disableClearable
-                    options={drugs?.data?.data?.map((option) => option.productName)}
+                    options={drugs?.map((option) => option)}
                     onChange={(event, value) => handleSearchChange(event, value)}
                     renderInput={(params) => (
                         <TextField
@@ -61,13 +82,15 @@ const HomeSearchBar = () => {
                                 ...params.InputProps,
                                 type: 'search',
                             }}
-                            
+
                         />
                     )}
                 />
             </Stack>
 
-            <SearchedProductSuggestions searchedProduct={search}  />
+            {
+                isSearched ? <SearchedProductSuggestions ref={myRef} className='searchedProduct' searchedProduct={search} /> : null
+            }
 
         </div>
 

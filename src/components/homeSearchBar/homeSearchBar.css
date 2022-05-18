@@ -1,5 +1,5 @@
 .searchArea {
-    height: 600px;
+    height: 700px;
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -32,6 +32,10 @@ img {
     background-color: white;
     border-radius: 5px;
     margin-top: 80px;
+}
+
+.searchedProduct {
+    margin-top: 150px;
 }
 
 @media only screen and (min-width: 600px) {

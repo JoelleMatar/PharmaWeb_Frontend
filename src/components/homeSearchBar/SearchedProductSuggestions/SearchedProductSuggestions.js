@@ -25,8 +25,8 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
     console.log("suggestions", suggestions);
 
     return (
-        <>
-            <Typography className='suggestions' variant="h5" gutterBottom component="div">Product Availability</Typography>
+        <div>
+            <Typography className='suggestions' variant="h5" gutterBottom component="div" >Product Availability</Typography>
             <Grid container sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
                 
                 <Grid item md={4} sm={4} xs={4}>
@@ -94,7 +94,7 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
 
                 </Grid>
             </Grid>
-        </>
+        </div>
 
     )
 }

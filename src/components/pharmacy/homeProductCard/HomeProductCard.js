@@ -35,6 +35,9 @@ export default function HomeProductCard({ product }) {
                     <Typography variant="subtitle1" component="div">
                         <b>Quantity: </b> {product.quantity}
                     </Typography>
+                    <Typography variant="subtitle1" component="div">
+                        <b>City: </b> {product.city}
+                    </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                     <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }}>View More</Button>

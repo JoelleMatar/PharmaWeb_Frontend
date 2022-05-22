@@ -39,7 +39,7 @@ const Navbar = () => {
                                 <li className="menu-item is-active menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/products" ? (
-                                            <a href="/home/products" className="menu-link" style={{ color: '#00B8B0',  borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                            <a href="/home/products" className="menu-link" style={{ color: '#00B8B0', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
                                                 Medical Products
                                             </a>
                                         ) : (
@@ -52,7 +52,7 @@ const Navbar = () => {
                                 <li className="menu-item menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/pharmacies" ? (
-                                            <a href="/home/pharmacies" className="menu-link" style={{ color: '#00B8B0',  borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                            <a href="/home/pharmacies" className="menu-link" style={{ color: '#00B8B0', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
                                                 Pharmacies
                                             </a>
                                         ) : (
@@ -64,9 +64,17 @@ const Navbar = () => {
 
                                 </li>
                                 <li className="menu-item is-active menu-item--play">
-                                    <a href="#" className="menu-link">
-                                        Request Drug
-                                    </a>
+                                    {
+                                        window.location.href === "http://localhost:3000/home/request-drug" ? (
+                                            <a href="/home/request-drug" className="menu-link" style={{ color: '#00B8B0', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                                Request Drug
+                                            </a>
+                                        ) : (
+                                            <a href="/home/request-drug" className="menu-link">
+                                                Request Drug
+                                            </a>
+                                        )
+                                    }
                                 </li>
                                 <li className="menu-item is-active menu-item--play">
                                     <a href="#" className="menu-link">

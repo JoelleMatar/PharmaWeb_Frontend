@@ -14,24 +14,6 @@ import { ListItem, List } from '@mui/material';
 import { useState } from "react";
 
 const MainListItems = () => {
-    const [isdashboard, setIsDashboard] = useState(true);
-    const [isproducts, setIsProducts] = useState(false);
-
-    const dashboardCheck = () => {
-        setIsDashboard(true);
-        setIsProducts(false);
-        localStorage.setItem('isProducts', false);
-        localStorage.setItem('isDashboard', true);
-        window.history.pushState({}, null, '/pharmacy/dashboard')
-    }
-
-    const productsCheck = () => {
-        setIsDashboard(false);
-        setIsProducts(true);
-        localStorage.setItem('isProducts', true);
-        localStorage.setItem('isDashboard', false);
-        window.history.pushState({}, null, '/pharmacy/products')
-    }
 
     return (
         <List component="nav" sx={{ paddingLeft: '25px' }}>
@@ -56,7 +38,7 @@ const MainListItems = () => {
                 <ListItemText primary="Orders" sx={{  width: '240px' }} />
             </ListItem>
             <br />
-            <ListItem button component="a" href="/pharmacy/products">
+            <ListItem button component="a" href="/pharmacy/notifications">
                 <ListItemIcon>
                     <BarChartIcon />
                 </ListItemIcon>

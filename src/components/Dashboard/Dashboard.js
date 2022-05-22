@@ -35,6 +35,7 @@ import { Button, ListItem } from '@mui/material';
 import { useState } from "react";
 import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
 import AddProduct from '../pharmacy/addProduct/AddProduct';
+import Notification from '../pharmacy/notification/Notification';
 
 const drawerWidth = 240;
 
@@ -80,20 +81,6 @@ function DashboardContent() {
 
                 <MainListItems />
 
-                {/* <Divider />
-                <Toolbar
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        px: [1],
-                        marginTop: '160px'
-                    }}
-                >
-                    <IconButton onClick={toggleDrawer}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </Toolbar> */}
             </Drawer>
             <Box
                 component="main"
@@ -168,20 +155,6 @@ function ProductsContent() {
 
                 <MainListItems />
 
-                {/* <Divider />
-                <Toolbar
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        px: [1],
-                        marginTop: '160px'
-                    }}
-                >
-                    <IconButton onClick={toggleDrawer}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </Toolbar> */}
             </Drawer>
 
             <Box
@@ -200,7 +173,7 @@ function ProductsContent() {
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4, fontSize: "64px" }}>
                     <Grid container spacing={3}>
                         <Grid item md={12} sm={12} xs={12}>
-                            <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0',  }} color="primary" onClick={addProduct}>Add Product</Button>
+                            <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={addProduct}>Add Product</Button>
                         </Grid>
 
                         <PharmacyProducts />
@@ -229,20 +202,6 @@ function AddProductContent() {
 
                 <MainListItems />
 
-                {/* <Divider />
-                <Toolbar
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        px: [1],
-                        marginTop: '160px'
-                    }}
-                >
-                    <IconButton onClick={toggleDrawer}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </Toolbar> */}
             </Drawer>
 
             <Box
@@ -258,8 +217,44 @@ function AddProductContent() {
                     // overflow: 'auto',
                 }}
             >
-                <Container  sx={{ mt: 4, mb: 4, height: ''}}>
+                <Container sx={{ mt: 4, mb: 4, height: '' }}>
                     <AddProduct />
+                </Container>
+            </Box>
+        </Box>
+
+    );
+}
+
+function NotificationContent() {
+    const [open, setOpen] = React.useState(true);
+
+
+    return (
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
+
+                <MainListItems />
+
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '89vh',
+                    paddingLeft: "150px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container sx={{ mt: 4, mb: 4, height: '100%' }}>
+                   <Notification />
                 </Container>
             </Box>
         </Box>
@@ -279,7 +274,8 @@ export default function Dashboard() {
                 window.location.href === "http://localhost:3000/pharmacy/dashboard" ? <DashboardContent /> :
                     window.location.href === "http://localhost:3000/pharmacy/products" ? <ProductsContent /> :
                         window.location.href === "http://localhost:3000/pharmacy/add-product" ? <AddProductContent /> :
-                            <DashboardContent />
+                            window.location.href === "http://localhost:3000/pharmacy/notifications" ? <NotificationContent /> :
+                                <DashboardContent />
             }
         </ThemeProvider>
     )

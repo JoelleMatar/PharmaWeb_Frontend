@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import PharmaciesList from "./pages/pharmaciesList/pharmaciesList";
 import PharmacyDashboard from "./pages/pharmacyDashboard/PharmacyDashboard";
 import ProductsList from "./pages/productsList/ProductsList";
+import RequestDrug from "./pages/requestDrug/RequestDrug";
 import SignUp from "./pages/signup/SignUp";
 
 function Routing() {
@@ -48,6 +49,10 @@ function Routing() {
                 {
                     path: "products",
                     element: <ProductsList />,
+                },
+                {
+                    path: "request-drug",
+                    element: <RequestDrug />,
                 }
             ],
         },
@@ -66,6 +71,10 @@ function Routing() {
                 },
                 {
                     path: "add-product",
+                    element: <PharmacyDashboard />,
+                },
+                {
+                    path: "notifications",
                     element: <PharmacyDashboard />,
                 }
             ],

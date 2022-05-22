@@ -8,9 +8,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "./HomeProductCard.css";
 import Divider from '@mui/material/Divider';
+import { useState, useEffect } from "react";
+import { getUser } from "../../../api/index";
 
 export default function HomeProductCard({ product }) {
     const theme = useTheme();
+    const [pharmacy, setPharmacy] = useState({});
+
+    useEffect(async() => {
+        const result = await getUser(product.pharmaId);
+
+        setPharmacy(result.data.data[0]);
+    }, []);
+
+    console.log("pharmacy", pharmacy)
 
     return (
         <Card sx={{ maxWidth: 300 }}>
@@ -26,17 +37,20 @@ export default function HomeProductCard({ product }) {
 
             <Box sx={{ width: '100%', }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Typography component="div" variant="h5">
+                    <Typography component="div" variant="h5"  >
                         {product.productName}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                        <b>Price: </b> {product.price}
+                        <b>Pharmacy: </b> {pharmacy.pharmacyName}
+                    </Typography>
+                    <Typography variant="subtitle1" component="div">
+                        <b>Price: </b> {product.price} L.L.
                     </Typography>
                     <Typography variant="subtitle1" component="div">
                         <b>Quantity: </b> {product.quantity}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                        <b>City: </b> {product.city}
+                        <b>City: </b> {pharmacy.city}
                     </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>

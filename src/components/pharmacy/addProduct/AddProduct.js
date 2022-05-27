@@ -126,7 +126,7 @@ const AddProduct = () => {
             stock: values.stock,
             description: values.description,
             category: values.category,
-            pharmaId: loggedUser._id
+            pharmaId: loggedUser?._id
         }
         if (formProducts.length === 0) return alert("Please select form");
         if (ingredient.length === 0) return alert("Please select ingredients");

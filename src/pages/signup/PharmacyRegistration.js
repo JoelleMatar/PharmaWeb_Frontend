@@ -93,8 +93,8 @@ const PharmacyRegistration = () => {
             const success = await signUpPharmacy(form);
             console.log("succ",success);
             if (success.data.result.role === 1) {
-                console.log("success ", success);
                 localStorage.setItem('profile', JSON.stringify(success.data.result));
+                
                 navigate("/pharmacy/dashboard");
             }
         }

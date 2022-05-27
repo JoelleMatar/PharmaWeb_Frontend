@@ -22,6 +22,7 @@ export const getUsers = () => API.get('/user');
 // PRODUCTS
 export const createProduct = (formData) => API.post('/products/pharmacy/add-product', formData);
 export const getProducts = () => API.get('/products/pharmacy/productsList');
+export const getProductDetails = (id) => API.get(`/products/${id}`);
 export const getProductsbySearch = (search) => API.get(`/products/pharmacy/productsList/${search}`);
 export const getPharmacyProducts = (id) => API.get(`/products/pharmacy/pharmacyProductsList/${id}`);
 export const getPharmacyProductsbySearch = (id, search) => API.get(`/products/pharmacy/pharmacyProductsList/${id}/${search}`);
@@ -30,5 +31,5 @@ export const getSearchedProductsSuggestions = (search) => API.get(`/products/pha
 
 //REQUEST DRUG
 export const requestDrug = (formData) => API.post('/products/request-drug', formData);
-export const getPharmacyRequestedDrugs = () => API.get('/products/pharmacy/requested-drug');
+export const getPharmacyRequestedDrugs = (id) => API.get(`/products/pharmacy/requested-drug/${id}`);
 export const getPharmacyNotifications = () => API.get('/products/pharmacy/notifications');

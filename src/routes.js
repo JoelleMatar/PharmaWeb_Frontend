@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Navigate, useRoutes } from "react-router-dom";
 import PharmacyProducts from "./components/pharmacy/pharmcyProducts.js/PharmacyProducts";
+import ProductDetails from "./components/productDetails/ProductDetails";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -53,6 +54,10 @@ function Routing() {
                 {
                     path: "request-drug",
                     element: <RequestDrug />,
+                },
+                {
+                    path: "product/:id",
+                    element: <ProductDetails />,
                 }
             ],
         },

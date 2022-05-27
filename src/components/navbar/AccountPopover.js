@@ -38,9 +38,6 @@ export default function AccountPopover() {
     },
   ];
 
-  console.log("user", user);
-
-
   const handleOpen = () => {
     setOpen(true);
   };

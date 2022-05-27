@@ -10,18 +10,24 @@ import "./HomeProductCard.css";
 import Divider from '@mui/material/Divider';
 import { useState, useEffect } from "react";
 import { getUser } from "../../../api/index";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeProductCard({ product }) {
     const theme = useTheme();
-    const [pharmacy, setPharmacy] = useState({});
+    const [pharmacy, setPharmacy] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(async() => {
-        const result = await getUser(product.pharmaId);
+        const result = await getUser(product?.pharmaId);
 
-        setPharmacy(result.data.data[0]);
+        setPharmacy(result?.data?.data[0]);
     }, []);
 
-    console.log("pharmacy", pharmacy)
+    console.log("pharmacy", pharmacy);
+
+    const goToProduct = (product) => {
+        navigate(`/home/product/${product._id}`);
+    }
 
     return (
         <Card sx={{ maxWidth: 300 }}>
@@ -41,7 +47,7 @@ export default function HomeProductCard({ product }) {
                         {product.productName}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                        <b>Pharmacy: </b> {pharmacy.pharmacyName}
+                        <b>Pharmacy: </b> {pharmacy?.pharmacyName}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
                         <b>Price: </b> {product.price} L.L.
@@ -50,11 +56,11 @@ export default function HomeProductCard({ product }) {
                         <b>Quantity: </b> {product.quantity}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                        <b>City: </b> {pharmacy.city}
+                        <b>City: </b> {pharmacy?.city}
                     </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                    <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }}>View More</Button>
+                    <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }} onClick={() => goToProduct(product)}>View More</Button>
                 </Box>
             </Box>
 

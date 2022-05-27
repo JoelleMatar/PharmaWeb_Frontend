@@ -9,9 +9,6 @@ import AccountPopover from "./AccountPopover";
 const Navbar = () => {
     const [isLogged, setisLogged] = useState(localStorage.getItem("profile"));
 
-    console.log("hello", isLogged)
-
-
     return (
         <header className="header">
             <div className="wrap">
@@ -83,16 +80,14 @@ const Navbar = () => {
                                 </li>
                                 {
                                     isLogged ? (
-                                        console.log("youhouuuu"),
                                         <li className="menu-item is-active menu-item--play">
                                             <a className="menu-link">
                                                 <AccountPopover />
                                             </a>
                                         </li>
                                     ) : (
-                                        console.log("notttt logged"),
                                         <li className="menu-item is-active menu-item--play">
-                                            <a href="/auth/login" className="menu-link log" style={{ fontWeight: 'bolder', color: '#F8AF86' }}>
+                                            <a href="/auth/login" className="menu-link log" style={{ fontWeight: 'bolder', color: '#00B8B0' }}>
                                                 Login/Register
                                             </a>
                                         </li>

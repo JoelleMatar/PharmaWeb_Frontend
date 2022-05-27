@@ -25,13 +25,14 @@ export default function Notification() {
     console.log("notifications", notifications);
 
     const readNotif = (notif) => {
-        
+        notif.isRead = true;
+        console.log("notif", notif)
     }
 
     return (
         <Grid container>
             <Grid item md={4} sm={4} sx={4} height='80vh'>
-                <List sx={{ width: '100%', height: '100%', paddingTop: '0',maxWidth: 360, bgcolor: 'background.paper', overflowY: 'scroll' }}>
+                <List sx={{ width: '100%', height: '100%', paddingTop: '0', maxWidth: 360, bgcolor: 'background.paper', overflowY: 'scroll' }}>
                     {
                         notifications?.data?.map(notification => {
                             return (
@@ -40,71 +41,99 @@ export default function Notification() {
                                         notification.isRead ? (
                                             <div>
                                                 {
-                                                    notifications?.users?.map(user => {
-                                                        console.log("salutt", user);
-                                                        return (
-                                                            <div>
-                                                                <ListItem alignItems="flex-start" onClick={() => readNotif(notification)}>
-                                                                    <ListItemAvatar>
-                                                                        <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
-                                                                    </ListItemAvatar>
-                                                                    <ListItemText
-                                                                        primary="Requesting Product"
-                                                                        secondary={
-                                                                            <React.Fragment>
-                                                                                <Typography
-                                                                                    sx={{ display: 'inline' }}
-                                                                                    component="span"
-                                                                                    variant="body2"
-                                                                                    color="text.primary"
-                                                                                >
-                                                                                    {user.firstName} {user.lastName}
-                                                                                </Typography>
-                                                                            </React.Fragment>
-                                                                        }
-                                                                    />
-
-                                                                </ListItem>
-                                                                <Divider variant="inset" component="li" />
-                                                            </div>
-                                                        )
-
+                                                    notifications?.requestedDrug?.filter(requestdrug => {
+                                                        return requestdrug._id === notification.requestdrugId
                                                     })
+                                                        .map(requestdrug => {
+                                                            return (
+                                                                <div>
+                                                                    {
+                                                                        notifications?.users?.filter(user => {
+                                                                            return user._id === requestdrug.userId
+                                                                        })
+                                                                            .map(user => {
+                                                                                return (
+                                                                                    <div>
+                                                                                        <ListItem alignItems="flex-start" sx={{ cursor: 'pointer' }} onClick={() => readNotif(notification)}>
+                                                                                            <ListItemAvatar>
+                                                                                                <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
+                                                                                            </ListItemAvatar>
+                                                                                            <ListItemText
+                                                                                                primary={"Requested Product " + requestdrug.productName}
+                                                                                                secondary={
+                                                                                                    <React.Fragment>
+                                                                                                        <Typography
+                                                                                                            sx={{ display: 'inline' }}
+                                                                                                            component="span"
+                                                                                                            variant="body2"
+                                                                                                            color="text.primary"
+                                                                                                        >
+                                                                                                            {user.firstName} {user.lastName}
+                                                                                                        </Typography>
+                                                                                                    </React.Fragment>
+                                                                                                }
+                                                                                            />
+
+                                                                                        </ListItem>
+                                                                                        <Divider variant="inset" component="li" />
+                                                                                    </div>
+                                                                                )
+                                                                            })
+
+                                                                    }
+
+                                                                </div>
+                                                            )
+                                                        })
                                                 }
                                             </div>
                                         ) : (
                                             <div>
                                                 {
-                                                    notifications?.users?.map(user => {
-                                                        console.log("salutt", user);
-                                                        return (
-                                                            <div>
-                                                                <ListItem alignItems="flex-start" sx={{backgroundColor: '#f8f8f9'}}>
-                                                                    <ListItemAvatar>
-                                                                        <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
-                                                                    </ListItemAvatar>
-                                                                    <ListItemText
-                                                                        primary="Requesting Product"
-                                                                        secondary={
-                                                                            <React.Fragment>
-                                                                                <Typography
-                                                                                    sx={{ display: 'inline' }}
-                                                                                    component="span"
-                                                                                    variant="body2"
-                                                                                    color="text.primary"
-                                                                                >
-                                                                                    {user.firstName} {user.lastName}
-                                                                                </Typography>
-                                                                            </React.Fragment>
-                                                                        }
-                                                                    />
-
-                                                                </ListItem>
-                                                                <Divider variant="inset" component="li" />
-                                                            </div>
-                                                        )
-
+                                                    notifications?.requestedDrug?.filter(requestdrug => {
+                                                        return requestdrug._id === notification.requestdrugId
                                                     })
+                                                        .map(requestdrug => {
+                                                            return (
+                                                                <div>
+                                                                    {
+                                                                        notifications?.users?.filter(user => {
+                                                                            return user._id === requestdrug.userId
+                                                                        })
+                                                                            .map(user => {
+                                                                                return (
+                                                                                    <div>
+                                                                                        <ListItem alignItems="flex-start" sx={{ cursor: 'pointer', backgroundColor: '#f5f5f5' }} onClick={() => readNotif(notification)}>
+                                                                                            <ListItemAvatar>
+                                                                                                <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
+                                                                                            </ListItemAvatar>
+                                                                                            <ListItemText
+                                                                                                primary={"Requested Product " + requestdrug.productName}
+                                                                                                secondary={
+                                                                                                    <React.Fragment>
+                                                                                                        <Typography
+                                                                                                            sx={{ display: 'inline' }}
+                                                                                                            component="span"
+                                                                                                            variant="body2"
+                                                                                                            color="text.primary"
+                                                                                                        >
+                                                                                                            {user.firstName} {user.lastName}
+                                                                                                        </Typography>
+                                                                                                    </React.Fragment>
+                                                                                                }
+                                                                                            />
+
+                                                                                        </ListItem>
+                                                                                        <Divider variant="inset" component="li" />
+                                                                                    </div>
+                                                                                )
+                                                                            })
+
+                                                                    }
+
+                                                                </div>
+                                                            )
+                                                        })
                                                 }
                                             </div>
                                         )

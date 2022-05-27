@@ -40,7 +40,8 @@ const RequestDrug = () => {
         const form = {
             userId: JSON.parse(localStorage.getItem('profile'))._id,
             productName: values.productName,
-            quantity: values.quantity
+            quantity: values.quantity,
+            message: values.message,
         }
         console.log("form", form);
 
@@ -61,6 +62,7 @@ const RequestDrug = () => {
         initialValues: {
             productName: '',
             quantity: '',
+            message: ''
         },
         validationSchema: requestDrugSchema,
         onSubmit: (values) => {
@@ -104,7 +106,18 @@ const RequestDrug = () => {
                             sx={{ width: '80%', marginTop: '30px' }}
                         />
                         {formik.touched.quantity && formik.errors.quantity ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.quantity}</div></span> : null}
-
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Message"
+                            multiline
+                            rows={4}
+                            placeholder="Please Enter Message"
+                            name="message"
+                            value={formik.values.message}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            sx={{ width: '80%', marginTop: '30px' }}
+                        />
                         <Button type="submit" variant="contained" sx={{ width: '80%', height: '50px', backgroundColor: '#00B8B0', marginTop: '40px' }} className="button" >Request Drug</Button>
                     </form>
                 </Grid>

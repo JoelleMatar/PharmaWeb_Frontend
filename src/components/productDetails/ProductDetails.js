@@ -76,10 +76,10 @@ export default function ProductDetails() {
                         <Box sx={{ width: '90%' }}>
                             <Paper elevation={3} sx={{ padding: '30px' }}>
                                 <Typography component="div" variant="h6"  >
-                                    Description: <span style={{ float: 'right', fontSize: '16px'}}><b>{product.description}</b></span>
+                                    Description: <span style={{ float: 'right'}}><b>{product.description}</b></span>
                                 </Typography>
                                 <Typography component="div" variant="h6"  >
-                                    Maximum Purchase Quantity: <span style={{ float: 'right', fontSize: '16px'  }}><b>{product.quantity}</b></span>
+                                    Maximum Purchase Quantity: <span style={{ float: 'right' }}><b>{product.quantity}</b></span>
                                 </Typography>
                                 <Typography component="div" variant="h6"  >
                                     High Dose:

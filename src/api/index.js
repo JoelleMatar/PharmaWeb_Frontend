@@ -33,3 +33,5 @@ export const getSearchedProductsSuggestions = (search) => API.get(`/products/pha
 export const requestDrug = (formData) => API.post('/products/request-drug', formData);
 export const getPharmacyRequestedDrugs = (id) => API.get(`/products/pharmacy/requested-drug/${id}`);
 export const getPharmacyNotifications = () => API.get('/products/pharmacy/notifications');
+export const getPharmacyNotification = (id) => API.get(`/products/pharmacy/notification/${id}`);
+export const updateIsReadNotif = (id) => API.patch(`/products/pharmacy-notif/${id}`);

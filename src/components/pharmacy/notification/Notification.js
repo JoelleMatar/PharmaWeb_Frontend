@@ -7,25 +7,59 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
-import { getPharmacyNotifications, getPharmacyRequestedDrugs, getUser, getUsers } from '../../../api';
+import { getPharmacyNotification, getPharmacyNotifications, getPharmacyRequestedDrugs, getUser, getUsers, updateIsReadNotif } from '../../../api';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import Paper from '@mui/material/Paper';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
 
 export default function Notification() {
     const [notifications, setNotifications] = useState([]);
+    const [notification, setNotification] = useState([]);
+    const [reqDrug, setreqDrug] = useState([]);
+    const [user, setUser] = useState([]);
+    const [readnot, setreadnot] = useState(false);
 
     useEffect(async () => {
         const result = await getPharmacyNotifications();
         setNotifications(result.data);
 
 
-    }, []);
+    }, [notification]);
 
     console.log("notifications", notifications);
 
-    const readNotif = (notif) => {
-        notif.isRead = true;
+    const readNotif = async (notif) => {
+
+        try {
+            const updatenotif = await updateIsReadNotif(notif._id);
+
+            if (updatenotif) {
+                const result = await getPharmacyNotifications();
+                setNotifications(result.data);
+
+                const notifi = await getPharmacyNotification(notif._id);
+                setNotification(notifi.data.data[0]);
+
+                console.log("notifi", notifi)
+
+                const reqd = await getPharmacyRequestedDrugs(notifi?.data?.data[0]?.requestdrugId);
+                setreqDrug(reqd.data.data[0]);
+
+                console.log("reqddd", reqd?.data?.data[0])
+
+                const userReq = await getUser(reqd?.data?.data[0]?.userId);
+                setUser(userReq.data.data[0]);
+
+            }
+            setreadnot(true);
+            console.log("testet", notification, reqDrug, user)
+
+        }
+        catch (err) {
+            console.log("err", err)
+        }
         console.log("notif", notif)
     }
 
@@ -54,7 +88,7 @@ export default function Notification() {
                                                                             .map(user => {
                                                                                 return (
                                                                                     <div>
-                                                                                        <ListItem alignItems="flex-start" sx={{ cursor: 'pointer' }} onClick={() => readNotif(notification)}>
+                                                                                        <ListItem alignItems="flex-start" sx={{ cursor: 'pointer', backgroundColor: 'white' }} onClick={() => readNotif(notification)}>
                                                                                             <ListItemAvatar>
                                                                                                 <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
                                                                                             </ListItemAvatar>
@@ -159,7 +193,40 @@ export default function Notification() {
                         },
                     }}
                 >
-                    <Paper elevation={2} />
+                    <Paper elevation={2} sx={{ padding: '40px' }} >
+                        <Typography component="div" variant="h5" sx={{ color: '#ffa26c', marginBottom: '25px' }}  >
+                            <b>Notification:</b>
+                        </Typography>
+
+                        {
+                            readnot ? (
+                                <Grid container>
+                                    <Typography component="div" variant="h6">
+                                        Customer <b>{user?.firstName} {user?.lastName}</b> has requested <b>{reqDrug?.quantity}</b> items of a product named <b>{reqDrug?.productName}</b>
+                                        {
+                                            reqDrug?.message ? (
+                                                <span> and has sent you this message: <i>{reqDrug?.message}</i></span>
+                                            ) : (<div></div>)
+                                        }
+                                    </Typography>
+
+                                    <Typography component="div" variant="h6" sx={{ marginTop: '25px', fontSize: '15px' }}  >
+                                        For more information, contact <b>{user?.firstName} {user?.lastName}</b> via:
+                                        <br />
+                                        <div style={{textAlign: 'left', justifyContent:'space-between', display: 'flex'}}>
+                                            
+                                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', float: 'left', marginBottom: '10px'}}><PhoneIcon sx={{marginRight: '10px'}} /> { user?.phoneNumber}</div> <br />
+                                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', textAlign: 'left'}}><EmailIcon sx={{marginRight: '10px'}} /> {user?.email}</div>
+                                    
+                                        </div></Typography>
+                                </Grid>
+                            ) : (
+                                <div>
+
+                                </div>
+                            )
+                        }
+                    </Paper>
                 </Box>
             </Grid>
 

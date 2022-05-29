@@ -5,6 +5,19 @@ import CloseIcon from '@mui/icons-material/Close';
 import "./Navbar.css";
 import Logo from "../../../src/assets/logoPharma.png";
 import AccountPopover from "./AccountPopover";
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+        right: -3,
+        top: 13,
+        border: `2px solid #00B8B0`,
+        padding: '0 4px',
+    },
+}));
 
 const Navbar = () => {
     const [isLogged, setisLogged] = useState(localStorage.getItem("profile"));
@@ -77,6 +90,23 @@ const Navbar = () => {
                                     <a href="#" className="menu-link">
                                         Donate Drug
                                     </a>
+                                </li>
+                                <li className="menu-item is-active menu-item--play">
+                                    {
+                                        window.location.href === "http://localhost:3000/home/cart" ? (
+                                            <a href="/home/cart" className="menu-link"  sx={{ marginTop: '20px', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                                <StyledBadge badgeContent={4}>
+                                                    <ShoppingCartIcon sx={{ color: 'white' }} />
+                                                </StyledBadge>
+                                            </a>
+                                        ) : (
+                                            <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px' }}>
+                                                <StyledBadge badgeContent={4}>
+                                                    <ShoppingCartIcon sx={{ color: 'white' }} />
+                                                </StyledBadge>
+                                            </a>
+                                        )
+                                    }
                                 </li>
                                 {
                                     isLogged ? (

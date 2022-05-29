@@ -1,0 +1,18 @@
+.quantity-picker {
+    height: 56px;
+    width: 250px;
+    text-align: center;
+    margin-left: 50px;
+}
+
+.modifier-right {
+    float: right;
+}
+
+.modifier-left {
+    float: left;
+}
+
+.quantity-display {
+    margin-top: 5px;
+}

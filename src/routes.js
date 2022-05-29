@@ -3,6 +3,7 @@ import {Navigate, useRoutes } from "react-router-dom";
 import PharmacyProducts from "./components/pharmacy/pharmcyProducts.js/PharmacyProducts";
 import ProductDetails from "./components/productDetails/ProductDetails";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
+import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import PharmaciesList from "./pages/pharmaciesList/pharmaciesList";
@@ -58,7 +59,11 @@ function Routing() {
                 {
                     path: "product/:id",
                     element: <ProductDetails />,
-                }
+                },
+                {
+                    path: "cart",
+                    element: <Cart />,
+                },
             ],
         },
         // PHAMRACY

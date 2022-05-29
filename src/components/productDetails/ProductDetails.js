@@ -10,30 +10,85 @@ import "./ProductDetails.css";
 import { useState, useEffect } from "react";
 import Navbar from '../navbar/Navbar';
 import Grid from '@mui/material/Grid';
-import { useParams } from 'react-router-dom';
-import { getProductDetails, getUser } from '../../api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createCart, getProductDetails, getUser } from '../../api';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
+import { QuantityPicker } from 'react-qty-picker';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ProductDetails() {
     const [product, setProduct] = useState([]);
     const [pharmacy, setPharmacy] = useState([]);
     const productId = useParams();
+    const [orderType, setOrderType] = useState("");
+    const [qty, setQty] = useState(1);
+    const [openSnack, setOpenSnack] = useState(false);
+    const [openSnack2, setOpenSnack2] = useState(false);
+    const navigate = useNavigate();
 
-    console.log("prod id", productId);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnack(false);
+    };
+
+    const handleChange = (event) => {
+        setOrderType(event.target.value);
+    };
+    console.log("qty", qty, orderType)
+
     useEffect(async () => {
         const result = await getProductDetails(productId?.id);
         setProduct(result.data.data[0]);
 
         const result2 = await getUser(result.data.data[0].pharmaId);
-        // const result2 = dispatch(getUser(product?.pharmaId))
         setPharmacy(result2?.data?.data[0]);
 
     }, [productId]);
 
+    const loggedUser = JSON.parse(localStorage.getItem("profile"));
 
+    console.log("logged", loggedUser)
 
-    console.log("pharmacy id", JSON.parse(localStorage.getItem('profile')));
+    const addToCart = async () => {
+        if (!loggedUser) {
+            setOpenSnack2(true);
+            setTimeout(() => {
+                navigate("/auth/login")
+            }, 2000)
+        }
+        const form = {
+            productId: product._id,
+            quantity: qty,
+            customerId: loggedUser._id,
+            deliverOption: orderType
+        }
+        console.log("form", form);
+
+        const result = await createCart(form);
+        console.log("result", result)
+        if (result.status === 201) {
+            setOpenSnack(true);
+            setTimeout(() => {
+                navigate("/home/cart");
+            }, 2000)
+
+            localStorage.setItem("cartId", result?.data?._id);
+        }
+    }
+
     return (
         <div>
             <Navbar />
@@ -54,9 +109,9 @@ export default function ProductDetails() {
                         {product.productName}
                     </Typography>
                     <Typography component="div" variant="h5"  >
-                        For <b>{product.price} L.L.</b> From {pharmacy.pharmacyName}
+                        <b>{product.price} L.L. </b>from<b> {pharmacy.pharmacyName} {pharmacy.city}</b>
                     </Typography>
-                    <Grid container sx={{ marginTop: '10px' }}>
+                    {/* <Grid container sx={{ marginTop: '10px' }}>
                         <Typography component="div" variant="h6"  >
                             {pharmacy.pharmacyName} is located in {pharmacy.city} and
                             {
@@ -65,19 +120,22 @@ export default function ProductDetails() {
                                     : <span> has pick up and delivery options</span>
                             }
                         </Typography>
-                    </Grid>
+                    </Grid> */}
                     <br />
 
-                    <Typography component="div" variant="h5" sx={{ color: '#ffa26c' }}  >
+
+                    <Typography component="div" variant="h6" sx={{ width: '90%' }} >
+                        {product.description}
+                    </Typography>
+
+                    <Typography component="div" variant="h5" sx={{ color: '#ffa26c', marginTop: '20px' }}  >
                         <b>Product Information:</b>
                     </Typography>
                     <Grid container sx={{ paddingTop: '20px' }}>
 
-                        <Box sx={{ width: '90%' }}>
-                            <Paper elevation={3} sx={{ padding: '30px' }}>
-                                <Typography component="div" variant="h6"  >
-                                    Description: <span style={{ float: 'right'}}><b>{product.description}</b></span>
-                                </Typography>
+                        <Box sx={{ width: '90%', marginBottom: '20px' }}>
+                            <Paper elevation={3} sx={{ padding: '30px', height: '100%' }}>
+
                                 <Typography component="div" variant="h6"  >
                                     Maximum Purchase Quantity: <span style={{ float: 'right' }}><b>{product.quantity}</b></span>
                                 </Typography>
@@ -125,7 +183,7 @@ export default function ProductDetails() {
                                         }
                                     </span>
                                 </Typography>
-                                <Typography component="div" variant="h6"  >
+                                <Typography component="div" variant="h6" sx={{ marginBottom: '20px' }} >
                                     Ingredients: <span style={{ float: 'right' }}>
                                         {
                                             product?.ingredient?.length === 1 ?
@@ -141,12 +199,43 @@ export default function ProductDetails() {
                                     </span>
                                 </Typography>
 
+                                <FormControl sx={{ minWidth: 250, height: 100 }}>
+                                    <InputLabel id="demo-select-small">Order Type</InputLabel>
+                                    <Select
+                                        labelId="demo-select-small"
+                                        id="demo-select-small"
+                                        value={orderType}
+                                        label="Order Type"
+                                        onChange={handleChange}
+                                    >
+                                        {
+                                            pharmacy?.deliveryOptions?.map(option => {
+                                                return (
+                                                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                                                )
+                                            })
+
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <QuantityPicker value={1} min={1} max={product?.quantity} onChange={(value) => { setQty(value) }} />
 
 
+                                <br />
+                                <Button variant="contained" className='btnAdd' sx={{ width: '50%', height: '50px', marginBottom: '20px', float: 'right', backgroundColor: '#00B8B0', }} onClick={() => addToCart()} >Add To Cart</Button>
                             </Paper>
                         </Box>
                     </Grid>
-
+                    <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success" sx={{ width: '100%', backgroundColor: '#019890' }}>
+                            Added to cart successfully!
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSnack2} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%', backgroundColor: '#ffa26c' }}>
+                            You should be logged in to add to cart!
+                        </Alert>
+                    </Snackbar>
 
                 </Grid>
             </Grid>

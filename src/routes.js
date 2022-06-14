@@ -86,7 +86,11 @@ function Routing() {
                 {
                     path: "notifications",
                     element: <PharmacyDashboard />,
-                }
+                },
+                {
+                    path: "profile",
+                    element: <PharmacyDashboard />,
+                },
             ],
         },
     ]);

@@ -43,7 +43,7 @@ const Navbar = () => {
                                 <CloseIcon size={32} />
                             </div>
                         }
-                        changeMenuOn="900px"
+                        changeMenuOn="990px"
                         menu={
                             <ul className="menu-list">
                                 <li className="menu-item is-active menu-item--play">

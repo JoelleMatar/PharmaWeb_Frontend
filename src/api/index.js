@@ -17,6 +17,7 @@ export const signUpPharmacy = (formData) => API.post('/user/signup/pharmacy', fo
 export const getPharmaciesList = () => API.get('/user/pharmaciesList');
 export const getUser = (id) => API.get(`/user/${id}`);
 export const getUsers = () => API.get('/user');
+export const updatePharmacy = (formData, id) => API.patch(`/user/updatePharmacy/${id}`, formData);
 
 
 // PRODUCTS

@@ -36,6 +36,7 @@ import { useState } from "react";
 import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
 import AddProduct from '../pharmacy/addProduct/AddProduct';
 import Notification from '../pharmacy/notification/Notification';
+import PharmacyProfile from '../../pages/pharmacyProfile/PharmacyProfile';
 
 const drawerWidth = 240;
 
@@ -254,7 +255,43 @@ function NotificationContent() {
                 }}
             >
                 <Container sx={{ mt: 4, mb: 4, height: '100%' }}>
-                   <Notification />
+                    <Notification />
+                </Container>
+            </Box>
+        </Box>
+
+    );
+}
+
+function ProfileContent() {
+    const [open, setOpen] = React.useState(true);
+
+
+    return (
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
+
+                <MainListItems />
+
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '89vh',
+                    paddingLeft: "150px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container sx={{ mt: 4, mb: 4, height: '100%' }}>
+                    <PharmacyProfile />
                 </Container>
             </Box>
         </Box>
@@ -275,7 +312,8 @@ export default function Dashboard() {
                     window.location.href === "http://localhost:3000/pharmacy/products" ? <ProductsContent /> :
                         window.location.href === "http://localhost:3000/pharmacy/add-product" ? <AddProductContent /> :
                             window.location.href === "http://localhost:3000/pharmacy/notifications" ? <NotificationContent /> :
-                                <DashboardContent />
+                                window.location.href === "http://localhost:3000/pharmacy/profile" ? <ProfileContent /> :
+                                    <DashboardContent />
             }
         </ThemeProvider>
     )

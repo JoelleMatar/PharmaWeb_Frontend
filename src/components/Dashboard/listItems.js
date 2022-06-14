@@ -45,7 +45,7 @@ const MainListItems = () => {
                 <ListItemText primary="Notifications" sx={{ width: '240px' }} />
             </ListItem>
             <br />
-            <ListItem button component="a" href="/pharmacy/products">
+            <ListItem button component="a" href="/pharmacy/profile">
                 <ListItemIcon>
                     <LayersIcon />
                 </ListItemIcon>

@@ -277,7 +277,7 @@ html {
     top: 20px;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     .logo {
       float: none;
     }
@@ -324,7 +324,7 @@ html {
     border-bottom-color: #00B8B0;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     .menu {
       float: none;
       /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); */

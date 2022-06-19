@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 
-import { getPharmacyProducts, getPharmacyProductsbySearch, getProducts, getProductsbySearch } from '../../../api';
+import { getPharmacyProducts, getPharmacyProductsbySearch, getProductbyName, getProducts, getProductsbySearch } from '../../../api';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -66,6 +66,12 @@ const headCells = [
     label: 'Image',
   },
   {
+    id: 'code',
+    numeric: true,
+    disablePadding: true,
+    label: 'Code',
+  },
+  {
     id: 'productName',
     numeric: true,
     disablePadding: true,
@@ -85,10 +91,16 @@ const headCells = [
     label: 'Stock',
   },
   {
-    id: 'quantity',
-    numeric: true,
+    id: 'laboratory',
+    numeric: false,
     disablePadding: false,
-    label: 'Quantity',
+    label: 'Laboratory',
+  },
+  {
+    id: 'agent',
+    numeric: false,
+    disablePadding: false,
+    label: 'Agent',
   },
 ];
 
@@ -201,6 +213,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function PharmacyProducts() {
   const [productsList, setProductsList] = useState([]);
+  const [generalProdInfo, setgeneralProdInfo] = useState([]);
   const [state, setState] = useState('');
   const loggedUser = JSON.parse(localStorage.getItem('profile'));
   const handleSearch = (value) => {
@@ -214,8 +227,12 @@ export default function PharmacyProducts() {
 
     setProductsList(products.data);
 
+    // const generalProdInformation = await getProductbyName(products.data.data.productName);
+    // setgeneralProdInfo(generalProdInformation.data);
 
-  }, [state]); console.log("procuts", productsList);
+  }, [state]);
+
+  console.log("procuts", productsList);
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('price');
@@ -313,6 +330,7 @@ export default function PharmacyProducts() {
                   const isItemSelected = isSelected(row.productName);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
+
                   return (
                     <TableRow
                       hover
@@ -340,10 +358,23 @@ export default function PharmacyProducts() {
                       >
                         <img src={row.image} style={{ width: '100% !important', height: '60px', marginTop: 0 }}></img>
                       </TableCell>
+                      <TableCell align="right">{row.code}</TableCell>
                       <TableCell align="right">{row.productName}</TableCell>
                       <TableCell align="right">{row.price}</TableCell>
                       <TableCell align="right">{row.stock}</TableCell>
-                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right">{row.laboratory}</TableCell>
+                              <TableCell align="right">{row.agent}</TableCell>
+                      {/* {
+                        productsList?.generalInfo?.filter((item) => item.productName === row.productName).map((item) => {
+                          return (
+                            <>
+                              <TableCell align="right">{item.laboratory}</TableCell>
+                              <TableCell align="right">{item.agent}</TableCell>
+                            </>
+                          )
+                        })
+                      } */}
+
                     </TableRow>
                   );
                 })}

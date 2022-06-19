@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+// import { makeStyles } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import { getProductDetails } from "../../api";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: "flex",
-        marginTop: 15
-    },
-    details: {
-        display: "flex",
-        flexDirection: "column"
-    },
-    content: {
-        flex: "1 0 auto"
-    },
-    cover: {
-        width: 151
-    }
-}));
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         display: "flex",
+//         marginTop: 15
+//     },
+//     details: {
+//         display: "flex",
+//         flexDirection: "column"
+//     },
+//     content: {
+//         flex: "1 0 auto"
+//     },
+//     cover: {
+//         width: 151
+//     }
+// }));
 
 export default function ShoppingCartItem({ cart }) {
     console.log("carttt", cart)
-    const classes = useStyles();
+    // const classes = useStyles();
     const [products, setProducts] = useState([]);
     const productlist = [];
     useEffect(async () => {
@@ -50,15 +50,13 @@ export default function ShoppingCartItem({ cart }) {
                             {
                                 products?.map(product => {
                                     return (
-                                        <Card className={classes.root}>
+                                        <Card >
                                             <CardMedia
-                                                className={classes.cover}
                                                 image={product?.image}
                                                 title={product?.productName}
                                             />
-                                            <CardContent className={classes.content}>
+                                            <CardContent>
                                                 <CardMedia
-                                                    className={classes.cover}
                                                     image={product?.image}
                                                     title={product?.productName}
                                                 />

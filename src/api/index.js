@@ -23,11 +23,13 @@ export const updatePharmacy = (formData, id) => API.patch(`/user/updatePharmacy/
 // PRODUCTS
 export const createProduct = (formData) => API.post('/products/pharmacy/add-product', formData);
 export const getProducts = () => API.get('/products/pharmacy/productsList');
+export const getProductsLebanon = () => API.get('/products/pharmacy/productsLebanon');
 export const getProductDetails = (id) => API.get(`/products/${id}`);
 export const getProductsbySearch = (search) => API.get(`/products/pharmacy/productsList/${search}`);
 export const getPharmacyProducts = (id) => API.get(`/products/pharmacy/pharmacyProductsList/${id}`);
 export const getPharmacyProductsbySearch = (id, search) => API.get(`/products/pharmacy/pharmacyProductsList/${id}/${search}`);
 export const getSearchedProductsSuggestions = (search) => API.get(`/products/pharmacy/searchedProductsSuggestions/${search}`);
+export const getProductbyName = (formData) => API.get('/products/pharmacy/prod-name', formData);
 
 
 // REQUEST DRUG

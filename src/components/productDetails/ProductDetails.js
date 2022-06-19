@@ -73,7 +73,7 @@ export default function ProductDetails() {
             productId: product._id,
             quantity: qty,
             customerId: loggedUser._id,
-            deliverOption: orderType
+            deliverOption: orderType,
         }
         console.log("form", form);
 
@@ -148,7 +148,7 @@ export default function ProductDetails() {
                                     </span>
                                 </Typography>
                                 <Typography component="div" variant="h6"  >
-                                    Forms:
+                                    Form:
                                     <span style={{ float: 'right' }}>
                                         {
                                             product?.form?.length === 1 ?

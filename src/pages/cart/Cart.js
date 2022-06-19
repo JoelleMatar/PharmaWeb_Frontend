@@ -23,31 +23,31 @@ const Cart = () => {
     console.log("cart", cart)
 
     return (
-        <Grid container>
+        <>
             <Navbar />
 
             {/* <CssBaseline /> */}
-            <Container fixed sx={{width: '90%'}}>
+            <Container fixed >
                 <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '7%' }}>
                     <Typography variant="h3" sx={{ color: '#00B8B0', fontSize: '2.125rem', fontWeight: '400' }} gutterBottom>
                         Your Order
                     </Typography>
                 </Grid>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6} md={7} lg={7}>
+                    <Grid item xs={12} sm={7} md={7} lg={7}>
                         <Grid container>
                             <Grid item xs>
                                 <ShoppingCartItem cart={cart} />
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={5} lg={5}>
+                    <Grid item xs={12} sm={4} md={5} lg={5}>
                         <OrderSummaryItem />
                     </Grid>
                 </Grid>
             </Container>
 
-        </Grid>
+        </>
 
     )
 }

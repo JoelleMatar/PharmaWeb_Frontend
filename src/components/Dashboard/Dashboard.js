@@ -37,6 +37,7 @@ import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
 import AddProduct from '../pharmacy/addProduct/AddProduct';
 import Notification from '../pharmacy/notification/Notification';
 import PharmacyProfile from '../../pages/pharmacyProfile/PharmacyProfile';
+import { productBulkUpload } from '../../api';
 
 const drawerWidth = 240;
 
@@ -140,6 +141,8 @@ function DashboardContent() {
 
 function ProductsContent() {
     const [open, setOpen] = React.useState(true);
+    const [bulkFile, setBulkFile] = React.useState(null);
+    const loggedUser = JSON.parse(localStorage.getItem("profile"));
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -147,6 +150,22 @@ function ProductsContent() {
         console.log("add product");
         window.location.href = "http://localhost:3000/pharmacy/add-product"
     };
+
+    const uploadBulk = async(e) => {
+        console.log("upload bulk", e);
+        setBulkFile(e.target.files[0]);
+        const formData = {
+            file: e.target.files[0],
+            pharmaId: loggedUser._id
+        }
+
+        const res = await productBulkUpload(formData);
+
+        if(res.status === 201) {
+            alert("Product uploaded successfully");
+        }
+    }
+    console.log("bulkFile", bulkFile);
 
     return (
         <Box sx={{ display: 'flex', marginTop: '80px' }}>
@@ -173,10 +192,26 @@ function ProductsContent() {
             >
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4, fontSize: "64px" }}>
                     <Grid container spacing={3}>
-                        <Grid item md={12} sm={12} xs={12}>
-                            <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={addProduct}>Add Product</Button>
-                        </Grid>
+                        <Grid item md={6} sm={6} xs={6}>
+                            <input
+                                type="file"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                style={{ display: 'none' }}
+                                id="contained-button-file"
+                                name='bulkFile'
+                                onChange={(event) => uploadBulk(event)}
+                            />
 
+                        </Grid>
+                        <Grid item md={6} sm={6} xs={6}>
+                            <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={addProduct}>Add Product</Button>
+                            {/* <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={uploadBulk}>Product Bulk Upload</Button> */}
+                            <label htmlFor="contained-button-file">
+                                <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} component="span">
+                                    Product Bulk Upload
+                                </Button>
+                            </label>
+                        </Grid>
                         <PharmacyProducts />
                     </Grid>
                 </Container>

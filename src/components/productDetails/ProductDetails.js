@@ -34,6 +34,7 @@ export default function ProductDetails() {
     const [qty, setQty] = useState(1);
     const [openSnack, setOpenSnack] = useState(false);
     const [openSnack2, setOpenSnack2] = useState(false);
+    const [openSnack3, setOpenSnack3] = useState(false);
     const navigate = useNavigate();
 
     const handleClose = (event, reason) => {
@@ -86,6 +87,10 @@ export default function ProductDetails() {
             }, 2000)
 
             localStorage.setItem("cartId", result?.data?._id);
+        }
+        if (result.status === 400) {
+            setOpenSnack3(true);
+            
         }
     }
 
@@ -234,6 +239,11 @@ export default function ProductDetails() {
                     <Snackbar open={openSnack2} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error" sx={{ width: '100%', backgroundColor: '#ffa26c' }}>
                             You should be logged in to add to cart!
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSnack3} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%', backgroundColor: '#ffa26c' }}>
+                            You already have this product in your cart!
                         </Alert>
                     </Snackbar>
 

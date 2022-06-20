@@ -1,111 +1,141 @@
 import React, { useState, useEffect } from "react";
-// import { makeStyles } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { getProductDetails } from "../../api";
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         display: "flex",
-//         marginTop: 15
-//     },
-//     details: {
-//         display: "flex",
-//         flexDirection: "column"
-//     },
-//     content: {
-//         flex: "1 0 auto"
-//     },
-//     cover: {
-//         width: 151
-//     }
-// }));
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { deleteOrderItem, getPharmaciesList, getProductDetails, getProducts } from "../../api";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ShoppingCartItem({ cart }) {
     console.log("carttt", cart)
     // const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const productlist = [];
+    const [pharmacies, setPharmacies] = useState([]);
+
+
     useEffect(async () => {
-        cart?.map(async (cartitem) => {
-            const result = await getProductDetails(cartitem.productId);
-
-            productlist.push(result?.data?.data[0])
-            setProducts(productlist);
+        const productlist = [];
+        const pharmaslist = [];
+        const prods = await getProducts();
+        // console.log("prods", prods)
+        prods && prods?.data?.data?.map(prod => {
+            // console.log("hii", prod)
+            cart?.map(cartitem => {
+                if (cartitem.productId === prod._id) {
+                    // console.log("hii", cartitem)
+                    productlist.push(prod);
+                }
+            })
         })
-    }, []);
+        setProducts(productlist);
 
-    console.log("productsssss", products)
+
+
+        const pharmas = await getPharmaciesList();
+        productlist?.map(prod => {
+            pharmas?.data?.data?.map(pharma => {
+                if (prod.pharmaId === pharma._id) {
+                    pharmaslist.push(pharma);
+                }
+            })
+        })
+
+        setPharmacies(pharmaslist);
+    }, [cart]);
+
+    const deleteOrder = async (id) => {
+        const deleteItem = await deleteOrderItem(id);
+
+        // console.log("deleteItem", deleteItem)
+        if (deleteItem.data.success == true) {
+            window.location.reload();
+        }
+
+    }
 
     return (
         <div>
             {
-                cart?.map(cartitem => {
+                cart.map(cart => {
                     return (
                         <div>
                             {
-                                products?.map(product => {
-                                    return (
-                                        <Card >
-                                            <CardMedia
-                                                image={product?.image}
-                                                title={product?.productName}
-                                            />
-                                            <CardContent>
-                                                <CardMedia
-                                                    image={product?.image}
-                                                    title={product?.productName}
-                                                />
-                                                <Typography variant="div" component="h2">
-                                                    {product?.productName}
-                                                </Typography>
-                                                <Typography variant="subtitle2">
-                                                    <hr />
-                                                </Typography>
-                                                <Grid container>
-                                                    <Grid item xs={11} sm={11} md={11} lg={11}>
-                                                        <Typography variant="body1" component="div">
-                                                            Form
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={1} sm={1} md={1} lg={1}>
-                                                        <Typography variant="h6" component="div">
-                                                            {product?.form}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={11} sm={11} md={11} lg={11}>
-                                                        <Typography variant="body1" component="div">
-                                                            Quantity
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={1} sm={1} md={1} lg={1}>
-                                                        <Typography variant="h6" component="div">
-                                                            {cart?.quantity}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={10} sm={9} md={10} lg={10}>
-                                                        <Typography
-                                                            variant="body1"
-                                                            component="div"
-                                                            style={{ fontWeight: "bold" }}
-                                                        >
-                                                            Price
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={2} sm={2} md={2} lg={1}>
-                                                        <Typography variant="h6" component="div" color="secondary">
-                                                            {product?.price}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    )
+                                products?.filter(product => {
+                                    return product._id === cart.productId
                                 })
+                                    .map(product => {
+                                        // console.log("prodictt", product)
+                                        return (
+                                            <div>
+                                                {/* {
+                                                    pharmacies?.filter(pharma => {
+                                                        return pharma._id === product.pharmaId
+                                                    })
+                                                        .map(pharma => {
+                                                            console.log("prodictt", product)
+                                                            return ( */}
+                                                <Card sx={{ display: 'flex', marginBottom: '20px', boxShadow: ' 0px 2px 0px 2px #cccccc', marginLeft: '-100px' }}>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                                        <CardMedia
+                                                            component="img"
+                                                            sx={{ width: 100, marginTop: 0 }}
+                                                            image={product?.image}
+                                                            alt={product.productName}
+                                                        />
+                                                    </div>
+
+                                                    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                                                        <Grid container>
+                                                            <Grid item md={6} sm={6} xs={6}>
+                                                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                                                    <Typography component="div" variant="h5">
+                                                                        {product.productName}
+                                                                    </Typography>
+                                                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                                                        Quantity: {product.quantity}
+                                                                    </Typography>
+                                                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                                                        Price: {product.price}L.L.
+                                                                    </Typography>
+                                                                </CardContent>
+                                                            </Grid>
+
+                                                            <Grid item md={5} sm={5} xs={5}>
+                                                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                                                    {/* <Typography component="div" variant="h6">
+                                                                                        Pharmacy Info
+                                                                                    </Typography>
+                                                                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                                                                        Pharmacy Name: {pharma.pharmacyName}
+                                                                                    </Typography>
+                                                                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                                                                        Pharmacy Location: {pharma.city}
+                                                                                    </Typography> */}
+                                                                </CardContent>
+                                                            </Grid>
+
+                                                            <Grid item md={1} sm={1} xs={1} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                                                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, cursor: 'pointer' }} onClick={() => deleteOrder(cart._id)}>
+                                                                    <DeleteIcon sx={{ color: 'red' }} />
+                                                                </Box>
+                                                            </Grid>
+                                                        </Grid>
+
+
+                                                    </Box>
+
+
+                                                </Card>
+                                                {/* )
+                                                        })
+
+                                                } */}
+
+                                            </div>
+                                        )
+                                    })
                             }
                         </div>
                     )

@@ -9,14 +9,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import OrderSummaryItem from '../../components/orderSummaryItem/OrderSummaryItem';
 import ShoppingCartItem from '../../components/shoppingCartItem/ShoppingCartItem';
-import { getCustomerCart } from '../../api';
+import { getCustomerCart, getCustomerCartUnconfirmed } from '../../api';
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
     const loggedUser = JSON.parse(localStorage.getItem("profile"));
 
     useEffect(async() => {
-        const result = await getCustomerCart(loggedUser._id);
+        const result = await getCustomerCartUnconfirmed(loggedUser._id);
         setCart(result?.data?.data);
     }, []);
 
@@ -34,15 +34,15 @@ const Cart = () => {
                     </Typography>
                 </Grid>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={7} md={7} lg={7}>
+                    <Grid item xs={12} sm={8} md={8} lg={8}>
                         <Grid container>
                             <Grid item xs>
                                 <ShoppingCartItem cart={cart} />
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={4} md={5} lg={5}>
-                        <OrderSummaryItem />
+                    <Grid item xs={12} sm={4} md={4} lg={4}>
+                        <OrderSummaryItem cart={cart} />
                     </Grid>
                 </Grid>
             </Container>

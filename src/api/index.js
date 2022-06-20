@@ -31,6 +31,8 @@ export const getPharmacyProductsbySearch = (id, search) => API.get(`/products/ph
 export const getSearchedProductsSuggestions = (search) => API.get(`/products/pharmacy/searchedProductsSuggestions/${search}`);
 export const getProductbyName = (formData) => API.get('/products/pharmacy/prod-name', formData);
 
+export const productBulkUpload = (formData) => API.post('/products/pharmacy/bulk-upload', formData);
+
 
 // REQUEST DRUG
 export const requestDrug = (formData) => API.post('/products/request-drug', formData);
@@ -43,3 +45,6 @@ export const updateIsReadNotif = (id) => API.patch(`/products/pharmacy-notif/${i
 // CARTS
 export const createCart = (formData) => API.post('/carts/create-cart', formData);
 export const getCustomerCart = (id) => API.get(`/carts/cart-items/${id}`);
+export const getCustomerCartUnconfirmed = (id) => API.get(`/carts/cart-items-unconfirmed/${id}`);
+export const deleteOrderItem = (id) => API.delete(`/carts/delete-order-item/${id}`);
+export const updateCheckoutStatus = (formData) => API.patch('/carts/update-status-confirmation', formData);

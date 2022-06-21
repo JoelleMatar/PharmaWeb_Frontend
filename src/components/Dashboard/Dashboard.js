@@ -38,6 +38,7 @@ import AddProduct from '../pharmacy/addProduct/AddProduct';
 import Notification from '../pharmacy/notification/Notification';
 import PharmacyProfile from '../../pages/pharmacyProfile/PharmacyProfile';
 import { productBulkUpload } from '../../api';
+import PharmacyOrders from '../../pages/pharmacyOrders/PharmacyOrders';
 
 const drawerWidth = 240;
 
@@ -151,7 +152,7 @@ function ProductsContent() {
         window.location.href = "http://localhost:3000/pharmacy/add-product"
     };
 
-    const uploadBulk = async(e) => {
+    const uploadBulk = async (e) => {
         console.log("upload bulk", e);
         setBulkFile(e.target.files[0]);
         const formData = {
@@ -161,7 +162,7 @@ function ProductsContent() {
 
         const res = await productBulkUpload(formData);
 
-        if(res.status === 201) {
+        if (res.status === 201) {
             alert("Product uploaded successfully");
         }
     }
@@ -334,6 +335,42 @@ function ProfileContent() {
     );
 }
 
+function OrdersContent() {
+    const [open, setOpen] = React.useState(true);
+
+
+    return (
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
+
+                <MainListItems />
+
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '89vh',
+                    paddingLeft: "150px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container sx={{ mt: 4, mb: 4, height: '100%' }}>
+                    <PharmacyOrders />
+                </Container>
+            </Box>
+        </Box>
+
+    );
+}
+
 export default function Dashboard() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -348,7 +385,8 @@ export default function Dashboard() {
                         window.location.href === "http://localhost:3000/pharmacy/add-product" ? <AddProductContent /> :
                             window.location.href === "http://localhost:3000/pharmacy/notifications" ? <NotificationContent /> :
                                 window.location.href === "http://localhost:3000/pharmacy/profile" ? <ProfileContent /> :
-                                    <DashboardContent />
+                                    window.location.href === "http://localhost:3000/pharmacy/orders" ? <OrdersContent /> :
+                                        <DashboardContent />
             }
         </ThemeProvider>
     )

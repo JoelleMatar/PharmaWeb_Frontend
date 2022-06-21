@@ -91,6 +91,10 @@ function Routing() {
                     path: "profile",
                     element: <PharmacyDashboard />,
                 },
+                {
+                    path: "orders",
+                    element: <PharmacyDashboard />,
+                },
             ],
         },
     ]);

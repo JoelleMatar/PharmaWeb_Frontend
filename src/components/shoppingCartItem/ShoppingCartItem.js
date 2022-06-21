@@ -7,13 +7,17 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { deleteOrderItem, getPharmaciesList, getProductDetails, getProducts } from "../../api";
 import DeleteIcon from '@mui/icons-material/Delete';
+import "./ShoppingCartItem.css";
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 export default function ShoppingCartItem({ cart }) {
     console.log("carttt", cart)
     // const classes = useStyles();
     const [products, setProducts] = useState([]);
     const [pharmacies, setPharmacies] = useState([]);
-
+    const [prescription, setPrescription] = useState(null);
+    const [fileName, setFileName] = useState("");
+    const formData = new FormData();
 
     useEffect(async () => {
         const productlist = [];
@@ -54,6 +58,17 @@ export default function ShoppingCartItem({ cart }) {
         }
 
     }
+
+    const handlePrescription = (event) => {
+        setPrescription(event.target.files[0])
+        setFileName(event.target.files[0].name);
+
+        formData.append("file", event.target.files[0]);
+        formData.append("fileName", event.target.files[0].name);
+
+    }
+
+    console.log("prescp", formData)
 
     return (
         <div>
@@ -104,6 +119,18 @@ export default function ShoppingCartItem({ cart }) {
 
                                                             <Grid item md={5} sm={5} xs={5}>
                                                                 <CardContent sx={{ flex: '1 0 auto' }}>
+                                                                    {
+                                                                        product?.category ? (
+                                                                            <div>
+                                                                                <label for="file-upload" className="custom-file-upload" >
+                                                                                    <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Doctor Prescription
+                                                                                </label>
+                                                                                <input id="file-upload" name="pharmacyLicense" type="file" onChange={(e) => handlePrescription(e)} />
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div></div>
+                                                                        )
+                                                                    }
                                                                     {/* <Typography component="div" variant="h6">
                                                                                         Pharmacy Info
                                                                                     </Typography>

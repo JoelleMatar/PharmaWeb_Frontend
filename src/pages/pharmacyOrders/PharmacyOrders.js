@@ -1,0 +1,451 @@
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import "./PharmacyOrders.css";
+import { getLoggedPharmacyOrders } from '../../api';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Button from "@mui/material/Button";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import { styled, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
+
+const StyledMenu = styled((props) => (
+    <Menu
+        elevation={0}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        {...props}
+    />
+))(({ theme }) => ({
+    '& .MuiPaper-root': {
+        borderRadius: 6,
+        marginTop: theme.spacing(1),
+        minWidth: 100,
+        color:
+            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+        boxShadow:
+            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        '& .MuiMenu-list': {
+            padding: '4px 0',
+        },
+        '& .MuiMenuItem-root': {
+            '& .MuiSvgIcon-root': {
+                fontSize: 18,
+                color: theme.palette.text.secondary,
+                marginRight: theme.spacing(1.5),
+            },
+            '&:active': {
+                backgroundColor: alpha(
+                    theme.palette.primary.main,
+                    theme.palette.action.selectedOpacity,
+                ),
+            },
+        },
+    },
+}));
+
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `full-width-tab-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`,
+    };
+}
+
+export default function PharmacyOrders() {
+    const [orders, setOrders] = useState([]);
+    const loggedUser = JSON.parse(localStorage.getItem('profile'));
+
+    useEffect(async () => {
+        const res = await getLoggedPharmacyOrders(loggedUser._id);
+        if (res.status == 200) {
+            // const orders = state !== '' ? await getLoggedPharmacyOrdersBySearch(loggedUser._id, state) : await getLoggedPharmacyOrders(loggedUser._id);
+
+            setOrders(res.data)
+        }
+    }, [])
+
+    console.log("res", orders)
+    const theme = useTheme();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const handleChangeIndex = (index) => {
+        setValue(index);
+    };
+
+    const [state, setState] = useState('');
+    const handleSearch = (value) => {
+        console.log("value", value)
+        setState(value);
+    }
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleStatusChange = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    return (
+        <Box sx={{ width: '100%' }}>
+
+            <AppBar position="static">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    textColor="inherit"
+                    sx={{ backgroundColor: 'white', color: '#00B8B0' }}
+                    variant="fullWidth"
+                    aria-label="full width tabs example"
+                >
+                    <Tab label="All Orders" {...a11yProps(0)} />
+                    <Tab label="Pending Orders" {...a11yProps(1)} />
+                    <Tab label="Delivered Orders" {...a11yProps(2)} />
+                    <Tab label="Picked Up Orders" {...a11yProps(3)} />
+                </Tabs>
+            </AppBar>
+            <TextField
+                id="outlined-required"
+                label="Search by order or by customer"
+                defaultValue=''
+                sx={{ width: '40%', marginTop: '20px', paddingTop: '8px' }}
+                onChange={(e) => handleSearch(e.target.value)}
+            >
+                <SearchIcon />
+            </TextField>
+            <SwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={value}
+                onChangeIndex={handleChangeIndex}
+            >
+                <TabPanel value={value} index={0} dir={theme.direction}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Order ID</TableCell>
+                                    <TableCell align="right">Customer</TableCell>
+                                    <TableCell align="right">Order</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Type</TableCell>
+                                    <TableCell align="right">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders?.cartPharma?.map((row, index) => {
+                                    return (
+                                        <>
+                                            {
+                                                orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
+                                                    console.log("prodd", prod)
+                                                    return (
+                                                        <>
+                                                            {
+                                                                orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
+                                                                    console.log("prodd", customer)
+                                                                    return (
+                                                                        <TableRow
+                                                                            key={row._id}
+                                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                        >
+                                                                            <TableCell component="th" scope="row">
+                                                                                {index + 1}
+                                                                            </TableCell>
+                                                                            <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
+                                                                            <TableCell align="right">{prod.productName}</TableCell>
+                                                                            <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                            <TableCell align="right">{row.deliverOption}</TableCell>
+                                                                            <TableCell align="right">
+                                                                                <Button endIcon={<KeyboardArrowDownIcon />} onClick={handleStatusChange} id="demo-customized-button"
+                                                                                    aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded={open ? 'true' : undefined}
+                                                                                    sx={{ minWidth: '100px' }}>
+                                                                                    {
+                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
+                                                                                    }
+                                                                                </Button>
+                                                                                <StyledMenu
+                                                                                    id="demo-customized-menu"
+                                                                                    MenuListProps={{
+                                                                                        'aria-labelledby': 'demo-customized-button',
+                                                                                    }}
+                                                                                    sx={{ minWidth: '100px' }}
+                                                                                    anchorEl={anchorEl}
+                                                                                    open={open}
+                                                                                    onClose={handleClose}
+                                                                                >
+                                                                                    <MenuItem onClick={handleClose} disableRipple>
+                                                                                        Accept
+                                                                                    </MenuItem>
+                                                                                    <MenuItem onClick={handleClose} disableRipple>
+                                                                                        Delivered
+                                                                                    </MenuItem>
+                                                                                    <MenuItem onClick={handleClose} disableRipple>
+                                                                                        PickedUp
+                                                                                    </MenuItem>
+                                                                                </StyledMenu>
+
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    )
+
+                                                                })
+                                                            }
+                                                        </>
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                    )
+
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </TabPanel>
+                <TabPanel value={value} index={1} dir={theme.direction}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Order ID</TableCell>
+                                    <TableCell align="right">Customer</TableCell>
+                                    <TableCell align="right">Order</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Type</TableCell>
+                                    <TableCell align="right">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders?.cartPharma?.map((row, index) => {
+                                    if (row.status === 2) {
+                                        return (
+                                            <>
+                                                {
+                                                    orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
+                                                        console.log("prodd", prod)
+                                                        return (
+                                                            <>
+                                                                {
+                                                                    orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
+                                                                        console.log("prodd", customer)
+                                                                        return (
+                                                                            <TableRow
+                                                                                key={row._id}
+                                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                            >
+                                                                                <TableCell component="th" scope="row">
+                                                                                    {index + 1}
+                                                                                </TableCell>
+                                                                                <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
+                                                                                <TableCell align="right">{prod.productName}</TableCell>
+                                                                                <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{row.deliverOption}</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
+                                                                                    }
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                            </>
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                        )
+                                    }
+
+
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </TabPanel>
+                <TabPanel value={value} index={2} dir={theme.direction}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Order ID</TableCell>
+                                    <TableCell align="right">Customer</TableCell>
+                                    <TableCell align="right">Order</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Type</TableCell>
+                                    <TableCell align="right">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders?.cartPharma?.map((row, index) => {
+                                    if (row.status === 3) {
+                                        return (
+                                            <>
+                                                {
+                                                    orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
+                                                        console.log("prodd", prod)
+                                                        return (
+                                                            <>
+                                                                {
+                                                                    orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
+                                                                        console.log("prodd", customer)
+                                                                        return (
+                                                                            <TableRow
+                                                                                key={row._id}
+                                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                            >
+                                                                                <TableCell component="th" scope="row">
+                                                                                    {index + 1}
+                                                                                </TableCell>
+                                                                                <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
+                                                                                <TableCell align="right">{prod.productName}</TableCell>
+                                                                                <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{row.deliverOption}</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
+                                                                                    }
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                            </>
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                        )
+                                    }
+
+
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </TabPanel>
+                <TabPanel value={value} index={3} dir={theme.direction}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Order ID</TableCell>
+                                    <TableCell align="right">Customer</TableCell>
+                                    <TableCell align="right">Order</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Type</TableCell>
+                                    <TableCell align="right">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders?.cartPharma?.map((row, index) => {
+                                    if (row.status === 4) {
+                                        return (
+                                            <>
+                                                {
+                                                    orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
+                                                        console.log("prodd", prod)
+                                                        return (
+                                                            <>
+                                                                {
+                                                                    orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
+                                                                        console.log("prodd", customer)
+                                                                        return (
+                                                                            <TableRow
+                                                                                key={row._id}
+                                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                            >
+                                                                                <TableCell component="th" scope="row">
+                                                                                    {index + 1}
+                                                                                </TableCell>
+                                                                                <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
+                                                                                <TableCell align="right">{prod.productName}</TableCell>
+                                                                                <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{row.deliverOption}</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
+                                                                                    }
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                            </>
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                        )
+                                    }
+
+
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </TabPanel>
+            </SwipeableViews>
+        </Box>
+    );
+}

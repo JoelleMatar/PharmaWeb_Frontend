@@ -31,7 +31,7 @@ const MainListItems = () => {
                 <ListItemText primary="Products" sx={{ width: '240px' }} />
             </ListItem>
             <br />
-            <ListItem button component="a" href="/pharmacy/products" >
+            <ListItem button component="a" href="/pharmacy/orders" >
                 <ListItemIcon>
                     <ShoppingCartIcon />
                 </ListItemIcon>

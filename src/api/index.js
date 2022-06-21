@@ -48,3 +48,4 @@ export const getCustomerCart = (id) => API.get(`/carts/cart-items/${id}`);
 export const getCustomerCartUnconfirmed = (id) => API.get(`/carts/cart-items-unconfirmed/${id}`);
 export const deleteOrderItem = (id) => API.delete(`/carts/delete-order-item/${id}`);
 export const updateCheckoutStatus = (formData) => API.patch('/carts/update-status-confirmation', formData);
+export const getLoggedPharmacyOrders = (pharmaId) => API.get(`/carts/pharmacy-orders/${pharmaId}`);

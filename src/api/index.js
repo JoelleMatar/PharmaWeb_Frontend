@@ -30,7 +30,7 @@ export const getPharmacyProducts = (id) => API.get(`/products/pharmacy/pharmacyP
 export const getPharmacyProductsbySearch = (id, search) => API.get(`/products/pharmacy/pharmacyProductsList/${id}/${search}`);
 export const getSearchedProductsSuggestions = (search) => API.get(`/products/pharmacy/searchedProductsSuggestions/${search}`);
 export const getProductbyName = (formData) => API.get('/products/pharmacy/prod-name', formData);
-
+export const deleteProduct = (id) => API.delete(`/products/pharmacy/delete-product/${id}`);
 export const productBulkUpload = (formData) => API.post('/products/pharmacy/bulk-upload', formData);
 
 
@@ -47,5 +47,6 @@ export const createCart = (formData) => API.post('/carts/create-cart', formData)
 export const getCustomerCart = (id) => API.get(`/carts/cart-items/${id}`);
 export const getCustomerCartUnconfirmed = (id) => API.get(`/carts/cart-items-unconfirmed/${id}`);
 export const deleteOrderItem = (id) => API.delete(`/carts/delete-order-item/${id}`);
-export const updateCheckoutStatus = (formData) => API.patch('/carts/update-status-confirmation', formData);
+export const updateCheckoutStatus = (formData, prescription) => API.patch('/carts/update-status-confirmation', {formData, prescription});
 export const getLoggedPharmacyOrders = (pharmaId) => API.get(`/carts/pharmacy-orders/${pharmaId}`);
+export const updateOrderStatus = (id, formData) => API.patch(`/carts/update-cart-status/${id}`, formData);

@@ -109,7 +109,7 @@ const ProductsList = () => {
                 id="outlined-required"
                 label="Search by product name"
                 defaultValue=''
-                sx={{ width: '30%', marginLeft: '60%' }}
+                sx={{ width: '30%',  marginLeft: '60%' }}
                 onChange={(e) => handleSearch(e.target.value)}
             >
                 <SearchIcon />

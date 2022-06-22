@@ -16,16 +16,14 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import { getPharmacyProducts, getPharmacyProductsbySearch, getProductbyName, getProducts, getProductsbySearch } from '../../../api';
+import { deleteProduct, getPharmacyProducts, getPharmacyProductsbySearch, getProductbyName, getProducts, getProductsbySearch } from '../../../api';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -102,6 +100,12 @@ const headCells = [
     disablePadding: false,
     label: 'Agent',
   },
+  {
+    id: 'actions',
+    numeric: false,
+    disablePadding: false,
+    label: 'Actions',
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -114,7 +118,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -124,7 +128,7 @@ function EnhancedTableHead(props) {
               'aria-label': 'select all desserts',
             }}
           />
-        </TableCell>
+        </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -292,6 +296,16 @@ export default function PharmacyProducts() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - productsList?.data?.length) : 0;
 
+
+  const deleteProd = async (id) => {
+    console.log("id", id)
+    const res = await deleteProduct(id);
+
+    if (res.data.success === true) {
+      window.location.reload()
+    }
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <TextField
@@ -328,20 +342,19 @@ export default function PharmacyProducts() {
                 .map((row, index) => {
                   // console.log("rowwwwwwwwwww", row)
                   const isItemSelected = isSelected(row.productName);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  // const labelId = `enhanced-table-checkbox-${index}`;
 
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.productName)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
+                      // onClick={(event) => handleClick(event, row.productName)}
+                      // role="checkbox"
                       tabIndex={-1}
                       key={row._id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      {/* <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -349,10 +362,10 @@ export default function PharmacyProducts() {
                             'aria-labelledby': labelId,
                           }}
                         />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell
                         // component="th"
-                        id={labelId}
+                        // id={labelId}
                         align="right"
                         sx={{ width: '60px', height: '60px' }}
                       >
@@ -363,7 +376,11 @@ export default function PharmacyProducts() {
                       <TableCell align="right">{row.price}</TableCell>
                       <TableCell align="right">{row.stock}</TableCell>
                       <TableCell align="right">{row.laboratory}</TableCell>
-                              <TableCell align="right">{row.agent}</TableCell>
+                      <TableCell align="right">{row.agent}</TableCell>
+                      <TableCell align="right">
+                        <EditIcon sx={{ marginRight: '20px', color: '#00B8B0', cursor: 'pointer' }} />
+                        <DeleteIcon sx={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteProd(row._id)} />
+                      </TableCell>
                       {/* {
                         productsList?.generalInfo?.filter((item) => item.productName === row.productName).map((item) => {
                           return (

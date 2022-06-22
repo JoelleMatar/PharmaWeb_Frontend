@@ -9,7 +9,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import "./PharmacyOrders.css";
-import { getLoggedPharmacyOrders } from '../../api';
+import { getLoggedPharmacyOrders, updateOrderStatus } from '../../api';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -104,6 +104,24 @@ function a11yProps(index) {
 export default function PharmacyOrders() {
     const [orders, setOrders] = useState([]);
     const loggedUser = JSON.parse(localStorage.getItem('profile'));
+    const [status, setStatus] = useState("");
+    const [statusnbr, setStatusnbr] = useState(false);
+
+    const statusChange = async (event, id) => {
+        setStatusnbr(false)
+
+        const data = {
+            status: event
+        }
+        console.log("data", data.status, id)
+        const changestatus = await updateOrderStatus(id, data);
+
+        if (changestatus.data.order.modifiedCount === 1) {
+            console.log("data", changestatus)
+            window.location.reload()
+        }
+    };
+    console.log("statusnbr", statusnbr)
 
     useEffect(async () => {
         const res = await getLoggedPharmacyOrders(loggedUser._id);
@@ -112,7 +130,10 @@ export default function PharmacyOrders() {
 
             setOrders(res.data)
         }
+
+
     }, [])
+
 
     console.log("res", orders)
     const theme = useTheme();
@@ -133,10 +154,17 @@ export default function PharmacyOrders() {
     }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+
     const open = Boolean(anchorEl);
+
     const handleStatusChange = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+
+    console.log("status", status)
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -155,11 +183,12 @@ export default function PharmacyOrders() {
                 >
                     <Tab label="All Orders" {...a11yProps(0)} />
                     <Tab label="Pending Orders" {...a11yProps(1)} />
-                    <Tab label="Delivered Orders" {...a11yProps(2)} />
-                    <Tab label="Picked Up Orders" {...a11yProps(3)} />
+                    <Tab label="Accepted Orders" {...a11yProps(2)} />
+                    <Tab label="Delivered Orders" {...a11yProps(3)} />
+                    <Tab label="Picked Up Orders" {...a11yProps(4)} />
                 </Tabs>
             </AppBar>
-            <TextField
+            {/* <TextField
                 id="outlined-required"
                 label="Search by order or by customer"
                 defaultValue=''
@@ -167,14 +196,14 @@ export default function PharmacyOrders() {
                 onChange={(e) => handleSearch(e.target.value)}
             >
                 <SearchIcon />
-            </TextField>
+            </TextField> */}
             <SwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                 index={value}
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -192,12 +221,12 @@ export default function PharmacyOrders() {
                                         <>
                                             {
                                                 orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
-                                                    console.log("prodd", prod)
+                                                    // console.log("prodd", prod)
                                                     return (
                                                         <>
                                                             {
                                                                 orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
-                                                                    console.log("prodd", customer)
+                                                                    // console.log("prodd", customer)
                                                                     return (
                                                                         <TableRow
                                                                             key={row._id}
@@ -211,35 +240,97 @@ export default function PharmacyOrders() {
                                                                             <TableCell align="right">{row.totalPrice}L.L.</TableCell>
                                                                             <TableCell align="right">{row.deliverOption}</TableCell>
                                                                             <TableCell align="right">
-                                                                                <Button endIcon={<KeyboardArrowDownIcon />} onClick={handleStatusChange} id="demo-customized-button"
-                                                                                    aria-controls={open ? 'demo-customized-menu' : undefined}
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded={open ? 'true' : undefined}
-                                                                                    sx={{ minWidth: '100px' }}>
-                                                                                    {
-                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
-                                                                                    }
-                                                                                </Button>
-                                                                                <StyledMenu
-                                                                                    id="demo-customized-menu"
-                                                                                    MenuListProps={{
-                                                                                        'aria-labelledby': 'demo-customized-button',
-                                                                                    }}
-                                                                                    sx={{ minWidth: '100px' }}
-                                                                                    anchorEl={anchorEl}
-                                                                                    open={open}
-                                                                                    onClose={handleClose}
-                                                                                >
-                                                                                    <MenuItem onClick={handleClose} disableRipple>
-                                                                                        Accept
-                                                                                    </MenuItem>
-                                                                                    <MenuItem onClick={handleClose} disableRipple>
-                                                                                        Delivered
-                                                                                    </MenuItem>
-                                                                                    <MenuItem onClick={handleClose} disableRipple>
-                                                                                        PickedUp
-                                                                                    </MenuItem>
-                                                                                </StyledMenu>
+                                                                                {
+                                                                                    row.status !== 3 && row.status !== 4 && row.status !== 6 ? (
+                                                                                        <>
+                                                                                            {/* <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
+                                                                                                aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                                aria-haspopup="true"
+                                                                                                aria-expanded={open ? 'true' : undefined}
+                                                                                                sx={{ minWidth: '100px' }}
+                                                                                            >
+                                                                                                {
+                                                                                                    row.status === 2 ? "Pending" : "Accepted"
+                                                                                                }
+                                                                                            </Button> */}
+                                                                                            {
+                                                                                                row.status === 2 ? (
+                                                                                                    <Button id="demo-customized-button"
+                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)}
+                                                                                                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                                        aria-haspopup="true"
+                                                                                                        aria-expanded={open ? 'true' : undefined}
+                                                                                                        sx={{ minWidth: '100px', color: '#fdd835' }}
+                                                                                                    >Pending
+
+                                                                                                    </Button>
+                                                                                                ) : row.status === 5 ? (
+                                                                                                    <Button id="demo-customized-button"
+                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)}
+                                                                                                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                                        aria-haspopup="true"
+                                                                                                        aria-expanded={open ? 'true' : undefined}
+                                                                                                        sx={{ minWidth: '100px', color: '#00b0ff' }}
+                                                                                                    >Accepted
+
+                                                                                                    </Button>
+                                                                                                ) : ''
+                                                                                            }
+                                                                                            <StyledMenu
+                                                                                                id="demo-customized-menu"
+                                                                                                MenuListProps={{
+                                                                                                    'aria-labelledby': 'demo-customized-button',
+                                                                                                }}
+                                                                                                sx={{ minWidth: '100px' }}
+                                                                                                anchorEl={anchorEl}
+                                                                                                open={open}
+                                                                                                onClose={handleClose}
+                                                                                            >
+                                                                                                <MenuItem onClick={(e) => statusChange(5, row._id)} disableRipple>
+                                                                                                    Accept
+                                                                                                </MenuItem>
+                                                                                                <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                                    Delivered
+                                                                                                </MenuItem>
+                                                                                                <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                                    PickedUp
+                                                                                                </MenuItem>
+                                                                                                <MenuItem onClick={(e) => statusChange(6, row._id)} disableRipple>
+                                                                                                    Reject
+                                                                                                </MenuItem>
+                                                                                            </StyledMenu>
+                                                                                        </>
+                                                                                    ) : (
+                                                                                        <>
+                                                                                            {
+                                                                                                row.status === 6 ? (
+                                                                                                    <Button id="demo-customized-button"
+
+                                                                                                        sx={{ minWidth: '100px', color: '#ff3f3f' }}
+                                                                                                    >Rejected
+
+                                                                                                    </Button>
+                                                                                                ) : row.status === 3 ? (
+                                                                                                    <Button id="demo-customized-button"
+
+                                                                                                        sx={{ minWidth: '100px', color: '#41bb13' }}
+                                                                                                    >Delivered
+
+                                                                                                    </Button>
+                                                                                                ) : row.status === 4 ? (
+                                                                                                    <Button id="demo-customized-button"
+
+                                                                                                        sx={{ minWidth: '100px', color: '#41bb13' }}
+                                                                                                    >Picked Up
+
+                                                                                                    </Button>
+                                                                                                ) : ''
+                                                                                            }
+                                                                                        </>
+
+                                                                                    )
+                                                                                }
+
 
                                                                             </TableCell>
                                                                         </TableRow>
@@ -260,7 +351,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -279,12 +370,12 @@ export default function PharmacyOrders() {
                                             <>
                                                 {
                                                     orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
-                                                        console.log("prodd", prod)
+                                                        // console.log("prodd", prod)
                                                         return (
                                                             <>
                                                                 {
                                                                     orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
-                                                                        console.log("prodd", customer)
+                                                                        // console.log("prodd", customer)
                                                                         return (
                                                                             <TableRow
                                                                                 key={row._id}
@@ -298,9 +389,37 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
-                                                                                    {
-                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
-                                                                                    }
+                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
+                                                                                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                        aria-haspopup="true"
+                                                                                        aria-expanded={open ? 'true' : undefined}
+                                                                                        sx={{ minWidth: '100px',  color: '#fdd835' }}
+                                                                                    >
+                                                                                           Pending
+                                                                                    </Button>
+                                                                                    <StyledMenu
+                                                                                        id="demo-customized-menu"
+                                                                                        MenuListProps={{
+                                                                                            'aria-labelledby': 'demo-customized-button',
+                                                                                        }}
+                                                                                        sx={{ minWidth: '100px' }}
+                                                                                        anchorEl={anchorEl}
+                                                                                        open={open}
+                                                                                        onClose={handleClose}
+                                                                                    >
+                                                                                        <MenuItem onClick={(e) => statusChange(5, row._id)} disableRipple>
+                                                                                            Accept
+                                                                                        </MenuItem>
+                                                                                        <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                            Delivered
+                                                                                        </MenuItem>
+                                                                                        <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                            PickedUp
+                                                                                        </MenuItem>
+                                                                                        <MenuItem onClick={(e) => statusChange(6, row._id)} disableRipple>
+                                                                                            Reject
+                                                                                        </MenuItem>
+                                                                                    </StyledMenu>
                                                                                 </TableCell>
                                                                             </TableRow>
                                                                         )
@@ -322,7 +441,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -336,17 +455,17 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    if (row.status === 3) {
+                                    if (row.status === 5) {
                                         return (
                                             <>
                                                 {
                                                     orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
-                                                        console.log("prodd", prod)
+                                                        // console.log("prodd", prod)
                                                         return (
                                                             <>
                                                                 {
                                                                     orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
-                                                                        console.log("prodd", customer)
+                                                                        // console.log("prodd", customer)
                                                                         return (
                                                                             <TableRow
                                                                                 key={row._id}
@@ -360,9 +479,31 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
-                                                                                    {
-                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
-                                                                                    }
+                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
+                                                                                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                                                        aria-haspopup="true"
+                                                                                        aria-expanded={open ? 'true' : undefined}
+                                                                                        sx={{ minWidth: '100px' }}
+                                                                                    >
+                                                                                        Accepted
+                                                                                    </Button>
+                                                                                    <StyledMenu
+                                                                                        id="demo-customized-menu"
+                                                                                        MenuListProps={{
+                                                                                            'aria-labelledby': 'demo-customized-button',
+                                                                                        }}
+                                                                                        sx={{ minWidth: '100px' }}
+                                                                                        anchorEl={anchorEl}
+                                                                                        open={open}
+                                                                                        onClose={handleClose}
+                                                                                    >
+                                                                                        <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                            Delivered
+                                                                                        </MenuItem>
+                                                                                        <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                            PickedUp
+                                                                                        </MenuItem>
+                                                                                    </StyledMenu>
                                                                                 </TableCell>
                                                                             </TableRow>
                                                                         )
@@ -384,7 +525,71 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Order ID</TableCell>
+                                    <TableCell align="right">Customer</TableCell>
+                                    <TableCell align="right">Order</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Type</TableCell>
+                                    <TableCell align="right">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders?.cartPharma?.map((row, index) => {
+                                    if (row.status === 3) {
+                                        return (
+                                            <>
+                                                {
+                                                    orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
+                                                        // console.log("prodd", prod)
+                                                        return (
+                                                            <>
+                                                                {
+                                                                    orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
+                                                                        // console.log("prodd", customer)
+                                                                        return (
+                                                                            <TableRow
+                                                                                key={row._id}
+                                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                            >
+                                                                                <TableCell component="th" scope="row">
+                                                                                    {index + 1}
+                                                                                </TableCell>
+                                                                                <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
+                                                                                <TableCell align="right">{prod.productName}</TableCell>
+                                                                                <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{row.deliverOption}</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    <Button id="demo-customized-button"
+                                                                                        sx={{ minWidth: '100px', color: '#41bb13' }}
+                                                                                    >Delivered
+
+                                                                                    </Button>
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                            </>
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                        )
+                                    }
+
+
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </TabPanel>
+                <TabPanel value={value} index={4} dir={theme.direction}>
+                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -403,12 +608,12 @@ export default function PharmacyOrders() {
                                             <>
                                                 {
                                                     orders?.products?.filter(prod => prod._id === row.productId).map(prod => {
-                                                        console.log("prodd", prod)
+                                                        // console.log("prodd", prod)
                                                         return (
                                                             <>
                                                                 {
                                                                     orders?.customers?.filter(customer => customer._id === row.customerId).map(customer => {
-                                                                        console.log("prodd", customer)
+                                                                        // console.log("prodd", customer)
                                                                         return (
                                                                             <TableRow
                                                                                 key={row._id}
@@ -422,9 +627,12 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
-                                                                                    {
-                                                                                        row.status === 2 ? "Pending" : row.status === 3 ? "Delivered" : row.status === 4 ? "Picked Up" : "Accepted"
-                                                                                    }
+                                                                                    <Button id="demo-customized-button"
+
+                                                                                        sx={{ minWidth: '100px', color: '#41bb13' }}
+                                                                                    >Picked Up
+
+                                                                                    </Button>
                                                                                 </TableCell>
                                                                             </TableRow>
                                                                         )

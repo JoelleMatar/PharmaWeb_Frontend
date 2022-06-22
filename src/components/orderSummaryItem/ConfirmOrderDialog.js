@@ -23,9 +23,11 @@ export default function ConfirmOrderDialog({ open, products, close, carts }) {
             formData.push(cart._id)
         })
 
+       const prescription = window.localStorage.getItem('prescription');
+
         console.log("formData", formData)
 
-        const confirm = await updateCheckoutStatus(formData);
+        const confirm = await updateCheckoutStatus(formData, prescription);
 
 
         if (confirm.data.success) {

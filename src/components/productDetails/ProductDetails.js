@@ -75,6 +75,7 @@ export default function ProductDetails() {
             quantity: qty,
             customerId: loggedUser._id,
             deliverOption: orderType,
+            prescription: ''
         }
         console.log("form", form);
 

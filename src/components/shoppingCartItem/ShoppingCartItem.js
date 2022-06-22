@@ -15,9 +15,15 @@ export default function ShoppingCartItem({ cart }) {
     // const classes = useStyles();
     const [products, setProducts] = useState([]);
     const [pharmacies, setPharmacies] = useState([]);
-    const [prescription, setPrescription] = useState(null);
+    const [prescription, setPrescription] = useState();
     const [fileName, setFileName] = useState("");
     const formData = new FormData();
+
+    const handlePrescription = (event) => {
+        setPrescription([{ prescription: event.target.files[0], loaded: 0 }])
+        setFileName(event.target.files[0].name);
+
+    }
 
     useEffect(async () => {
         const productlist = [];
@@ -47,8 +53,14 @@ export default function ShoppingCartItem({ cart }) {
         })
 
         setPharmacies(pharmaslist);
-    }, [cart]);
 
+
+        formData.append('file', prescription)
+        window.localStorage.setItem('prescription', formData);
+
+
+    }, [cart, prescription]);
+    console.log("prescp", formData, prescription)
     const deleteOrder = async (id) => {
         const deleteItem = await deleteOrderItem(id);
 
@@ -59,16 +71,6 @@ export default function ShoppingCartItem({ cart }) {
 
     }
 
-    const handlePrescription = (event) => {
-        setPrescription(event.target.files[0])
-        setFileName(event.target.files[0].name);
-
-        formData.append("file", event.target.files[0]);
-        formData.append("fileName", event.target.files[0].name);
-
-    }
-
-    console.log("prescp", formData)
 
     return (
         <div>
@@ -125,7 +127,9 @@ export default function ShoppingCartItem({ cart }) {
                                                                                 <label for="file-upload" className="custom-file-upload" >
                                                                                     <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Doctor Prescription
                                                                                 </label>
-                                                                                <input id="file-upload" name="pharmacyLicense" type="file" onChange={(e) => handlePrescription(e)} />
+                                                                                <form encType="multipart/form-data">
+                                                                                    <input id="file-upload" name="pharmacyLicense" type="file" onChange={(e) => handlePrescription(e)} />
+                                                                                </form>
                                                                             </div>
                                                                         ) : (
                                                                             <div></div>

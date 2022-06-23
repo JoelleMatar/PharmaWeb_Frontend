@@ -203,11 +203,11 @@ export default function PharmacyOrders() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Order ID</TableCell>
+                                    <TableCell>Order #</TableCell>
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
@@ -351,7 +351,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer   id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -441,7 +441,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -525,7 +525,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -589,7 +589,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={4} dir={theme.direction}>
-                    <TableContainer component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>

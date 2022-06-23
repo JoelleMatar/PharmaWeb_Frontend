@@ -39,6 +39,7 @@ import Notification from '../pharmacy/notification/Notification';
 import PharmacyProfile from '../../pages/pharmacyProfile/PharmacyProfile';
 import { productBulkUpload } from '../../api';
 import PharmacyOrders from '../../pages/pharmacyOrders/PharmacyOrders';
+import PharmacyLogs from '../../pages/pharmacyLogs/PharmacyLogs';
 
 const drawerWidth = 240;
 
@@ -371,6 +372,42 @@ function OrdersContent() {
     );
 }
 
+function LogsContent() {
+    const [open, setOpen] = React.useState(true);
+
+
+    return (
+        <Box sx={{ display: 'flex', marginTop: '80px' }}>
+            <CssBaseline />
+            <Drawer variant="permanent" open={open} sx={{ marginTop: '80px', display: 'block' }}>
+                <Divider />
+
+                <MainListItems />
+
+            </Drawer>
+
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '89vh',
+                    paddingLeft: "150px"
+                    // overflow: 'auto',
+                }}
+            >
+                <Container sx={{ mb: 4, height: '100%' }}>
+                    <PharmacyLogs />
+                </Container>
+            </Box>
+        </Box>
+
+    );
+}
+
 export default function Dashboard() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -386,6 +423,7 @@ export default function Dashboard() {
                             window.location.href === "http://localhost:3000/pharmacy/notifications" ? <NotificationContent /> :
                                 window.location.href === "http://localhost:3000/pharmacy/profile" ? <ProfileContent /> :
                                     window.location.href === "http://localhost:3000/pharmacy/orders" ? <OrdersContent /> :
+                                    window.location.href === "http://localhost:3000/pharmacy/logs" ? <LogsContent /> :
                                         <DashboardContent />
             }
         </ThemeProvider>

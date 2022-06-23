@@ -1,5 +1,19 @@
-.css-1aquho2-MuiTabs-indicator {
-    background-color: #ffa26c;
+.tablelog {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #00B8B0;
+    text-align: left;
+    font-size: 25px;
+    margin-left: 80px;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    width: 50%;
+}
+
+.refill:hover {
+    background-color: #01938c;
+    color: white
 }
 
 #scroll-6::-webkit-scrollbar-track

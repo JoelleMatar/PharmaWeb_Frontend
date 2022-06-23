@@ -6,12 +6,14 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
 import { ListItem, List } from '@mui/material';
 import { useState } from "react";
+import CategoryIcon from '@mui/icons-material/Category';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const MainListItems = () => {
 
@@ -24,13 +26,6 @@ const MainListItems = () => {
                 <ListItemText primary="Dashboard" sx={{ width: '240px' }} />
             </ListItem>
             <br />
-            <ListItem button component="a" href="/pharmacy/products">
-                <ListItemIcon>
-                    <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Products" sx={{ width: '240px' }} />
-            </ListItem>
-            <br />
             <ListItem button component="a" href="/pharmacy/orders" >
                 <ListItemIcon>
                     <ShoppingCartIcon />
@@ -38,16 +33,30 @@ const MainListItems = () => {
                 <ListItemText primary="Orders" sx={{  width: '240px' }} />
             </ListItem>
             <br />
+            <ListItem button component="a" href="/pharmacy/products">
+                <ListItemIcon>
+                    <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Products" sx={{ width: '240px' }} />
+            </ListItem>
+            <br />
+            <ListItem button component="a" href="/pharmacy/logs" >
+                <ListItemIcon>
+                    <ReceiptLongIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logs" sx={{  width: '240px' }} />
+            </ListItem>
+            <br />
             <ListItem button component="a" href="/pharmacy/notifications">
                 <ListItemIcon>
-                    <BarChartIcon />
+                    <NotificationsIcon />
                 </ListItemIcon>
                 <ListItemText primary="Notifications" sx={{ width: '240px' }} />
             </ListItem>
             <br />
             <ListItem button component="a" href="/pharmacy/profile">
                 <ListItemIcon>
-                    <LayersIcon />
+                    <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Pharmacy Profile" sx={{  width: '240px' }} />
             </ListItem>

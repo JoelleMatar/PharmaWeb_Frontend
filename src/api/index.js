@@ -50,3 +50,8 @@ export const deleteOrderItem = (id) => API.delete(`/carts/delete-order-item/${id
 export const updateCheckoutStatus = (formData, prescription) => API.patch('/carts/update-status-confirmation', {formData, prescription});
 export const getLoggedPharmacyOrders = (pharmaId) => API.get(`/carts/pharmacy-orders/${pharmaId}`);
 export const updateOrderStatus = (id, formData) => API.patch(`/carts/update-cart-status/${id}`, formData);
+
+//LOGS
+export const getPharmacyLogs = (id) => API.get(`/logs/pharmacy-logs/${id}`);
+export const createRefillLog = (id, formData) => API.post(`/logs/refill-product-stock/${id}`, formData);
+

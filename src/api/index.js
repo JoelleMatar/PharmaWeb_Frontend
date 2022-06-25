@@ -23,6 +23,15 @@ export const updatePharmacy = (formData, id) => API.patch(`/user/updatePharmacy/
 // PRODUCTS
 export const createProduct = (formData) => API.post('/products/pharmacy/add-product', formData);
 export const getProducts = () => API.get('/products/pharmacy/productsList');
+export const getProductsAscendingbySearch = (search) => API.get(`/products/pharmacy/productsList-ascending/${search}`);
+export const getProductsDescendingbySearch = (search) => API.get(`/products/pharmacy/productsList-descending/${search}`);
+export const getProductsAscending = () => API.get('/products/pharmacy/productsList-ascending');
+export const getProductsDescending = () => API.get('/products/pharmacy/productsList-descending');
+export const getProductsHighPricebySearch = (search) => API.get(`/products/pharmacy/productsList-highprice/${search}`);
+export const getProductsLowPricebySearch = (search) => API.get(`/products/pharmacy/productsList-lowprice/${search}`);
+export const getProductsHighPrice = (search) => API.get('/products/pharmacy/productsList-highprice');
+export const getProductsLowPrice = (search) => API.get('/products/pharmacy/productsList-lowprice');
+
 export const getProductsLebanon = () => API.get('/products/pharmacy/productsLebanon');
 export const getProductDetails = (id) => API.get(`/products/${id}`);
 export const getProductsbySearch = (search) => API.get(`/products/pharmacy/productsList/${search}`);

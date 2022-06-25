@@ -170,7 +170,7 @@ export default function PharmacyOrders() {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', marginLeft: '40px' }}>
 
             <AppBar position="static">
                 <Tabs
@@ -203,7 +203,7 @@ export default function PharmacyOrders() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -211,12 +211,15 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
+                                    const datee = new Date(row.createdAt)
+
                                     return (
                                         <>
                                             {
@@ -238,6 +241,7 @@ export default function PharmacyOrders() {
                                                                             <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                             <TableCell align="right">{prod.productName}</TableCell>
                                                                             <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                            <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                             <TableCell align="right">{row.deliverOption}</TableCell>
                                                                             <TableCell align="right">
                                                                                 {
@@ -351,7 +355,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <TableContainer   id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -359,12 +363,15 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
+                                    const datee = new Date(row.createdAt)
+
                                     if (row.status === 2) {
                                         return (
                                             <>
@@ -387,15 +394,16 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
                                                                                     <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
                                                                                         aria-controls={open ? 'demo-customized-menu' : undefined}
                                                                                         aria-haspopup="true"
                                                                                         aria-expanded={open ? 'true' : undefined}
-                                                                                        sx={{ minWidth: '100px',  color: '#fdd835' }}
+                                                                                        sx={{ minWidth: '100px', color: '#fdd835' }}
                                                                                     >
-                                                                                           Pending
+                                                                                        Pending
                                                                                     </Button>
                                                                                     <StyledMenu
                                                                                         id="demo-customized-menu"
@@ -441,7 +449,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -449,12 +457,15 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
+                                    const datee = new Date(row.createdAt)
+
                                     if (row.status === 5) {
                                         return (
                                             <>
@@ -477,6 +488,7 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
                                                                                     <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
@@ -525,7 +537,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -533,12 +545,15 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
+                                    const datee = new Date(row.createdAt)
+
                                     if (row.status === 3) {
                                         return (
                                             <>
@@ -561,6 +576,7 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
                                                                                     <Button id="demo-customized-button"
@@ -589,7 +605,7 @@ export default function PharmacyOrders() {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value={value} index={4} dir={theme.direction}>
-                    <TableContainer  id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
+                    <TableContainer id='scroll-6' component={Paper} sx={{ overflowY: 'scroll', height: '450px' }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -597,12 +613,15 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
+                                    const datee = new Date(row.createdAt)
+
                                     if (row.status === 4) {
                                         return (
                                             <>
@@ -625,6 +644,7 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
                                                                                     <Button id="demo-customized-button"

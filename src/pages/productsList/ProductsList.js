@@ -3,7 +3,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import HomePharmacyCard from '../../components/pharmacy/homePharmacyCard/HomePharmacyCard';
-import { getProducts, getProductsbySearch } from '../../api';
+import { getProducts, getProductsAscending, getProductsAscendingbySearch, getProductsDescendingbySearch, getProductsbySearch, getProductsDescending, getProductsHighPricebySearch, getProductsLowPricebySearch, getProductsLowPrice, getProductsHighPrice } from '../../api';
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Navbar from '../../components/navbar/Navbar';
@@ -66,35 +66,32 @@ const ProductsList = () => {
 
     console.log("products", products)
 
-    // const [open, setOpen] = React.useState(false);
-    // const anchorRef = React.useRef(null);
 
 
-
-    
-
-    // return focus to the button when we transitioned from !open -> open
-    // const prevOpen = React.useRef(open);
-    // React.useEffect(() => {
-    //     if (prevOpen.current === true && open === false) {
-    //         anchorRef.current.focus();
-    //     }
-
-    //     prevOpen.current = open;
-    // }, [open]);
-
-
-    const filterAZ = () => {
-        console.log("filterAZ")
-
-        products?.sort((a, b) => a?.productName.localeCompare(b?.productName))
-
-        console.log("prodyctsss", products)
-        setProducts(products)
+    const filterAZ = async() => {
+        const res = state !== '' ?  await getProductsAscendingbySearch(state) : await getProductsAscending();
+        console.log("prodyctsss", res)
+        setProducts(res.data.data)
         handleClose()
     }
-    const filterZA = () => {
-        console.log("filterZA")
+    const filterZA = async() => {
+        const res = state !== '' ?  await getProductsDescendingbySearch(state) : await getProductsDescending();
+        console.log("prodyctsss", res)
+        setProducts(res.data.data)
+        handleClose()
+    }
+
+    const filterLowtoHigh = async() => {
+        const res = state !== '' ?  await getProductsLowPricebySearch(state) : await getProductsLowPrice();
+        console.log("prodyctsss", res)
+        setProducts(res.data.data)
+        handleClose()
+    }
+    const filterHightoLow = async() => {
+        const res = state !== '' ?  await getProductsHighPricebySearch(state) : await getProductsHighPrice();
+        console.log("prodyctsss", res)
+        setProducts(res.data.data)
+        handleClose()
     }
 
     return (
@@ -154,8 +151,8 @@ const ProductsList = () => {
                                         >
                                             <MenuItem onClick={filterAZ}>Product Name (A - Z)</MenuItem>
                                             <MenuItem onClick={filterZA}>Product Name (Z -A)</MenuItem>
-                                            <MenuItem onClick={handleClose}>Product Price (Low to High)</MenuItem>
-                                            <MenuItem onClick={handleClose}>Product Price (High to Low)</MenuItem>
+                                            <MenuItem onClick={filterLowtoHigh}>Product Price (Low to High)</MenuItem>
+                                            <MenuItem onClick={filterHightoLow}>Product Price (High to Low)</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
                                 </Paper>

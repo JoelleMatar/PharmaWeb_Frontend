@@ -146,10 +146,10 @@ export default function ProductDetails() {
                                     Maximum Purchase Quantity: <span style={{ float: 'right' }}><b>{product.quantity}</b></span>
                                 </Typography>
                                 <Typography component="div" variant="h6"  >
-                                    High Dose:
+                                    High Dose (Needs Prescription):
                                     <span style={{ float: 'right' }}>
                                         {
-                                            product.highDose ? <p><b>Yes</b></p> : <p><b>No</b></p>
+                                            product.category ? <p><b>Yes</b></p> : <p><b>No</b></p>
                                         }
                                     </span>
                                 </Typography>

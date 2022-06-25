@@ -113,6 +113,8 @@ export default function RefillStockDialog({ open, close, }) {
                 open={open}
                 onClose={close}
                 aria-labelledby="responsive-dialog-title"
+                fullWidth
+                maxWidth="sm"
             >
                 <form onSubmit={formik.handleSubmit} >
                     <DialogTitle id="responsive-dialog-title">

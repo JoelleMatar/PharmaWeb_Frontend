@@ -13,13 +13,21 @@ import Email from "@mui/icons-material/Email";
 import CardMedia from '@mui/material/CardMedia';
 import pharmacyLogoStatic from '../../../assets/pharmacyLogo.png';
 import Grid from "@mui/material/Grid";
+import PharmacyDetails from './PharmacyDetails';
 
 const HomePharmacyCard = ({ pharmacy }) => {
-    console.log("pharmaaa", pharmacy)
-    console.log("hii")
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <Card sx={{ minWidth: 275, boxShadow: ' 0px 2px 0px 2px #cccccc', marginBottom: '10px' }}>
+        <Card sx={{ minWidth: 275, boxShadow: ' 0px 2px 0px 2px #cccccc', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handleClickOpen()}>
             <Grid container>
                 <Grid item xs={12} sm={8} md={8}>
                     <CardContent>
@@ -48,6 +56,8 @@ const HomePharmacyCard = ({ pharmacy }) => {
                     </div>
                 </Grid>
             </Grid>
+
+            <PharmacyDetails pharmacy={pharmacy} open={open} close={handleClose} />
         </Card>
     )
 }

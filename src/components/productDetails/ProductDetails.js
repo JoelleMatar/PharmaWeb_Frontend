@@ -43,6 +43,9 @@ export default function ProductDetails() {
         }
 
         setOpenSnack(false);
+        setOpenSnack2(false);
+        setOpenSnack3(false);
+
     };
 
     const handleChange = (event) => {
@@ -79,20 +82,23 @@ export default function ProductDetails() {
         }
         console.log("form", form);
 
-        const result = await createCart(form);
-        console.log("result", result)
-        if (result.status === 201) {
-            setOpenSnack(true);
-            setTimeout(() => {
-                navigate("/home/cart");
-            }, 2000)
+        try {
+            const result = await createCart(form);
+            console.log("result", result)
+            if (result.status === 201) {
+                setOpenSnack(true);
+                setTimeout(() => {
+                    navigate("/home/cart");
+                }, 2000)
 
-            localStorage.setItem("cartId", result?.data?._id);
+                localStorage.setItem("cartId", result?.data?._id);
+            }
         }
-        if (result.status === 400) {
+        catch (error) {
             setOpenSnack3(true);
-            
+            console.log("error", error)
         }
+
     }
 
     return (

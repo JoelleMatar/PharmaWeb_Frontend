@@ -24,6 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { deleteProduct, getPharmacyProducts, getPharmacyProductsbySearch, getProductbyName, getProducts, getProductsbySearch } from '../../../api';
+import PharmacyProductDetails from './PharmacyProductDetails';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -220,6 +221,19 @@ export default function PharmacyProducts() {
   const [generalProdInfo, setgeneralProdInfo] = useState([]);
   const [state, setState] = useState('');
   const loggedUser = JSON.parse(localStorage.getItem('profile'));
+  const [selectedProduct, setSelectedProduct] = useState([]);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (prod) => {
+    setOpen(true);
+    setSelectedProduct(prod);
+  };
+
+  const closeDialog = () => {
+    setOpen(false);
+  }
+
   const handleSearch = (value) => {
     setState(value);
   }
@@ -236,7 +250,6 @@ export default function PharmacyProducts() {
 
   }, [state]);
 
-  console.log("procuts", productsList);
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('price');
@@ -348,7 +361,6 @@ export default function PharmacyProducts() {
                   return (
                     <TableRow
                       hover
-                      // onClick={(event) => handleClick(event, row.productName)}
                       // role="checkbox"
                       tabIndex={-1}
                       key={row._id}
@@ -378,7 +390,7 @@ export default function PharmacyProducts() {
                       <TableCell align="right">{row.laboratory}</TableCell>
                       <TableCell align="right">{row.agent}</TableCell>
                       <TableCell align="right">
-                        <EditIcon sx={{ marginRight: '20px', color: '#00B8B0', cursor: 'pointer' }} />
+                        <EditIcon sx={{ marginRight: '20px', color: '#00B8B0', cursor: 'pointer' }} onClick={() => handleClickOpen(row)}/>
                         <DeleteIcon sx={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteProd(row._id)} />
                       </TableCell>
                       {/* {
@@ -391,6 +403,7 @@ export default function PharmacyProducts() {
                           )
                         })
                       } */}
+                      
 
                     </TableRow>
                   );
@@ -416,6 +429,7 @@ export default function PharmacyProducts() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        <PharmacyProductDetails open={open} close={closeDialog} product={selectedProduct} />
       </Paper>
     </Box>
   );

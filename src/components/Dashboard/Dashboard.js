@@ -3,35 +3,18 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import { useNavigate } from "react-router";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 // import { mainListItems, } from './listItems';
 import MainListItems from "./listItems";
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import "./styles.css";
-import { useEffect } from 'react';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import CategoryIcon from '@mui/icons-material/Category';
-import LayersIcon from '@mui/icons-material/Layers';
-import { Button, ListItem } from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from "react";
 import PharmacyProducts from '../pharmacy/pharmcyProducts.js/PharmacyProducts';
 import AddProduct from '../pharmacy/addProduct/AddProduct';
@@ -40,6 +23,13 @@ import PharmacyProfile from '../../pages/pharmacyProfile/PharmacyProfile';
 import { productBulkUpload } from '../../api';
 import PharmacyOrders from '../../pages/pharmacyOrders/PharmacyOrders';
 import PharmacyLogs from '../../pages/pharmacyLogs/PharmacyLogs';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 const drawerWidth = 240;
 
@@ -145,6 +135,9 @@ function ProductsContent() {
     const [open, setOpen] = React.useState(true);
     const [bulkFile, setBulkFile] = React.useState(null);
     const loggedUser = JSON.parse(localStorage.getItem("profile"));
+    const [openSnack3, setOpenSnack3] = useState(false);
+    const navigate = useNavigate();
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -153,18 +146,27 @@ function ProductsContent() {
         window.location.href = "http://localhost:3000/pharmacy/add-product"
     };
 
-    const uploadBulk = async (e) => {
-        console.log("upload bulk", e);
-        setBulkFile(e.target.files[0]);
-        const formData = {
-            file: e.target.files[0],
-            pharmaId: loggedUser._id
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
         }
 
-        const res = await productBulkUpload(formData);
+        setOpenSnack3(false);
+    };
 
-        if (res.status === 201) {
-            alert("Product uploaded successfully");
+    const uploadBulk = async (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        data.append("file", e.target.files[0]);
+
+        const res = await productBulkUpload(loggedUser._id, data);
+
+        if (res.status === 200) {
+            setOpenSnack3(true);
+            setTimeout(() => {
+                navigate("/pharmacy/products");
+            }, 2000)
         }
     }
     console.log("bulkFile", bulkFile);
@@ -209,7 +211,7 @@ function ProductsContent() {
                             <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={addProduct}>Add Product</Button>
                             {/* <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={uploadBulk}>Product Bulk Upload</Button> */}
                             <label htmlFor="contained-button-file">
-                                <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} component="span">
+                                <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} component="span" >
                                     Product Bulk Upload
                                 </Button>
                             </label>
@@ -218,6 +220,11 @@ function ProductsContent() {
                     </Grid>
                 </Container>
             </Box>
+            <Snackbar open={openSnack3} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%', backgroundColor: '#019890' }}>
+                    Bulk Products Upload was successful!
+                </Alert>
+            </Snackbar>
         </Box>
 
     );
@@ -423,8 +430,8 @@ export default function Dashboard() {
                             window.location.href === "http://localhost:3000/pharmacy/notifications" ? <NotificationContent /> :
                                 window.location.href === "http://localhost:3000/pharmacy/profile" ? <ProfileContent /> :
                                     window.location.href === "http://localhost:3000/pharmacy/orders" ? <OrdersContent /> :
-                                    window.location.href === "http://localhost:3000/pharmacy/logs" ? <LogsContent /> :
-                                        <DashboardContent />
+                                        window.location.href === "http://localhost:3000/pharmacy/logs" ? <LogsContent /> :
+                                            <DashboardContent />
             }
         </ThemeProvider>
     )

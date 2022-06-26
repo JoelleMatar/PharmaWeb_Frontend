@@ -25,6 +25,8 @@ import Divider from '@mui/material/Divider';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ViewPrescription from './ViewPrescription';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -106,6 +108,17 @@ export default function PharmacyOrders() {
     const loggedUser = JSON.parse(localStorage.getItem('profile'));
     const [status, setStatus] = useState("");
     const [statusnbr, setStatusnbr] = useState(false);
+    const [openpresc, setOpenpres] = React.useState(false);
+    const [prescriptionImg, setprescriptionImg] = useState("");
+
+    const handleClickOpen = (row) => {
+        setprescriptionImg(row)
+        setOpenpres(true);
+    };
+
+    const closeDialog = () => {
+        setOpenpres(false);
+    }
 
     const statusChange = async (event, id) => {
         setStatusnbr(false)
@@ -211,6 +224,7 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">View Prescription</TableCell>
                                     <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
@@ -241,6 +255,16 @@ export default function PharmacyOrders() {
                                                                             <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                             <TableCell align="right">{prod.productName}</TableCell>
                                                                             <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                            <TableCell align="right">
+                                                                                {
+                                                                                    row.prescription === '' ? null :
+                                                                                        <div>
+                                                                                            <RemoveRedEyeIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.prescription)} />
+                                                                                            {/* <img src={row.prescription} /> */}
+                                                                                        </div>
+
+                                                                                }
+                                                                            </TableCell>
                                                                             <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                             <TableCell align="right">{row.deliverOption}</TableCell>
                                                                             <TableCell align="right">
@@ -335,8 +359,9 @@ export default function PharmacyOrders() {
                                                                                     )
                                                                                 }
 
-
                                                                             </TableCell>
+
+
                                                                         </TableRow>
                                                                     )
 
@@ -346,6 +371,9 @@ export default function PharmacyOrders() {
                                                     )
                                                 })
                                             }
+
+                                            <ViewPrescription open={openpresc} close={closeDialog} prescription={prescriptionImg} />
+
                                         </>
                                     )
 
@@ -363,6 +391,7 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">View Prescription</TableCell>
                                     <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
@@ -394,6 +423,16 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.prescription === '' ? null :
+                                                                                            <div>
+                                                                                                <RemoveRedEyeIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.prescription)} />
+                                                                                                {/* <img src={row.prescription} /> */}
+                                                                                            </div>
+
+                                                                                    }
+                                                                                </TableCell>
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
@@ -438,6 +477,9 @@ export default function PharmacyOrders() {
                                                         )
                                                     })
                                                 }
+
+                                                <ViewPrescription open={openpresc} close={closeDialog} prescription={prescriptionImg} />
+
                                             </>
                                         )
                                     }
@@ -457,6 +499,7 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">View Prescription</TableCell>
                                     <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
@@ -488,6 +531,16 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.prescription === '' ? null :
+                                                                                            <div>
+                                                                                                <RemoveRedEyeIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.prescription)} />
+                                                                                                {/* <img src={row.prescription} /> */}
+                                                                                            </div>
+
+                                                                                    }
+                                                                                </TableCell>
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
@@ -526,6 +579,9 @@ export default function PharmacyOrders() {
                                                         )
                                                     })
                                                 }
+
+                                                <ViewPrescription open={openpresc} close={closeDialog} prescription={prescriptionImg} />
+
                                             </>
                                         )
                                     }
@@ -545,6 +601,7 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">View Prescription</TableCell>
                                     <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
@@ -576,6 +633,16 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.prescription === '' ? null :
+                                                                                            <div>
+                                                                                                <RemoveRedEyeIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.prescription)} />
+                                                                                                {/* <img src={row.prescription} /> */}
+                                                                                            </div>
+
+                                                                                    }
+                                                                                </TableCell>
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
@@ -594,6 +661,9 @@ export default function PharmacyOrders() {
                                                         )
                                                     })
                                                 }
+
+                                                <ViewPrescription open={openpresc} close={closeDialog} prescription={prescriptionImg} />
+
                                             </>
                                         )
                                     }
@@ -613,6 +683,7 @@ export default function PharmacyOrders() {
                                     <TableCell align="right">Customer</TableCell>
                                     <TableCell align="right">Order</TableCell>
                                     <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">View Prescription</TableCell>
                                     <TableCell align="right">Delivery Date</TableCell>
                                     <TableCell align="right">Delivery Type</TableCell>
                                     <TableCell align="right">Status</TableCell>
@@ -644,6 +715,16 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{customer?.firstName} {customer?.lastName} {customer?.pharmacyName} </TableCell>
                                                                                 <TableCell align="right">{prod.productName}</TableCell>
                                                                                 <TableCell align="right">{row.totalPrice}L.L.</TableCell>
+                                                                                <TableCell align="right">
+                                                                                    {
+                                                                                        row.prescription === '' ? null :
+                                                                                            <div>
+                                                                                                <RemoveRedEyeIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.prescription)} />
+                                                                                                {/* <img src={row.prescription} /> */}
+                                                                                            </div>
+
+                                                                                    }
+                                                                                </TableCell>
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
@@ -663,6 +744,9 @@ export default function PharmacyOrders() {
                                                         )
                                                     })
                                                 }
+
+                                                <ViewPrescription open={openpresc} close={closeDialog} prescription={prescriptionImg} />
+
                                             </>
                                         )
                                     }

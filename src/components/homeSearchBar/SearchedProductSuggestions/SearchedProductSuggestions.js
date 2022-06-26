@@ -11,10 +11,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { useNavigate } from "react-router";
 
 const SearchedProductSuggestions = ({ searchedProduct }) => {
     console.log("searcheeeeeee", searchedProduct)
     const [suggestions, setSuggestions] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(async () => {
         const result = await getSearchedProductsSuggestions(searchedProduct);
@@ -24,12 +26,45 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
 
     console.log("suggestions", suggestions);
 
+    const goToProductDetail = (id) => {
+        navigate('/home/product/' + id)
+    }
+
     return (
         <div>
             <Typography className='suggestions' variant="h5" gutterBottom component="div" >Product Availability</Typography>
-            <Grid container sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                
-                <Grid item md={4} sm={4} xs={4}>
+            <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', textAlign: 'center' }}>
+
+                <Grid item md={12} sm={12} xs={12}>
+                    {
+                        suggestions?.products?.map(prod => {
+                            return (
+                                <div>
+                                    {
+                                        suggestions?.pharmacies?.filter(p => p._id === prod.pharmaId).map(pharmacy => {
+                                            return (
+                                                <List>
+                                                    <ListItem disablePadding>
+                                                        <ListItemButton key={prod._id} onClick={() => goToProductDetail(prod._id)} className='listItem' sx={{ width: '300px', textAlign: 'center', fontSize: '20px' }}>
+                                                            <ListItemText primary={pharmacy.pharmacyName} />
+                                                            <ListItemText primary={pharmacy.city} />
+                                                            <ListItemText primary={prod.price} />
+                                                        </ListItemButton>
+                                                    </ListItem>
+                                                </List>
+                                            )
+                                        }
+
+                                        )
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                </Grid>
+
+
+                {/* <Grid item md={4} sm={4} xs={4}>
                     {
                         suggestions?.pharmacies?.map((suggestionPharmacy, index) => {
                             return (
@@ -92,7 +127,7 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
 
                     }
 
-                </Grid>
+                </Grid> */}
             </Grid>
         </div>
 

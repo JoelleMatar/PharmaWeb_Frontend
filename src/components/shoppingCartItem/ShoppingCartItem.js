@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { deleteOrderItem, getPharmaciesList, getProductDetails, getProducts } from "../../api";
+import { deleteOrderItem, getPharmaciesList, getProductDetails, getProducts, updateOrderPrescription } from "../../api";
 import DeleteIcon from '@mui/icons-material/Delete';
 import "./ShoppingCartItem.css";
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
@@ -15,14 +15,47 @@ export default function ShoppingCartItem({ cart }) {
     // const classes = useStyles();
     const [products, setProducts] = useState([]);
     const [pharmacies, setPharmacies] = useState([]);
-    const [prescription, setPrescription] = useState();
+    const [prescription, setPrescription] = useState("");
     const [fileName, setFileName] = useState("");
+    const [showfileName, setShowFileName] = useState(false);
+
     const formData = new FormData();
 
-    const handlePrescription = (event) => {
-        setPrescription([{ prescription: event.target.files[0], loaded: 0 }])
-        setFileName(event.target.files[0].name);
+    const handlePrescription = async (event, cartId) => {
+        // setPrescription([{ prescription: event.target.files[0], loaded: 0 }])
+        // setFileName(event.target.files[0].name);
+        console.log("prodid", cartId)
+        if (event.target.name === 'prescription') {
 
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setPrescription(reader.result)
+                    setFileName(event.target.files[0].name)
+                }
+            }
+
+            reader.readAsDataURL(event.target.files[0])
+
+            const presc = {
+                cartId: cartId,
+                prescription: prescription
+            }
+
+            console.log("presss", presc)
+
+            try {
+                const req = await updateOrderPrescription(presc);
+
+                if (req.data.success === true) {
+                    setShowFileName(true);
+                }
+            }
+            catch (error) {
+                console.log("error", error)
+            }
+        }
     }
 
     useEffect(async () => {
@@ -43,24 +76,11 @@ export default function ShoppingCartItem({ cart }) {
 
 
 
-        const pharmas = await getPharmaciesList();
-        productlist?.map(prod => {
-            pharmas?.data?.data?.map(pharma => {
-                if (prod.pharmaId === pharma._id) {
-                    pharmaslist.push(pharma);
-                }
-            })
-        })
 
-        setPharmacies(pharmaslist);
+    }, [cart]);
 
+    // console.log("prescp", formData, prescription)
 
-        formData.append('file', prescription)
-        window.localStorage.setItem('prescription', formData);
-
-
-    }, [cart, prescription]);
-    console.log("prescp", formData, prescription)
     const deleteOrder = async (id) => {
         const deleteItem = await deleteOrderItem(id);
 
@@ -124,12 +144,18 @@ export default function ShoppingCartItem({ cart }) {
                                                                     {
                                                                         product?.category ? (
                                                                             <div>
-                                                                                <label for="file-upload" className="custom-file-upload" >
-                                                                                    <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Doctor Prescription
-                                                                                </label>
-                                                                                <form encType="multipart/form-data">
-                                                                                    <input id="file-upload" name="pharmacyLicense" type="file" onChange={(e) => handlePrescription(e)} />
-                                                                                </form>
+                                                                                {
+                                                                                    cart.prescription === '' ? (
+                                                                                        <div>
+                                                                                            <label for="file-upload" className="custom-file-upload" >
+                                                                                                <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Doctor Prescription
+                                                                                            </label>
+                                                                                            <input id="file-upload" name="prescription" type="file" accept="image/jpeg, image/png,application/pdf,application/msword,.docx" onChange={(e) => handlePrescription(e, cart._id)} />
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        null
+                                                                                    )
+                                                                                }
                                                                             </div>
                                                                         ) : (
                                                                             <div></div>

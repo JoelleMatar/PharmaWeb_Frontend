@@ -40,7 +40,8 @@ export const getPharmacyProductsbySearch = (id, search) => API.get(`/products/ph
 export const getSearchedProductsSuggestions = (search) => API.get(`/products/pharmacy/searchedProductsSuggestions/${search}`);
 export const getProductbyName = (formData) => API.get('/products/pharmacy/prod-name', formData);
 export const deleteProduct = (id) => API.delete(`/products/pharmacy/delete-product/${id}`);
-export const productBulkUpload = (formData) => API.post('/products/pharmacy/bulk-upload', formData);
+export const productBulkUpload = (id,formData) => API.post(`/products/pharmacy/bulk-upload/${id}`, formData);
+export const updateProductDetails = (id, formData) => API.patch(`/products/pharmacy/productsList/${id}`, formData);
 
 
 // REQUEST DRUG
@@ -59,6 +60,8 @@ export const deleteOrderItem = (id) => API.delete(`/carts/delete-order-item/${id
 export const updateCheckoutStatus = (formData, prescription) => API.patch('/carts/update-status-confirmation', {formData, prescription});
 export const getLoggedPharmacyOrders = (pharmaId) => API.get(`/carts/pharmacy-orders/${pharmaId}`);
 export const updateOrderStatus = (id, formData) => API.patch(`/carts/update-cart-status/${id}`, formData);
+export const updateOrderPrescription = (formData) => API.patch('/carts/add-prescription', formData);
+
 
 //LOGS
 export const getPharmacyLogs = (id) => API.get(`/logs/pharmacy-logs/${id}`);

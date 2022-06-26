@@ -4,6 +4,7 @@ import PharmacyProducts from "./components/pharmacy/pharmcyProducts.js/PharmacyP
 import ProductDetails from "./components/productDetails/ProductDetails";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 import Cart from "./pages/cart/Cart";
+import DonateMedication from "./pages/donateMedication/DonateMedication";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import PharmaciesList from "./pages/pharmaciesList/pharmaciesList";
@@ -55,6 +56,10 @@ function Routing() {
                 {
                     path: "request-drug",
                     element: <RequestDrug />,
+                },
+                {
+                    path: "donate-medication",
+                    element: <DonateMedication />,
                 },
                 {
                     path: "product/:id",

@@ -10,16 +10,22 @@ import donateD from "../../assets/donateDrugs.jpg";
 import requestDrugs from "../../assets/requestDrugs.jpg";
 import pharmacies from "../../assets/pharmacies.jpg";
 import "./homeServicesCards.css";
+import { useNavigate } from 'react-router';
 
 const HomeServicesCards = () => {
+    const navigate = useNavigate();
+
+    const goTo = (path) => {
+        navigate(path)
+    }
 
     return (
-        <div className="homeServicesCards">
+        <div className="homeServicesCards"  style={{marginBottom: '80px'}}>
             <Typography className='suggestions' variant="h5" gutterBottom component="div">Available Services</Typography>
             <Grid container sx={{  paddingLeft: '30px' }}>
 
                 <Grid item md={3} sm={6} xs={12} >
-                    <Card sx={{ maxWidth: 345, }}>
+                    <Card sx={{ maxWidth: 345, cursor: 'pointer' }} onClick={() => goTo('/home/donate-medication')}>
                         {/* <CardActionArea> */}
                         <CardMedia
                             component="img"
@@ -39,7 +45,7 @@ const HomeServicesCards = () => {
                     </Card>
                 </Grid>
                 <Grid item md={3} sm={6} xs={12}>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{ maxWidth: 345, cursor: 'pointer' }}  onClick={() => goTo('/home/request-drug')}>
                         {/* <CardActionArea> */}
                         <CardMedia
                             component="img"
@@ -59,7 +65,7 @@ const HomeServicesCards = () => {
                     </Card>
                 </Grid>
                 <Grid item md={3} sm={6} xs={12}>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{ maxWidth: 345, cursor: 'pointer' }} onClick={() => goTo('/home/products')}>
                         {/* <CardActionArea> */}
                         <CardMedia
                             component="img"
@@ -78,8 +84,8 @@ const HomeServicesCards = () => {
                         {/* </CardActionArea> */}
                     </Card>
                 </Grid>
-                <Grid item md={3} sm={6} xs={12}>
-                    <Card sx={{ maxWidth: 345 }}>
+                <Grid item md={3} sm={6} xs={12} onClick={() => goTo('/auth/signup')}>
+                    <Card sx={{ maxWidth: 345, cursor: 'pointer' }}>
                         {/* <CardActionArea> */}
                         <CardMedia
                             component="img"

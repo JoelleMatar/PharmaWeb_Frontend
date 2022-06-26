@@ -11,7 +11,7 @@ function preventDefault(event) {
     event.preventDefault();
 }
 
-export default function Deposits() {
+export default function TotalSales() {
     const [orders, setOrders] = useState([]);
     const loggedUser = JSON.parse(localStorage.getItem('profile'));
     const navigate = useNavigate();
@@ -26,16 +26,18 @@ export default function Deposits() {
         }
     }, []);
 
-    var recentsales = 0;
-    orders?.cartPharma?.slice(0, 8).map(order => {
-        recentsales += order.totalPrice;
+
+    var totalsales = 0;
+    orders?.cartPharma?.map(order => {
+        totalsales += order.totalPrice;
     })
+
 
     return (
         <React.Fragment>
-            <Title>Drugs to Restock</Title>
+            <Title>Total Sales</Title>
             <Typography component="p" variant="h4">
-                {recentsales}L.L.
+                {totalsales}L.L.
             </Typography>
         </React.Fragment>
 

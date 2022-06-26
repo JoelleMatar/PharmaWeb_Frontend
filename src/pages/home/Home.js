@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Footer from "../../components/footer/Footer";
 import HomeSearchBar from "../../components/homeSearchBar/HomeSearchBar";
 import SearchedProductSuggestions from "../../components/homeSearchBar/SearchedProductSuggestions/SearchedProductSuggestions";
 import HomeServicesCards from "../../components/homeServicesCards/homeServicesCards";
@@ -21,6 +22,7 @@ const Home = () => {
             }
             {/* <SearchedProductSuggestions searchedProduct={getdata} /> */}
             <HomeServicesCards />
+            <Footer />
         </div>
 
     )

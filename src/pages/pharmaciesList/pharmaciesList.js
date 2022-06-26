@@ -8,6 +8,7 @@ import { getPharmaciesList } from '../../api';
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Navbar from '../../components/navbar/Navbar';
+import Footer from '../../components/footer/Footer';
 
 const PharmaciesList = () => {
     const [pharmacies, setPharmacy] = useState([]);
@@ -21,7 +22,8 @@ const PharmaciesList = () => {
     console.log("pharmacies", pharmacies)
 
     return (
-        <Grid container sx={{width: '90%'}}>
+        <>
+        <Grid container sx={{width: '90%', marginBottom: '80px'}}>
             <Navbar />
             <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '6%' }}>
                 <Typography variant="h4" sx={{color: '#00B8B0',}} gutterBottom>
@@ -48,7 +50,8 @@ const PharmaciesList = () => {
             </Grid>
 
         </Grid>
-
+        <Footer />
+    </>
     )
 }
 

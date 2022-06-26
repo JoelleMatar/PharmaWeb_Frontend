@@ -17,6 +17,7 @@ export const signUpPharmacy = (formData) => API.post('/user/signup/pharmacy', fo
 export const getPharmaciesList = () => API.get('/user/pharmaciesList');
 export const getUser = (id) => API.get(`/user/${id}`);
 export const getUsers = () => API.get('/user');
+export const donateDrug = (formData) => API.post('/user/donate-drug', formData);
 export const updatePharmacy = (formData, id) => API.patch(`/user/updatePharmacy/${id}`, formData);
 
 
@@ -61,6 +62,7 @@ export const updateCheckoutStatus = (formData, prescription) => API.patch('/cart
 export const getLoggedPharmacyOrders = (pharmaId) => API.get(`/carts/pharmacy-orders/${pharmaId}`);
 export const updateOrderStatus = (id, formData) => API.patch(`/carts/update-cart-status/${id}`, formData);
 export const updateOrderPrescription = (formData) => API.patch('/carts/add-prescription', formData);
+export const getLoggedPharmacyOrdersToday = (pharmaId) => API.get(`/carts/pharmacy-orders-today/${pharmaId}`);
 
 
 //LOGS

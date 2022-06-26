@@ -25,6 +25,8 @@ import PharmacyOrders from '../../pages/pharmacyOrders/PharmacyOrders';
 import PharmacyLogs from '../../pages/pharmacyLogs/PharmacyLogs';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import TotalSales from './TotalSales';
+import ItemsToRestock from './ItemsToRestock';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -91,7 +93,7 @@ function DashboardContent() {
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <Grid container spacing={3}>
                         {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
+                        <Grid item xs={12} md={4} lg={6}>
                             <Paper
                                 sx={{
                                     p: 2,
@@ -103,7 +105,6 @@ function DashboardContent() {
                                 <Chart />
                             </Paper>
                         </Grid>
-                        {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper
                                 sx={{
@@ -111,9 +112,36 @@ function DashboardContent() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     height: 240,
+                                    overflowY: 'scroll'
+                                }}
+                                className="scroll-6"
+                            >
+                                <ItemsToRestock />
+                            </Paper>
+                        </Grid>
+                        {/* Recent Deposits */}
+                        <Grid item xs={12} md={4} lg={3}>
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: 110,
                                 }}
                             >
                                 <Deposits />
+                            </Paper>
+
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: 110,
+                                    marginTop: '20px'
+                                }}
+                            >
+                                <TotalSales />
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}

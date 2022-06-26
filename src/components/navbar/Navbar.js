@@ -87,9 +87,17 @@ const Navbar = () => {
                                     }
                                 </li>
                                 <li className="menu-item is-active menu-item--play">
-                                    <a href="#" className="menu-link">
-                                        Donate Drug
-                                    </a>
+                                    {
+                                        window.location.href === "http://localhost:3000/home/donate-medication" ? (
+                                            <a href="/home/donate-medication" className="menu-link" style={{ color: '#00B8B0', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                                Donate Drug
+                                            </a>
+                                        ) : (
+                                            <a href="/home/donate-medication" className="menu-link">
+                                                Donate Drug
+                                            </a>
+                                        )
+                                    }
                                 </li>
                                 <li className="menu-item is-active menu-item--play">
                                     {

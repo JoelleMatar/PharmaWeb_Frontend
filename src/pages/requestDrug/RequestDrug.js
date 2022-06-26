@@ -12,6 +12,7 @@ import { requestDrug } from "../../api";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Switch from '@mui/material/Switch';
+import Footer from "../../components/footer/Footer";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -75,7 +76,7 @@ const RequestDrug = () => {
         <div >
             <Navbar />
 
-            <Grid container>
+            <Grid container >
                 <Grid item md={6} sm={12} xs={12}>
                     <Typography className='text' variant="h5" gutterBottom component="div">Didn't find your Product?</Typography>
                     <Typography className='text2' variant="h6" gutterBottom component="div">Request a product by filling the form below. This will notify all the registered pharmacies that this item is in demand.</Typography>
@@ -125,6 +126,7 @@ const RequestDrug = () => {
                     <img src={requestD} className="img" />
                 </Grid>
             </Grid>
+            <Footer />
 
             <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%', backgroundColor: '#019890' }}>

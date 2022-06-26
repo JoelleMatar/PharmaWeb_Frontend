@@ -246,7 +246,8 @@ html {
     position: fixed;
     z-index: 100;
     width: 100%;
-    background: #ffa26c;
+    /* background: #ffa26c; */
+    background: #86e3de;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   }
   

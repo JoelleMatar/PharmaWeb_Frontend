@@ -5,7 +5,7 @@ import ThemeConfig from './theme';
 
 const App = () => {
   return (
-    <ThemeConfig>
+    <ThemeConfig sx={{display: 'flex', flexDirection: 'column'}}>
       <BrowserRouter>
       {/* <Navbar /> */}
         <Routing />

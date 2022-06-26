@@ -8,8 +8,11 @@ import Navbar from '../../components/navbar/Navbar';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import OrderSummaryItem from '../../components/orderSummaryItem/OrderSummaryItem';
-import ShoppingCartItem from '../../components/shoppingCartItem/ShoppingCartItem';
+// import ShoppingCartItem from '../../components/shoppingCartItem/ShoppingCartItem';
+import ShoppingCartItem from '../../components/shoppingCartItem/ShoppingCartItem copy';
+
 import { getCustomerCart, getCustomerCartUnconfirmed } from '../../api';
+import Footer from '../../components/footer/Footer';
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
@@ -46,7 +49,6 @@ const Cart = () => {
                     </Grid>
                 </Grid>
             </Container>
-
         </>
 
     )

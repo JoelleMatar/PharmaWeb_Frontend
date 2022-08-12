@@ -154,7 +154,7 @@ const DonateMedication = () => {
                         <Button type="submit" variant="contained" sx={{ width: '80%', height: '50px', backgroundColor: '#00B8B0', marginTop: '40px' }} className="button" >Send Notification</Button>
                     </form>
                 </Grid>
-                <Grid item md={6} sm={12} xs={12}>
+                <Grid item md={6} sm={12} xs={12} sx={{marginTop: '80px'}}>
                     <img src={donateD} className="img" />
                 </Grid>
             </Grid>

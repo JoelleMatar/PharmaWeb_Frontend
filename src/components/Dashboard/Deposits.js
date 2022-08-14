@@ -27,13 +27,13 @@ export default function Deposits() {
     }, []);
 
     var recentsales = 0;
-    orders?.cartPharma?.slice(0, 8).map(order => {
+    orders?.cartPharma?.slice(0, 7).map(order => {
         recentsales += order.totalPrice;
     })
 
     return (
         <React.Fragment>
-            <Title>Drugs to Restock</Title>
+            <Title>Weekly Sales</Title>
             <Typography component="p" variant="h4">
                 {recentsales}L.L.
             </Typography>

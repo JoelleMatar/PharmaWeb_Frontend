@@ -60,8 +60,8 @@ const HomeSearchBar = (props) => {
                         typewriter
                             .typeString("Welcome to PharmaWeb, Your First Stop to Find Your Medicine!")
                             .pauseFor(1000)
-                            .deleteAll()
-                            .typeString("Welcome to PharmaWeb, Your First Stop to Find Your Medicine!")
+                            // .deleteAll()
+                            // .typeString("Welcome to PharmaWeb, Your First Stop to Find Your Medicine!")
                             .start();
                     }}
                 />

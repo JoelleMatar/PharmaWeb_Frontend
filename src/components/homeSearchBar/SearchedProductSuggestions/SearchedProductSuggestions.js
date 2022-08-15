@@ -36,6 +36,14 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
             <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', textAlign: 'center' }}>
 
                 <Grid item md={12} sm={12} xs={12}>
+
+                    <List>
+                        <ListItem disablePadding sx={{ textAlign: 'center', fontSize: '20px' }}>
+                            <ListItemText><b>Pharmacy Name</b></ListItemText>
+                            <ListItemText><b>Location</b></ListItemText>
+                            <ListItemText><b>Product Price</b></ListItemText>
+                        </ListItem>
+                    </List>
                     {
                         suggestions?.products?.map(prod => {
                             return (

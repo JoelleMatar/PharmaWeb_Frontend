@@ -148,7 +148,7 @@ const Login = () => {
                                                 {formik.touched.password && formik.errors.password ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.password}</div></span> : null}
                                             </div>
                                             <a style={{ cursor: 'pointer', marginLeft: '120px', color: '#F8AF86' }} onClick={goToSignUp}>Don't have an account yet?</a>
-                                            <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="button" >Login</Button>
+                                            <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="btnAdd" >Login</Button>
                                         </CardContent>
                                     </Grid>
                                 </Grid>

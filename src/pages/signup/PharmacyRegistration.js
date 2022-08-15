@@ -359,7 +359,7 @@ console.log("deliveryOption", deliveryOption);
                             </Grid>
                         </Grid>
 
-                        <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="button" >Sign Up</Button>
+                        <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="btnAdd" >Sign Up</Button>
 
                     </form>
                     <a style={{ cursor: 'pointer', marginRight: '50px', float: 'right', marginTop: '20px', color: '#F8AF86' }} onClick={goToLogin}>Already have an account?</a>

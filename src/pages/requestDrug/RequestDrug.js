@@ -119,7 +119,7 @@ const RequestDrug = () => {
                             onBlur={formik.handleBlur}
                             sx={{ width: '80%', marginTop: '30px' }}
                         />
-                        <Button type="submit" variant="contained" sx={{ width: '80%', height: '50px', backgroundColor: '#00B8B0', marginTop: '40px' }} className="button" >Request Drug</Button>
+                        <Button type="submit" variant="contained" className='btnAdd' sx={{ width: '80%', height: '50px', backgroundColor: '#00B8B0', marginTop: '40px' }} >Request Drug</Button>
                     </form>
                 </Grid>
                 <Grid item md={6} sm={12} xs={12}>

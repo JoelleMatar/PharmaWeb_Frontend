@@ -45,6 +45,10 @@ const HomeSearchBar = (props) => {
         // console.log("searchedsfsfsDrug", search);
         // console.log("searchfsffffffedsfsfsDrug", props.handleSearchChange(search));
         props.handleSearchChange(search)
+        window.scrollTo({
+            top: 350,
+            behavior: 'smooth',
+          })
     }
 
     console.log("druggggggg", search)

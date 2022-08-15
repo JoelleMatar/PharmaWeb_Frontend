@@ -1,28 +1,15 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import signUpImg from '../../assets/medical_care_movn.svg';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from "react-redux";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import InputAdornment from '@mui/material/InputAdornment';
-import { getUser, signUpPharmacy } from "../../api/index";
+import { getUser } from "../../api/index";
 import { useNavigate } from "react-router";
 
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -32,7 +19,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { updatePharmacy } from '../../api/index';
 
 export default function PharmacyProfile() {
@@ -51,8 +37,8 @@ export default function PharmacyProfile() {
     const navigate = useNavigate();
     const [registerB, setRegisterB] = useState(false);
     const [registerP, setRegisterP] = useState(false);
-    const [deliveryOption, setDeliveryOption] = useState([]);
-    const [paymentOption, setPaymentOption] = useState([]);
+    const [deliveryOption, setDeliveryOption] = useState(loggedUser.deliveryOptions);
+    const [paymentOption, setPaymentOption] = useState(loggedUser.paymentOptions);
     const [file, setFile] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
@@ -105,6 +91,9 @@ export default function PharmacyProfile() {
         console.log("form", form);
 
         try {
+            loggedUser.deliveryOptions = form.deliveryOptions
+            loggedUser.paymentOptions = form.paymentOptions
+            localStorage.setItem('profile', JSON.stringify(loggedUser))
             const success = await updatePharmacy(form, loggedUser._id);
             console.log("succ", success);
             if(success.status === 201) {
@@ -138,6 +127,7 @@ export default function PharmacyProfile() {
 
 
     const handleDeliveryOptionChange = (event) => {
+        setDeliveryOption([])
         const {
             target: { value },
         } = event;
@@ -145,9 +135,9 @@ export default function PharmacyProfile() {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-
     };
-    console.log("deliveryOption", deliveryOption);
+    // loggedUser.deliveryOptions = deliveryOption
+    console.log("deliveryOption", deliveryOption, loggedUser);
     const handlePaymentOptionChange = (event) => {
         const {
             target: { value },
@@ -278,7 +268,7 @@ export default function PharmacyProfile() {
                                                     >
                                                         {deliveryOptions.map((option) => (
                                                             <MenuItem key={option} value={option}>
-                                                                <Checkbox checked={user?.deliveryOptions?.map(opt => opt).indexOf(option) > - 1} />
+                                                                <Checkbox checked={deliveryOption.map(opt => opt).indexOf(option) > - 1} />
                                                                 <ListItemText primary={option} />
                                                             </MenuItem>
                                                         ))}
@@ -300,7 +290,7 @@ export default function PharmacyProfile() {
                                                     >
                                                         {paymentOptions.map((option) => (
                                                             <MenuItem key={option} value={option}>
-                                                                <Checkbox checked={user?.paymentOptions?.map(opt => opt).indexOf(option) > - 1} />
+                                                                <Checkbox checked={paymentOption?.map(opt => opt).indexOf(option) > - 1} />
                                                                 <ListItemText primary={option} />
                                                             </MenuItem>
                                                         ))}

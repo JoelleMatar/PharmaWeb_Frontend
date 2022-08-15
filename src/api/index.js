@@ -19,6 +19,7 @@ export const getUser = (id) => API.get(`/user/${id}`);
 export const getUsers = () => API.get('/user');
 export const donateDrug = (formData) => API.post('/user/donate-drug', formData);
 export const updatePharmacy = (formData, id) => API.patch(`/user/updatePharmacy/${id}`, formData);
+export const getBuyerOrders = (id) => API.get(`/user/buyerOrders/${id}`);
 
 
 // PRODUCTS
@@ -65,7 +66,13 @@ export const updateOrderPrescription = (formData) => API.patch('/carts/add-presc
 export const getLoggedPharmacyOrdersToday = (pharmaId) => API.get(`/carts/pharmacy-orders-today/${pharmaId}`);
 
 
-//LOGS
+// LOGS
 export const getPharmacyLogs = (id) => API.get(`/logs/pharmacy-logs/${id}`);
 export const createRefillLog = (id, formData) => API.post(`/logs/refill-product-stock/${id}`, formData);
 
+
+// DONATE DRUGS
+export const getBuyerDonatedDrugs = (id) => API.get(`/user/buyer/donated-drug/${id}`);
+export const getBuyerNotifications = () => API.get('/user/buyer/notifications');
+export const getBuyerNotification = (id) => API.get(`/user/buyer/notification/${id}`);
+export const updateBuyerIsReadNotif = (id) => API.patch(`/user/buyer/buyer-notif/${id}`);

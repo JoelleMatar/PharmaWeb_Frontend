@@ -3,6 +3,9 @@ import {Navigate, useRoutes } from "react-router-dom";
 import PharmacyProducts from "./components/pharmacy/pharmcyProducts.js/PharmacyProducts";
 import ProductDetails from "./components/productDetails/ProductDetails";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
+import BuyerNotifications from "./pages/buyer/buyerNotifications/BuyerNotifications";
+import BuyerOrders from "./pages/buyer/buyerOrders/BuyerOrders";
+import BuyerProfile from "./pages/buyer/buyerProfile/BuyerProfile";
 import Cart from "./pages/cart/Cart";
 import DonateMedication from "./pages/donateMedication/DonateMedication";
 import Home from "./pages/home/Home";
@@ -104,6 +107,25 @@ function Routing() {
                     path: "logs",
                     element: <PharmacyDashboard />,
                 }
+            ],
+        },
+        // BUYER
+        {
+            path: "/buyer",
+            // element: <LogoOnlyLayout />,
+            children: [
+                {
+                    path: "profile",
+                    element: <BuyerProfile />,
+                },
+                {
+                    path: "orders",
+                    element: <BuyerOrders />,
+                },
+                {
+                    path: "notifications",
+                    element: <BuyerNotifications />,
+                },
             ],
         },
     ]);

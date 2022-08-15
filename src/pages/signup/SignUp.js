@@ -381,10 +381,10 @@ const SignUp = () => {
                                                                     Are you a Buyer or a Pharmacy?
                                                                 </Typography>
                                                                 <Grid item md={6} sm={6} xs={12}>
-                                                                    <Button type="submit" variant="contained" className="button" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} onClick={registerBuyer}>Buyer</Button>
+                                                                    <Button type="submit" variant="contained" className="btnAdd" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} onClick={registerBuyer}>Buyer</Button>
                                                                 </Grid>
                                                                 <Grid item md={6} sm={6} xs={12}>
-                                                                    <Button type="submit" variant="contained" className="button" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} onClick={registerPharmacy}>Pharmacy</Button>
+                                                                    <Button type="submit" variant="contained" className="btnAdd" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} onClick={registerPharmacy}>Pharmacy</Button>
                                                                 </Grid>
                                                             </Grid>
                                                             <a style={{ cursor: 'pointer', marginLeft: '200px', color: '#F8AF86' }} onClick={goToLogin}>Already have an account?</a>

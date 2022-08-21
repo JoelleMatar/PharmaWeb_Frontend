@@ -76,3 +76,7 @@ export const getBuyerDonatedDrugs = (id) => API.get(`/user/buyer/donated-drug/${
 export const getBuyerNotifications = () => API.get('/user/buyer/notifications');
 export const getBuyerNotification = (id) => API.get(`/user/buyer/notification/${id}`);
 export const updateBuyerIsReadNotif = (id) => API.patch(`/user/buyer/buyer-notif/${id}`);
+
+
+// STRIPE PAYMENT
+export const payOnlineProducts = (formData) => API.post('/carts/stripe/pay', formData);

@@ -131,7 +131,7 @@ export default function ShoppingCartItem({ cart }) {
                                                                         {product.productName}
                                                                     </Typography>
                                                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                                                        Quantity: {product.quantity}
+                                                                        Quantity: {cart.quantity}
                                                                     </Typography>
                                                                     <Typography variant="subtitle1" color="text.secondary" component="div">
                                                                         Price: {product.price}L.L.

@@ -127,7 +127,7 @@ export default function AccountPopover() {
         {
           user.role == 0 ? (
             MENU_OPTIONS_BUYER.map((option) => (
-              <div style={{ marginTop: '10px', marginBottom: '-20px' }}>
+              <div key={option.label} style={{ marginTop: '10px', marginBottom: '-20px' }}>
                 <MenuItem
                   key={option.label}
                   to={option.linkTo}
@@ -151,7 +151,7 @@ export default function AccountPopover() {
             ))
           ) : (
             MENU_OPTIONS_PHARMACY.map((option) => (
-              <div style={{ marginTop: '10px', marginBottom: '-20px' }}>
+              <div key={option.label} style={{ marginTop: '10px', marginBottom: '-20px' }}>
                 <MenuItem
                   key={option.label}
                   to={option.linkTo}

@@ -7,6 +7,8 @@ import BuyerNotifications from "./pages/buyer/buyerNotifications/BuyerNotificati
 import BuyerOrders from "./pages/buyer/buyerOrders/BuyerOrders";
 import BuyerProfile from "./pages/buyer/buyerProfile/BuyerProfile";
 import Cart from "./pages/cart/Cart";
+import CartPharmacies from "./pages/cart/CartPharmacies";
+import PayProductOnline from "./pages/cart/PayProductOnline";
 import DonateMedication from "./pages/donateMedication/DonateMedication";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -70,7 +72,11 @@ function Routing() {
                 },
                 {
                     path: "cart",
-                    element: <Cart />,
+                    element: <CartPharmacies />,
+                },
+                {
+                    path: "pay-online",
+                    element: <PayProductOnline />,
                 },
             ],
         },

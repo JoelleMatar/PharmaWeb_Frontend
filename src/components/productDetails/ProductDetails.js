@@ -78,7 +78,10 @@ export default function ProductDetails() {
             quantity: qty,
             customerId: loggedUser._id,
             deliverOption: orderType,
-            prescription: ''
+            prescription: '',
+            pharmaId: product.pharmaId,
+            pharmacyName: pharmacy.pharmacyName,
+            pharmacyPaymentOptions: pharmacy.paymentOptions
         }
         console.log("form", form);
 

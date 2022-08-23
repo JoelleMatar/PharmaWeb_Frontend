@@ -3,9 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Routing from './routes';
 import ThemeConfig from './theme';
 import ChatBot from 'react-simple-chatbot';
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import logo from "./assets/logoPharma.png";
-import ProductsList from './pages/productsList/ProductsList';
+import "./App.css";
 
 const App = () => {
   function GoToProducts() {

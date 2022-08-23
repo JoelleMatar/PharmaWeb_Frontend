@@ -9,6 +9,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { getCustomerCartUnconfirmed } from "../../api";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -20,7 +21,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+    const loggedUser = JSON.parse(localStorage.getItem('profile'));
+    const [cartItems, setCartItems] = useState([])
     const [isLogged, setisLogged] = useState(localStorage.getItem("profile"));
+    useEffect(async () => {
+        if (loggedUser) {
+            const res = await getCustomerCartUnconfirmed(loggedUser._id)
+            setCartItems(res.data.data)
+    console.log("cartItems", res)
+
+        }
+    }, [])
 
     return (
         <header className="header">
@@ -102,14 +113,14 @@ const Navbar = () => {
                                 <li className="menu-item is-active menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/cart" ? (
-                                            <a href="/home/cart" className="menu-link"  sx={{ marginTop: '20px', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
-                                                <StyledBadge badgeContent={4}>
+                                            <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                                <StyledBadge badgeContent={cartItems?.length}>
                                                     <ShoppingCartIcon sx={{ color: 'white' }} />
                                                 </StyledBadge>
                                             </a>
                                         ) : (
                                             <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px' }}>
-                                                <StyledBadge badgeContent={4}>
+                                                <StyledBadge badgeContent={cartItems?.length}>
                                                     <ShoppingCartIcon sx={{ color: 'white' }} />
                                                 </StyledBadge>
                                             </a>

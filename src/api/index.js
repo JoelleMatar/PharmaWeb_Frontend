@@ -25,6 +25,8 @@ export const getBuyerOrders = (id) => API.get(`/user/buyerOrders/${id}`);
 // PRODUCTS
 export const createProduct = (formData) => API.post('/products/pharmacy/add-product', formData);
 export const getProducts = () => API.get('/products/pharmacy/productsList');
+export const getCategories = () => API.get('/products/pharmacy/categoriesList');
+export const getProductsbyCategories = (id) => API.get(`/products/pharmacy/productsbyCategory/${id}`);
 export const getProductsAscendingbySearch = (search) => API.get(`/products/pharmacy/productsList-ascending/${search}`);
 export const getProductsDescendingbySearch = (search) => API.get(`/products/pharmacy/productsList-descending/${search}`);
 export const getProductsAscending = () => API.get('/products/pharmacy/productsList-ascending');

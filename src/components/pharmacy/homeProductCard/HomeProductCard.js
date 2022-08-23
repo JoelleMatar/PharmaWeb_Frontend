@@ -23,7 +23,6 @@ export default function HomeProductCard({ product }) {
         setPharmacy(result?.data?.data[0]);
     }, []);
 
-    console.log("pharmacy", pharmacy);
 
     const goToProduct = (product) => {
         navigate(`/home/product/${product._id}`);

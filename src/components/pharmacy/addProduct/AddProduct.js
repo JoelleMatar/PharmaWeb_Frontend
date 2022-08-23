@@ -3,19 +3,17 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import React, { useEffect, useState } from "react";
-import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
-import ProductIngredient from "./drug-ingredient.json";
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Button from "@mui/material/Button";
-import { createProduct, getProductsLebanon } from "../../../api";
+import { createProduct, getProductsLebanon, getCategories } from "../../../api";
 import { useNavigate } from "react-router";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Switch from '@mui/material/Switch';
 import "./AddProduct.css";
-import ListItem from "@mui/material/ListItem";
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -41,6 +39,18 @@ const AddProduct = () => {
         setOpenSnack(false);
     };
 
+    const [category, setCategory] = React.useState('');
+    const [categories, setCategories] = React.useState([]);
+    const [prodCatId, setProdCatId] = useState('')
+    const handleChangeCategories = (event) => {
+        setCategory(event.target.innerText);
+
+        categories?.filter(c => c.name === event.target.innerText).map(cat => {
+            setProdCatId(cat._id)
+        })
+        console.log("hiiiii", category, event.target.innerText, prodCatId)
+    };
+    console.log("sss", prodCatId)
     const productFormTypes = [
         {
             name: "Tablet"
@@ -94,13 +104,16 @@ const AddProduct = () => {
 
     useEffect(async () => {
         const res = await getProductsLebanon();
+        const cats = await getCategories();
+
 
         setProductsLeb(res.data.data);
+        setCategories(cats.data.data)
     }, [])
-    console.log("products lebbb", productLeb);
+    // console.log("products lebbb", productLeb, categories);
 
     const loggedUser = JSON.parse(localStorage.getItem('profile'));
-    console.log("loggedUser", loggedUser._id);
+    // console.log("loggedUser", loggedUser._id);
 
     const addProductSchema = Yup.object({
         // productName: Yup.string().required("Product Name is required"),
@@ -135,7 +148,8 @@ const AddProduct = () => {
             stock: values.stock,
             description: values.description,
             category: values.category,
-            pharmaId: loggedUser?._id
+            pharmaId: loggedUser?._id,
+            // prodCatId: values.prodCatId
         }
         if (formProduct.length === 0) return alert("Please select form");
         if (productSel === '') return alert("Please select product name");
@@ -148,13 +162,13 @@ const AddProduct = () => {
         form.form = formProduct;
         form.ingredient = selectedProdIngredients;
         form.image = image;
-
-        form.code = selectedProdCode;
+        form.prodCatId = prodCatId;
+        form.code = selectedProdCode == '' ? '-' : selectedProdCode;
         form.agent = selectedProdAgent;
         form.laboratory = selectedProdLab;
         form.country = selectedProdCountry;
 
-        console.log("HELLLLLLOOOOOOOOOOOOOOOOOOOOOOO", form);
+        console.log("HELLLLLLOOOOOOOOOOOOOOOOOOOOOOO", form.prodCatId, form);
 
         try {
             const success = await createProduct(form);
@@ -179,16 +193,16 @@ const AddProduct = () => {
 
     };
 
-    console.log("formik", formik);
+    // console.log("formik", formik);
 
     const handleDosageChange = (event, value) => {
         setDosage(value);
     };
-    console.log("dosage", dosage);
+    // console.log("dosage", dosage);
 
 
     const handleFormChange = (event, value) => {
-        console.log("value formmmmmm", value);
+        // console.log("value formmmmmm", value);
         setForm(value);
     };
 
@@ -199,19 +213,33 @@ const AddProduct = () => {
     const [selectedProdIngredients, setselectedProdIngredients] = useState([]);
     const [selectedProdAgent, setselectedProdAgent] = useState("");
     const [selectedProdCode, setselectedProdCode] = useState("");
-    const handleProductChange = (event, value) => {
-        console.log("value", value);
-        setProductSel(value.productName);
 
-        setSelectedProduct(value);
+    const handleProductChange = (event, value, cat) => {
+        console.log("value", event, value);
 
-        setselectedProdDosage(value.dosage[0]);
-        setselectedProdForm(value.form);
-        setselectedProdIngredients(value.ingredient);
-        setselectedProdLab(value.laboratory);
-        setselectedProdCountry(value.country);
-        setselectedProdAgent(value.agent);
-        setselectedProdCode(value.code);
+        if (category == 'Drugs' && cat == 'drugs') {
+            setProductSel(value.productName);
+
+            setSelectedProduct(value);
+
+            setselectedProdDosage(value.dosage[0]);
+            setselectedProdForm(value.form);
+            setselectedProdIngredients(value.ingredient);
+            setselectedProdLab(value.laboratory);
+            setselectedProdCountry(value.country);
+            setselectedProdAgent(value.agent);
+            setselectedProdCode(value.code);
+        } else {
+            if (cat == 'lab') setSelectedProduct(event.target.innerText);
+            if (cat == 'form') setselectedProdForm(event.target.innerText);
+            if (cat == 'ingredients') setselectedProdIngredients(event.target.innerText);
+            if (cat == 'country') setselectedProdCountry(event.target.innerText);
+            if (cat == 'agent') setselectedProdAgent(event.target.innerText);
+            if (cat == 'code') setselectedProdCode(event.target.innerText);
+            if (cat == 'dosage') setselectedProdDosage(event.target.innerText);
+            if (cat == 'product') setProductSel(event.target.innerText);
+        }
+
     };
 
     console.log("selectedProduct", selectedProduct, selectedProdForm, selectedProdForm, selectedProdIngredients)
@@ -220,13 +248,13 @@ const AddProduct = () => {
     //     formProducts.push(item.name)
     // })
 
-    console.log("formsss", formProducts);
+    // console.log("formsss", formProducts);
 
     const handleIngredientChange = (event, value) => {
         // console.log("value", value);
         setIngredient(value);
     };
-    console.log("ingredients", ingredient);
+    // console.log("ingredients", ingredient);
 
     const onChangeImage = e => {
         if (e.target.name === 'image') {
@@ -253,109 +281,297 @@ const AddProduct = () => {
                         <Autocomplete
                             id="tags-outlined"
                             sx={{ width: '95%', marginTop: '20px', marginBottom: '10px' }}
-                            options={productLeb}
-                            onChange={(event, value) => handleProductChange(event, value)}
-                            getOptionLabel={(prod) => prod.productName}
+                            options={categories}
+                            onChange={(event, value) => handleChangeCategories(event, value)}
+                            getOptionLabel={(cat) => cat.name}
                             filterSelectedOptions
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label="Product Name"
-                                    placeholder="Product Name"
-                                    name="productName"
-                                    value={productSel}
+                                    label="Product Category"
+                                    placeholder="Product Category"
+                                    name="prodCatId"
+                                    value={category}
                                     key={params._id}
                                 />
                             )}
                         />
                     </div>
-                    <div>
-                        <Grid container>
-                            <Grid item md={6} sm={6} xs={6}>
-                                <TextField
-                                    id="outlined-read-only-input"
-                                    sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
-                                    label="Laboratory Name"
-                                    value={selectedProdLab}
-                                    InputLabelProps={{ shrink: true }}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item md={6} sm={6} xs={6}>
-                                <TextField
-                                    id="outlined-read-only-input"
-                                    sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
-                                    label="Country of Origin"
-                                    value={selectedProdCountry}
-                                    InputLabelProps={{ shrink: true }}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
+                    {
+                        category == 'Drugs' ? (
+                            <div>
+                                <div>
+                                    <Autocomplete
+                                        id="tags-outlined"
+                                        sx={{ width: '95%', marginTop: '20px', marginBottom: '10px' }}
+                                        options={productLeb}
+                                        onChange={(event, value) => handleProductChange(event, value, 'drugs')}
+                                        getOptionLabel={(prod) => prod.productName}
+                                        filterSelectedOptions
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Product Name"
+                                                placeholder="Product Name"
+                                                name="productName"
+                                                value={productSel}
+                                                key={params._id}
+                                            />
+                                        )}
+                                    />
+                                </div>
+                                <div>
+                                    <Grid container>
+                                        <Grid item md={6} sm={6} xs={6}>
+                                            <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Laboratory Name"
+                                                value={selectedProdLab}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item md={6} sm={6} xs={6}>
+                                            <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Country of Origin"
+                                                value={selectedProdCountry}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            />
+                                        </Grid>
+                                    </Grid>
 
 
-                    </div>
+                                </div>
 
-                    <div>
-                        <Grid container>
-                            <Grid item md={3} sm={3} xs={6}>
-                                <TextField
-                                    id="outlined-read-only-input"
-                                    sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
-                                    label="Dosage"
-                                    placeholder="Dosage"
-                                    value={selectedProdDosage}
-                                    InputLabelProps={{ shrink: true }}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item md={9} sm={9} xs={6}>
-                                <Autocomplete
-                                    id="tags-outlined"
-                                    sx={{ width: '93%', marginTop: '20px', marginBottom: '10px' }}
-                                    options={selectedProdForm}
-                                    value={selectedProdForm[0]}
-                                    onChange={(event, value) => handleFormChange(event, value)}
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Form" name="form" value={formProduct} placeholder="Form" />
-                                    )}
-                                />
-                            </Grid>
-                        </Grid>
+                                <div>
+                                    <Grid container>
+                                        <Grid item md={3} sm={3} xs={6}>
+                                            <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Dosage"
+                                                placeholder="Dosage"
+                                                value={selectedProdDosage}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={6}>
+                                            <Autocomplete
+                                                id="tags-outlined"
+                                                sx={{ width: '93%', marginTop: '20px', marginBottom: '10px' }}
+                                                options={selectedProdForm}
+                                                value={selectedProdForm[0]}
+                                                onChange={(event, value) => handleFormChange(event, value)}
+                                                renderInput={(params) => (
+                                                    <TextField {...params} label="Form" name="form" value={formProduct} placeholder="Form" />
+                                                )}
+                                            />
+                                        </Grid>
+                                    </Grid>
 
-                    </div>
-                    <div>
+                                </div>
+                                <div>
 
-                        <Autocomplete
-                            multiple
-                            id="tags-readOnly"
-                            sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
-                            options={selectedProdIngredients}
-                            value={selectedProdIngredients}
-                            readOnly
-                            renderInput={(params) => (
-                                <TextField {...params} InputLabelProps={{ shrink: true }} label="Ingredients" />
-                            )}
-                        />
+                                    <Autocomplete
+                                        multiple
+                                        id="tags-readOnly"
+                                        sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                        options={selectedProdIngredients}
+                                        value={selectedProdIngredients}
+                                        readOnly
+                                        renderInput={(params) => (
+                                            <TextField {...params} InputLabelProps={{ shrink: true }} label="Ingredients" />
+                                        )}
+                                    />
 
-                    </div>
+                                </div>
 
-                    <div>
-                        <label for="file-upload" className="custom-file-upload" style={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}>
-                            <AddPhotoAlternateIcon sx={{ marginTop: "5px" }} /> Upload Product Image
-                        </label>
-                        <input id="file-upload" name="image" type="file" accept="images/*" onChange={onChangeImage} />
-                        {
-                            imagePreview ? <div style={{ width: "200px", height: "200px", marginTop: '-70px', marginBottom: '100px' }}><img src={imagePreview} key={imagePreview} alt="Images Preview" className="mt-3 mr-2" width="100%" height="100%" /></div> : null
-                        }
+                                <div>
+                                    <label for="file-upload" className="custom-file-upload" style={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}>
+                                        <AddPhotoAlternateIcon sx={{ marginTop: "5px" }} /> Upload Product Image
+                                    </label>
+                                    <input id="file-upload" name="image" type="file" accept="images/*" onChange={onChangeImage} />
+                                    {
+                                        imagePreview ? <div style={{ width: "200px", height: "200px", marginTop: '-70px', marginBottom: '100px' }}><img src={imagePreview} key={imagePreview} alt="Images Preview" className="mt-3 mr-2" width="100%" height="100%" /></div> : null
+                                    }
 
-                    </div>
+                                </div>
+
+                            </div>
+                        ) : (
+                            <div>
+                                <div>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        label="Product Name"
+                                        placeholder="Product Name"
+                                        name="productName"
+                                        value={productSel}
+                                        onChange={(event, value) =>  setProductSel(event.target.value)}
+                                        // onBlur={formik.handleBlur}
+                                        sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', marginLeft: '-4%' }}
+                                    />
+                                </div>
+                                <div>
+                                    <Grid container>
+                                        <Grid item md={6} sm={6} xs={6}>
+                                            {/* <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Laboratory Name"
+                                                value={selectedProdLab}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            /> */}
+
+                                            <TextField
+                                                required
+                                                id="outlined-required"
+                                                label="Laboratory Name"
+                                                placeholder="Laboratory Name"
+                                                // name="productName"
+                                                value={selectedProdLab}
+                                                onChange={(event, value) => setselectedProdLab(event.target.value)}
+                                                // onBlur={formik.handleBlur}
+                                                sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', marginLeft: '-3%' }}
+                                            />
+                                        </Grid>
+                                        <Grid item md={6} sm={6} xs={6}>
+                                            {/* <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Country of Origin"
+                                                value={selectedProdCountry}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            /> */}
+
+                                            <TextField
+                                                required
+                                                id="outlined-required"
+                                                label="Country of Origin"
+                                                placeholder="Country of Origin"
+                                                // name="productName"
+                                                value={selectedProdCountry}
+                                                onChange={(event, value) => setselectedProdCountry(event.target.value)}
+                                                // onBlur={formik.handleBlur}
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', marginLeft: '-4%' }}
+                                            />
+                                        </Grid>
+                                    </Grid>
+
+
+                                </div>
+
+                                <div>
+                                    <Grid container>
+                                        <Grid item md={3} sm={3} xs={6}>
+                                            {/* <TextField
+                                                id="outlined-read-only-input"
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                                label="Dosage"
+                                                placeholder="Dosage"
+                                                value={selectedProdDosage}
+                                                InputLabelProps={{ shrink: true }}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}
+                                            /> */}
+                                            <TextField
+                                                required
+                                                id="outlined-required"
+                                                label="Dosage"
+                                                placeholder="Dosage"
+                                                // name="productName"
+                                                value={selectedProdDosage}
+                                                onChange={(event, value) => setselectedProdDosage(event.target.value)}
+                                                // onBlur={formik.handleBlur}
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px' }}
+                                            />
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={6}>
+                                            {/* <Autocomplete
+                                                id="tags-outlined"
+                                                sx={{ width: '93%', marginTop: '20px', marginBottom: '10px' }}
+                                                options={selectedProdForm}
+                                                value={selectedProdForm[0]}
+                                                onChange={(event, value) => handleFormChange(event, value)}
+                                                renderInput={(params) => (
+                                                    <TextField {...params} label="Form" name="form" value={formProduct} placeholder="Form" />
+                                                )}
+                                            /> */}
+                                            <TextField
+                                                required
+                                                id="outlined-required"
+                                                label="Form"
+                                                placeholder="Form"
+                                                // name="productName"
+                                                value={formProduct}
+                                                onChange={(event, value) => setForm(event.target.value)}
+                                                // onBlur={formik.handleBlur}
+                                                sx={{ width: '90%', marginTop: '20px', marginBottom: '10px', marginLeft: '-3%' }}
+                                            />
+                                        </Grid>
+                                    </Grid>
+
+                                </div>
+                                <div>
+
+                                    {/* <Autocomplete
+                                        multiple
+                                        id="tags-readOnly"
+                                        sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', float: 'left' }}
+                                        options={selectedProdIngredients}
+                                        value={selectedProdIngredients}
+                                        readOnly
+                                        renderInput={(params) => (
+                                            <TextField {...params} InputLabelProps={{ shrink: true }} label="Ingredients" />
+                                        )}
+                                    /> */}
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        label="Ingredients"
+                                        placeholder="Ingredients"
+                                        // name="productName"
+                                        value={selectedProdIngredients}
+                                        onChange={(event, value) => setselectedProdIngredients(event.target.value)}
+                                        // onBlur={formik.handleBlur}
+                                        sx={{ width: '95%', marginTop: '20px', marginBottom: '10px', marginLeft: '-2%' }}
+                                    />
+
+                                </div>
+
+                                <div>
+                                    <label for="file-upload" className="custom-file-upload" style={{ width: '95%',  float: 'left' }}>
+                                        <AddPhotoAlternateIcon sx={{ marginTop: "5px" }} /> Upload Product Image
+                                    </label>
+                                    <input id="file-upload" name="image" type="file" accept="images/*" onChange={onChangeImage} />
+                                    {
+                                        imagePreview ? <div style={{ width: "200px", height: "200px",  marginBottom: '100px' }}><img src={imagePreview} key={imagePreview} alt="Images Preview" className="mt-3 mr-2" width="100%" height="100%" /></div> : null
+                                    }
+
+                                </div>
+
+                            </div>
+                        )
+                    }
 
                 </Grid>
                 <Grid item md={6} sm={6} xs={12}>
@@ -438,7 +654,7 @@ const AddProduct = () => {
 
                 </Grid>
                 <Grid item md={12} sm={12} xs={12} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                    <Button type="submit" variant="contained" sx={{ width: '30%', marginTop: '70px', backgroundColor: '#00B8B0', height: '50px' }} className="button" >Create Product</Button>
+                    <Button type="submit" variant="contained" sx={{ width: '30%', marginTop: '70px', backgroundColor: '#00B8B0', height: '50px' }} className="btnAdd" >Create Product</Button>
                 </Grid>
 
                 <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>

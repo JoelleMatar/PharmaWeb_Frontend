@@ -21,6 +21,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import RelatedProducts from './RelatedProducts';
+import AppProducts from './RelatedProducts';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -258,6 +260,13 @@ export default function ProductDetails() {
                     </Snackbar>
 
                 </Grid>
+            </Grid>
+
+{
+    console.log("productid", productId)
+}
+            <Grid>
+                <AppProducts item={product} />
             </Grid>
         </div>
     );

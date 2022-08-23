@@ -226,12 +226,13 @@ const PayOnlinePopup = ({ open, close, payCredit }) => {
                                                                                     <div>
                                                                                         {
                                                                                             order.prescription === '' ? (
-                                                                                                <div>
+                                                                                                <Grid container>
+                                                                                                    
                                                                                                     <label htmlFor="file-upload" className="custom-file-upload" >
                                                                                                         <DriveFolderUploadIcon sx={{ marginTop: "5px" }} /> Upload Doctor Prescription
                                                                                                     </label>
                                                                                                     <input id="file-upload" name="prescription" type="file" accept="image/jpeg, image/png,application/pdf,application/msword,.docx" onChange={(e) => handlePrescription(e, cart._id)} />
-                                                                                                </div>
+                                                                                                </Grid>
                                                                                             ) : (
                                                                                                 null
                                                                                             )

@@ -131,6 +131,7 @@ const PayOnlinePopup = ({ open, close, payCredit }) => {
 
     const successPayment = (data) => {
         payCredit.map(async(id) => {
+            console.log("id", id)
            const updateStatus = await updateOrderStatus(id, {status: 2});
            
         })

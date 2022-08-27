@@ -4,7 +4,7 @@ import Navbar from '../../components/navbar/Navbar';
 // import ShoppingCartItem from '../../components/shoppingCartItem/ShoppingCartItem';
 import Grid from '@mui/material/Grid';
 
-import { getCustomerCartUnconfirmed } from '../../api';
+import { getCustomerCartUnconfirmed, updateOrderStatus } from '../../api';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -27,6 +27,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import PayOnlinePopup from './PayOnlinePopup';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 const CartPharmacies = ({ navigation }) => {
     const [cart, setCart] = useState([]);
@@ -104,9 +105,9 @@ const CartPharmacies = ({ navigation }) => {
 
     }
 
-    
+
     const [paylist, setPayList] = useState([])
-var payCredit = [];
+    var payCredit = [];
     const payOnline = (e, cartId) => {
         // debugger;
         console.log("e", e, cartId)
@@ -144,6 +145,12 @@ var payCredit = [];
 
     const closeDialog = () => {
         setOpen(false);
+    }
+
+    const updateStatus = async(id) => {
+       const res = await updateOrderStatus(id, {status: 2});
+
+       if(res.status == 200) window.location.reload()
     }
 
     return (
@@ -205,7 +212,7 @@ var payCredit = [];
 
                                                                                     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                                                                                         <Grid container>
-                                                                                            <Grid item md={6} sm={6} xs={6}>
+                                                                                            <Grid item md={5} sm={5} xs={5}>
                                                                                                 <CardContent sx={{ flex: '1 0 auto' }}>
                                                                                                     <Typography component="div" variant="h5">
                                                                                                         {product.productName}
@@ -243,10 +250,11 @@ var payCredit = [];
                                                                                                     }
                                                                                                 </CardContent>
                                                                                             </Grid>
-
-                                                                                            <Grid item md={1} sm={1} xs={1} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                                                                                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, cursor: 'pointer' }} onClick={() => deleteOrder(order._id)}>
-                                                                                                    <DeleteIcon sx={{ color: 'red' }} />
+                                                                                            
+                                                                                            <Grid item md={2} sm={2} xs={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                                                                                <Box sx={{  pl: 1, pb: 1, cursor: 'pointer' }}>
+                                                                                                    <DeleteIcon sx={{ color: 'red', marginRight: '20px'}}  onClick={() => deleteOrder(order._id)} />
+                                                                                                    <AddTaskIcon sx={{ color: '#00B8B0' }} onClick={() => updateStatus(order._id)} />
                                                                                                 </Box>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -273,11 +281,11 @@ var payCredit = [];
                     })
                 }
             </div>
-            <Button variant="contained" className='btnAdd' sx={{ width: '80%', height: '40px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#00B8B0', marginLeft: '10%' }} onClick={() => handleClickOpen()} >Pay Online</Button>
+            <Button variant="contained" disabled={!cart.length} className='btnAdd' sx={{ width: '80%', height: '40px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#00B8B0', marginLeft: '10%' }} onClick={() => handleClickOpen()} >Pay Online</Button>
 
             <PayOnlinePopup open={open} close={closeDialog} payCredit={paylist} />
 
-            
+
         </>
     )
 }

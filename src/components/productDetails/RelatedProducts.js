@@ -2,12 +2,12 @@ import { RelatedProducts } from '@algolia/recommend-react';
 import recommend from '@algolia/recommend';
 import "./ProductDetails.css";
 import { useEffect, useState } from 'react';
-import { getProducts } from '../../api';
+import { getProductbyName, getProducts, getProductsbyName } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { HorizontalSlider } from '@algolia/ui-components-horizontal-slider-react';
 import '@algolia/ui-components-horizontal-slider-theme';
-
-
+import $ from 'jquery';
+import Badge from '@mui/material/Badge';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -28,52 +28,72 @@ function RelatedItem({ item }) {
         setProducts(res.data.data)
     }, [])
 
-    const goToProd = (id) => {
-        navigate('/home/product/' + id)
+    const goToProd = async(name) => {
+        console.log("name", name)
+        const req = await getProductsbyName(name)
+        console.log("hii", req.data)
+        navigate('/home/product/630a1520fa703e9696644003')
     }
 
+   
+
     return (
-        <span className='ele'>
-            {
+        <span className='ele' >
+            {/* {
                 JSON.stringify(item._score) > 75 ? (
                     products?.filter(prod => prod.productName === item.productName).map(prod => {
                         console.log("jskkaa", prod)
-                        return (
-                            // <p onClick={() => goToProd(prod._id)}>{prod.productName}</p>
+                        return ( */}
                             <Card sx={{ maxWidth: 300 }}>
-                                <div style={{ width: '120px', height: '120px', margin: 'auto' }}>
+                                {/* <CardHeader
+                                    action={
+                                        <div>
+                                            <IconButton aria-label="settings">
+                                                <MoreVertIcon />
+                                            </IconButton>
+                                        </div>
+                                    }
+                                    title={
+                                        <Badge badgeContent={"2"} color="secondary">
+                                        </Badge>
+                                    }
+                                    subheader="September 14, 2016"
+                                /> */}
+                                <Badge badgeContent={item._score} color="secondary" sx={{float: 'right', marginRight: '25px', marginTop: '10px'}}>
+                                        </Badge>
+                                {/* <div style={{ width: '120px', height: '120px', margin: 'auto' }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: '100%', height: '100%', marginTop: '20px' }}
-                                        image={prod.image}
+                                        image={product.image}
                                         alt={prod.productName}
                                     />
-                                </div>
-                                <Divider sx={{ marginTop: '20px', color: '#ffa26cd7' }} />
+                                </div> */}
+                                {/* <Divider sx={{ marginTop: '20px', color: '#ffa26cd7' }} /> */}
 
                                 <Box sx={{ width: '100%', }}>
                                     <CardContent sx={{ flex: '1 0 auto' }}>
                                         <Typography component="div" variant="h5"  >
-                                            {prod.productName}
+                                            {item?.productName}
+                                        </Typography>
+                                        {/* <Typography variant="subtitle1" component="div">
+                                            <b>Price: </b> {item?.price} L.L.
                                         </Typography>
                                         <Typography variant="subtitle1" component="div">
-                                            <b>Price: </b> {prod.price} L.L.
-                                        </Typography>
-                                        <Typography variant="subtitle1" component="div">
-                                            <b>Quantity: </b> {prod.quantity}
-                                        </Typography>
+                                            <b>Quantity: </b> {item?.quantity}
+                                        </Typography> */}
                                     </CardContent>
                                     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                                        <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }} onClick={() => goToProd(prod._id)}>View Details</Button>
+                                        <Button variant="contained" className='btnAdd' sx={{ width: '90%', marginBottom: '20px', backgroundColor: '#00B8B0', }} onClick={() => goToProd(item?.productName)}>View Details</Button>
                                     </Box>
                                 </Box>
 
                             </Card>
-                        )
+                        {/* )
                     })
                 ) : null
-            }
-            
+            } */}
+
         </span>
 
     );
@@ -86,9 +106,9 @@ function AppProducts({ item }) {
     console.log("jsksks", ids)
 
 
-
+    // $('#auc-Recommend-title').attr('h3', 'Product Replacements');
     return (
-        <div>
+        <div style={{ width: '95%', marginLeft: '25px'}}>
             <RelatedProducts
                 recommendClient={recommendClient}
                 indexName={indexName}
@@ -96,6 +116,7 @@ function AppProducts({ item }) {
                 objectIDs={[item.productName]}
                 itemComponent={RelatedItem}
                 view={HorizontalSlider}
+                
             />
         </div>
 

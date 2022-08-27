@@ -64,6 +64,7 @@ const PharmacyRegistration = () => {
         phoneNumber: Yup.string().required("Phone Number is required"),
         registrationYear: Yup.string().required("Registration Year is required"),
         pharmacyLicense: Yup.string().required("Pharmacy License is required"),
+        maps: Yup.string().required("Location on Google Maps is required"),
     });
 
     const handleSignUpPharmacySubmit = async (values) => {
@@ -79,10 +80,11 @@ const PharmacyRegistration = () => {
             city: values.city,
             phoneNumber: values.phoneNumber,
             registrationYear: values.registrationYear,
-            pharmacyLicense: values.pharmacyLicense
+            pharmacyLicense: values.pharmacyLicense,
+            maps: values.maps
         }
-        if(deliveryOption.length === 0) return alert("Please select delivery option");
-        if(paymentOption.length === 0) return alert("Please select payment option");
+        if (deliveryOption.length === 0) return alert("Please select delivery option");
+        if (paymentOption.length === 0) return alert("Please select payment option");
 
         form.deliveryOptions = deliveryOption;
         form.paymentOptions = paymentOption;
@@ -91,10 +93,10 @@ const PharmacyRegistration = () => {
 
         try {
             const success = await signUpPharmacy(form);
-            console.log("succ",success);
+            console.log("succ", success);
             if (success.data.result.role === 1) {
                 localStorage.setItem('profile', JSON.stringify(success.data.result));
-                
+
                 navigate("/pharmacy/dashboard");
             }
         }
@@ -112,7 +114,8 @@ const PharmacyRegistration = () => {
             city: '',
             phoneNumber: '',
             registrationYear: '',
-            pharmacyLicense: ''
+            pharmacyLicense: '',
+            maps: ''
         },
         validationSchema: SignUpPharmacySchema,
         onSubmit: (values) => {
@@ -132,9 +135,9 @@ const PharmacyRegistration = () => {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-        
+
     };
-console.log("deliveryOption", deliveryOption);
+    console.log("deliveryOption", deliveryOption);
     const handlePaymentOptionChange = (event) => {
         const {
             target: { value },
@@ -244,6 +247,24 @@ console.log("deliveryOption", deliveryOption);
                                         sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
                                     />
                                     {formik.touched.registrationYear && formik.errors.registrationYear ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.registrationYear}</div></span> : null}
+                                </div>
+
+                                <div>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        label="Google Maps Location URL"
+                                        type={'text'}
+                                        name="maps"
+                                        multiline
+                                        rows={2}
+                                        value={formik.values.maps}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        placeholder="Enter Google Maps Location URL"
+                                        sx={{ width: '80%', marginTop: '20px', marginBottom: '10px' }}
+                                    />
+                                    {formik.touched.maps && formik.errors.maps ? <span style={{ fontSize: '15px' }}>  <div style={{ color: 'red' }}>{formik.errors.maps}</div></span> : null}
                                 </div>
                             </Grid>
                             <Grid item md={6} sm={6} xs={12}>

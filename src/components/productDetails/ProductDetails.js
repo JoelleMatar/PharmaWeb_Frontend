@@ -110,7 +110,7 @@ export default function ProductDetails() {
         <div>
             <Navbar />
 
-            <Grid container sx={{ paddingTop: '90px' }}>
+            <Grid container sx={{ paddingTop: '90px', marginBottom: '30px' }}>
                 <Grid item md={4} sm={4} xs={12}>
                     <div>
                         <CardMedia

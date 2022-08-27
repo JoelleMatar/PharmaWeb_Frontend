@@ -119,7 +119,7 @@ export default function PharmacyOrders() {
     const closeDialog = () => {
         setOpenpres(false);
     }
-
+    const [idtest, setIdTest] = useState('')
     const statusChange = async (event, id) => {
         setStatusnbr(false)
 
@@ -170,13 +170,15 @@ export default function PharmacyOrders() {
 
 
     const open = Boolean(anchorEl);
-
-    const handleStatusChange = (event) => {
+    
+    const handleStatusChange = (event, id) => {
+        console.log("moss", id)
         setAnchorEl(event.currentTarget);
+        setIdTest(id)
+    console.log("IDDDDDDDDD=>>>>>>>>", idtest)
     };
 
 
-    console.log("status", status)
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -233,7 +235,7 @@ export default function PharmacyOrders() {
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
                                     const datee = new Date(row.createdAt)
-
+                                    // console.log("rpw", row)
                                     return (
                                         <>
                                             {
@@ -271,20 +273,10 @@ export default function PharmacyOrders() {
                                                                                 {
                                                                                     row.status !== 3 && row.status !== 4 && row.status !== 6 ? (
                                                                                         <>
-                                                                                            {/* <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
-                                                                                                aria-controls={open ? 'demo-customized-menu' : undefined}
-                                                                                                aria-haspopup="true"
-                                                                                                aria-expanded={open ? 'true' : undefined}
-                                                                                                sx={{ minWidth: '100px' }}
-                                                                                            >
-                                                                                                {
-                                                                                                    row.status === 2 ? "Pending" : "Accepted"
-                                                                                                }
-                                                                                            </Button> */}
                                                                                             {
                                                                                                 row.status === 2 ? (
                                                                                                     <Button id="demo-customized-button"
-                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)}
+                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e, row._id)}
                                                                                                         aria-controls={open ? 'demo-customized-menu' : undefined}
                                                                                                         aria-haspopup="true"
                                                                                                         aria-expanded={open ? 'true' : undefined}
@@ -294,7 +286,7 @@ export default function PharmacyOrders() {
                                                                                                     </Button>
                                                                                                 ) : row.status === 5 ? (
                                                                                                     <Button id="demo-customized-button"
-                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)}
+                                                                                                        endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e,  row._id)}
                                                                                                         aria-controls={open ? 'demo-customized-menu' : undefined}
                                                                                                         aria-haspopup="true"
                                                                                                         aria-expanded={open ? 'true' : undefined}
@@ -314,18 +306,19 @@ export default function PharmacyOrders() {
                                                                                                 open={open}
                                                                                                 onClose={handleClose}
                                                                                             >
-                                                                                                <MenuItem onClick={(e) => statusChange(5, row._id)} disableRipple>
+                                                                                                <MenuItem onClick={(e) => statusChange(5, idtest)} disableRipple>
                                                                                                     Accept
                                                                                                 </MenuItem>
-                                                                                                <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                                <MenuItem onClick={(e) => statusChange(3, idtest)} disableRipple>
                                                                                                     Delivered
                                                                                                 </MenuItem>
-                                                                                                <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                                <MenuItem onClick={(e) => statusChange(4, idtest)} disableRipple>
                                                                                                     PickedUp
                                                                                                 </MenuItem>
-                                                                                                <MenuItem onClick={(e) => statusChange(6, row._id)} disableRipple>
+                                                                                                <MenuItem onClick={(e) => statusChange(6, idtest)} disableRipple>
                                                                                                     Reject
                                                                                                 </MenuItem>
+                                                                                                
                                                                                             </StyledMenu>
                                                                                         </>
                                                                                     ) : (
@@ -436,7 +429,7 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
-                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
+                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e,  row._id)} id="demo-customized-button"
                                                                                         aria-controls={open ? 'demo-customized-menu' : undefined}
                                                                                         aria-haspopup="true"
                                                                                         aria-expanded={open ? 'true' : undefined}
@@ -544,7 +537,7 @@ export default function PharmacyOrders() {
                                                                                 <TableCell align="right">{datee.toDateString()}</TableCell>
                                                                                 <TableCell align="right">{row.deliverOption}</TableCell>
                                                                                 <TableCell align="right">
-                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e)} id="demo-customized-button"
+                                                                                    <Button endIcon={<KeyboardArrowDownIcon />} onClick={(e) => handleStatusChange(e,  row._id)} id="demo-customized-button"
                                                                                         aria-controls={open ? 'demo-customized-menu' : undefined}
                                                                                         aria-haspopup="true"
                                                                                         aria-expanded={open ? 'true' : undefined}

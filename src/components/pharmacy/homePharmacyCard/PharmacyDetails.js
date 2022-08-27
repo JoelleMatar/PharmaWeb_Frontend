@@ -66,7 +66,8 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                                                 <Typography variant="h6">
                                                     Located in <b>{pharmacy.city}</b> <br />
                                                     Email Address <a onClick={mailto}><i><b>{pharmacy.email}</b></i></a> <br />
-                                                    Phone Number <i><b>{pharmacy.phoneNumber}</b></i>
+                                                    Phone Number <i><b>{pharmacy.phoneNumber}</b></i> <br />
+                                                    Location <i><b>{pharmacy?.maps ? pharmacy?.maps : '-'}</b></i> <br />
                                                 </Typography>
                                             </Grid>
                                             <Grid item md={6} sm={6} xs={12}>

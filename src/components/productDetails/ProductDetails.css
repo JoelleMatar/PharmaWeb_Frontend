@@ -16,3 +16,8 @@
 .quantity-display {
     margin-top: 5px;
 }
+
+.uic-HorizontalSlider-item .ele:empty {
+    /* display: none; */
+    background-color: blue !important;
+}

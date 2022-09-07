@@ -62,7 +62,7 @@ const BuyerOrders = () => {
             <Navbar />
             <div style={{ height: 500, width: '100%' }}>
                 <div style={{ display: 'flex', paddingTop: '100px', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Typography className='tablelog' variant="h5" gutterBottom component="div" >My Orders History</Typography>
+                    <Typography className='tablelog' variant="h5" gutterBottom component="div" sx={{color: '#00a49c'}} >My Orders History</Typography>
                 </div>
 
                 <DataGrid

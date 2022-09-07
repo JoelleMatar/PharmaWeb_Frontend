@@ -93,14 +93,15 @@ export default function Notification() {
                                                                                                 <Avatar alt={user.firstName} src="/static/images/avatar/1.jpg" />
                                                                                             </ListItemAvatar>
                                                                                             <ListItemText
+                                                                                            sx={{color: '#003633'}}
                                                                                                 primary={"Requested Product " + requestdrug.productName}
                                                                                                 secondary={
                                                                                                     <React.Fragment>
                                                                                                         <Typography
-                                                                                                            sx={{ display: 'inline' }}
+                                                                                                            sx={{ display: 'inline', color: '#003633' }}
                                                                                                             component="span"
                                                                                                             variant="body2"
-                                                                                                            color="text.primary"
+                                                                                                            color="#003633"
                                                                                                         >
                                                                                                             {user.firstName} {user.lastName}
                                                                                                         </Typography>
@@ -194,14 +195,14 @@ export default function Notification() {
                     }}
                 >
                     <Paper elevation={2} sx={{ padding: '40px' }} >
-                        <Typography component="div" variant="h5" sx={{ color: '#ffa26c', marginBottom: '25px' }}  >
+                        <Typography component="div" variant="h5" sx={{ color: '#00a49c', marginBottom: '25px' }}  >
                             <b>Notification:</b>
                         </Typography>
 
                         {
                             readnot ? (
                                 <Grid container>
-                                    <Typography component="div" variant="h6">
+                                    <Typography component="div" variant="h6" sx={{color: '#003633'}}>
                                         Customer <b>{user?.firstName} {user?.lastName}</b> has requested <b>{reqDrug?.quantity}</b> items of a product named <b>{reqDrug?.productName}</b>
                                         {
                                             reqDrug?.message ? (
@@ -210,7 +211,7 @@ export default function Notification() {
                                         }
                                     </Typography>
 
-                                    <Typography component="div" variant="h6" sx={{ marginTop: '25px', fontSize: '15px' }}  >
+                                    <Typography component="div" variant="h6" sx={{ marginTop: '25px', fontSize: '15px',color: '#003633' }}  >
                                         For more information, contact <b>{user?.firstName} {user?.lastName}</b> via:
                                         <br />
                                         <div style={{textAlign: 'left', justifyContent:'space-between', display: 'flex'}}>

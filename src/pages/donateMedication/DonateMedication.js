@@ -84,7 +84,7 @@ const DonateMedication = () => {
             <Grid container sx={{marginBottom: '80px'}}>
                 <Grid item md={6} sm={12} xs={12}>
                     <Typography className='text' variant="h5" gutterBottom component="div">Do you have medication that you don't need?</Typography>
-                    <Typography className='text2' variant="h6" gutterBottom component="div">Kindly fill the form below to donate your medication to someone in need. People will be able to contact you via the entered email and phone number as all registered users will be notified of your donation.</Typography>
+                    <Typography className='text2' variant="h6" gutterBottom component="div" sx={{textAlign: 'justify', width: '680px'}}>Kindly fill the form below to donate your medication to someone in need. People will be able to contact you via the entered email and phone number as all registered users will be notified of your donation.</Typography>
 
                     <form style={{ textAlign: 'center' }} onSubmit={formik.handleSubmit}>
                         <TextField

@@ -34,7 +34,7 @@ export default function Deposits() {
     return (
         <React.Fragment>
             <Title>Weekly Sales</Title>
-            <Typography component="p" variant="h4">
+            <Typography component="p" variant="h4" sx={{color: '#003633'}}>
                 {recentsales}L.L.
             </Typography>
         </React.Fragment>

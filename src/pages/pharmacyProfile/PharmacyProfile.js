@@ -160,7 +160,7 @@ export default function PharmacyProfile() {
                     {
                         edit && user ? (
                             <form onSubmit={formik.handleSubmit} style={{ textAlign: 'center' }}>
-                                <Typography component="div" variant="h5" sx={{ margin: '20px 0 10px 60px', color: '#00B8B0', textAlign: 'left' }}>
+                                <Typography component="div" variant="h5" sx={{ margin: '20px 0 10px 60px', color: '#00a49c', textAlign: 'left' }}>
                                     Your Profile
                                 </Typography>
 
@@ -309,7 +309,7 @@ export default function PharmacyProfile() {
                             </form>
                         ) : (
                             <div style={{ paddingLeft: '100px' }}>
-                                <Typography component="div" variant="h5" sx={{ marginTop: '20px', color: '#00B8B0', marginBottom: '10px' }}>
+                                <Typography component="div" variant="h5" sx={{ marginTop: '20px', color: '#00a49c', marginBottom: '10px' }}>
                                     Your Profile <EditIcon sx={{ marginLeft: '15px', cursor: 'pointer' }} onClick={() => editProfile()} />
                                 </Typography>
 

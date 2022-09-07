@@ -12,7 +12,7 @@ export default function Footer() {
             <Grid item md={4} sm={4} xs={12}>
                 <img src={logo} className="logofooter" />
             </Grid>
-            <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '150px' }}>
+            <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '150px',  color: '#003633' }}>
                 <Typography gutterBottom variant="h5" component="div">
                     <b>Services</b>
                 </Typography>
@@ -29,7 +29,7 @@ export default function Footer() {
                     Pharmacy Registration
                 </Typography>
             </Grid>
-            <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '150px' }}>
+            <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '150px',  color: '#003633' }}>
                 <Typography gutterBottom variant="h5" component="div">
                     <b>Keep in Touch</b>
                 </Typography>

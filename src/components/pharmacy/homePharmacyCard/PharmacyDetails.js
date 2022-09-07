@@ -42,7 +42,7 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                 fullWidth
                 maxWidth="md"
             >
-                <DialogTitle id="responsive-dialog-title2">
+                <DialogTitle id="responsive-dialog-title2" sx={{color: '#003633'}}>
                     {"Pharmacy Details"}
                 </DialogTitle>
                 <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', boxShadow: '1px' }}>
@@ -53,7 +53,7 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
-                                <Typography sx={{ fontSize: 20 }}>Basic Information</Typography>
+                                <Typography sx={{ fontSize: 20, color: '#003633' }}>Basic Information</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Card sx={{ minWidth: 275, boxShadow: ' 0px 0px  #cccccc', marginBottom: '20px' }}>
@@ -63,7 +63,7 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                                         </Typography>
                                         <Grid container>
                                             <Grid item md={6} sm={6} xs={12}>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" sx={{color: '#003633'}}>
                                                     Located in <b>{pharmacy.city}</b> <br />
                                                     Email Address <a onClick={mailto}><i><b>{pharmacy.email}</b></i></a> <br />
                                                     Phone Number <i><b>{pharmacy.phoneNumber}</b></i> <br />
@@ -72,8 +72,8 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                                             </Grid>
                                             <Grid item md={6} sm={6} xs={12}>
                                                 <Typography variant="h6">
-                                                    <ul>
-                                                        <li>
+                                                    <ul >
+                                                        <li style={{color: '#003633'}}>
                                                             Offers
                                                             {
                                                                 pharmacy.deliveryOptions.length > 1 ? (
@@ -83,7 +83,7 @@ export default function PharmacyDetails({ open, close, pharmacy }) {
                                                                 )
                                                             }
                                                         </li>
-                                                        <li>
+                                                        <li style={{color: '#003633'}}>
                                                             Accepts
                                                             {
                                                                 pharmacy.paymentOptions.length > 1 ? (

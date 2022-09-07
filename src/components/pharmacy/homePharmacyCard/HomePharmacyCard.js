@@ -30,7 +30,7 @@ const HomePharmacyCard = ({ pharmacy }) => {
         <Card sx={{ minWidth: 275, boxShadow: ' 0px 2px 0px 2px #cccccc', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handleClickOpen()}>
             <Grid container>
                 <Grid item xs={12} sm={8} md={8}>
-                    <CardContent>
+                    <CardContent sx={{color: '#003633'}}>
                         <Typography sx={{ fontSize: 20, fontWeight: 'bold', marginBottom: '20px' }} gutterBottom>
                             {pharmacy.pharmacyName}
                         </Typography>

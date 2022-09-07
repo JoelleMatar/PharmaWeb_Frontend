@@ -33,7 +33,7 @@ export default function ItemsToRestock() {
                         if (product.stock < 30) {
                             return (
                                 <li>
-                                    <Typography component="p" variant="h6">
+                                    <Typography component="p" variant="h6" sx={{color: '#003633'}}>
                                         {product.productName}
                                     </Typography>
                                 </li>

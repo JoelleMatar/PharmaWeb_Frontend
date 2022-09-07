@@ -21,7 +21,7 @@ const HomeServicesCards = () => {
 
     return (
         <div className="homeServicesCards"  style={{marginBottom: '80px'}}>
-            <Typography className='suggestions' variant="h5" gutterBottom component="div">Available Services</Typography>
+            <Typography className='suggestions' variant="h5" gutterBottom component="div" sx={{color: '#003633'}}>Available Services</Typography>
             <Grid container sx={{  paddingLeft: '30px' }}>
 
                 <Grid item md={3} sm={6} xs={12} >
@@ -34,7 +34,7 @@ const HomeServicesCards = () => {
                             image={donateD}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{color: '#003633'}}>
                                 Donate Medication
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
@@ -54,7 +54,7 @@ const HomeServicesCards = () => {
                             image={requestDrugs}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{color: '#003633'}}>
                                 Request Product
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
@@ -74,7 +74,7 @@ const HomeServicesCards = () => {
                             image={donateD}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{color: '#003633'}}>
                                 Purchase Medication
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
@@ -94,7 +94,7 @@ const HomeServicesCards = () => {
                             image={pharmacies}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{color: '#003633'}}>
                                 Pharmacy Registration
                             </Typography>
                             <Typography variant="body2" color="text.secondary">

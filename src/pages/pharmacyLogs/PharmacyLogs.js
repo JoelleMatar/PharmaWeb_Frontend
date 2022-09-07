@@ -66,7 +66,7 @@ export default function PharmacyLogs() {
     return (
         <div style={{ height: 500, width: '100%' }}>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography className='tablelog' variant="h5" gutterBottom component="div" >Your Products Logs</Typography>
+                <Typography className='tablelog' variant="h4" gutterBottom component="div" sx={{fontSize: '30px'}}>Your Products Logs</Typography>
                 <Button variant="contained" className='btnAdd' sx={{ float: 'right', backgroundColor: '#00B8B0', height: '40px', marginTop: '30px' }} color="primary" onClick={() => handleClickOpen()}>Refill Stock</Button>
             </div>
 
@@ -76,8 +76,8 @@ export default function PharmacyLogs() {
                 sx={{ backgroundColor: 'white', marginLeft: '80px', overflowY: 'scroll' }}
                 rows={rows}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
+                pageSize={7}
+                rowsPerPageOptions={[10]}
             // checkboxSelection
             />
 

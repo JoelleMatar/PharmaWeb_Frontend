@@ -130,12 +130,12 @@ const ProductsList = () => {
             <Grid container sx={{ marginBottom: '80px' }}>
 
                 <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '7%' }}>
-                    <Typography variant="h4" sx={{ color: '#00B8B0', }} gutterBottom>
+                    <Typography variant="h4" sx={{ color: '#00a49c', marginLeft: '10px' }} gutterBottom>
                         Products List
                     </Typography>
                 </Grid>
                 <Grid container sx={{ marginRight: '20px' }}>
-                    <Grid item md={4}></Grid>
+                    <Grid item md={1}></Grid>
                     <Grid item md={5}>
                         <TextField
                             id="outlined-required"
@@ -147,7 +147,8 @@ const ProductsList = () => {
                             <SearchIcon />
                         </TextField>
                     </Grid>
-                    <Grid item md={2}>
+                    <Grid item md={2}></Grid>
+                    <Grid item md={3}>
                         <Autocomplete
                             id="tags-outlined"
                             sx={{ width: '100%' }}
@@ -179,7 +180,7 @@ const ProductsList = () => {
                                     aria-haspopup="true"
                                     onClick={handleToggle}
                                 >
-                                    <FilterListIcon sx={{ width: "1.5em", height: '1.5em' }} />
+                                    <FilterListIcon sx={{ width: "1.5em", height: '1.5em', color: '#00a49c' }} />
                                 </Button>
                                 <Popper
                                     open={open}

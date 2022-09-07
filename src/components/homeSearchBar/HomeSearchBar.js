@@ -7,8 +7,8 @@ import { Typography } from '@mui/material';
 import Typewriter from "typewriter-effect";
 import { useState, useEffect, useRef } from 'react';
 import { getProducts } from '../../api';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 import SearchedProductSuggestions from './SearchedProductSuggestions/SearchedProductSuggestions';
 
 // const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
@@ -87,6 +87,7 @@ const HomeSearchBar = (props) => {
                             InputProps={{
                                 ...params.InputProps,
                                 type: 'search',
+                                endAdornment:<InputAdornment position="end"><SearchIcon /></InputAdornment>
                             }}
 
                         />

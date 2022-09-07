@@ -36,7 +36,7 @@ export default function TotalSales() {
     return (
         <React.Fragment>
             <Title>Total Sales</Title>
-            <Typography component="p" variant="h4">
+            <Typography component="p" variant="h4" sx={{color: '#003633'}}>
                 {totalsales}L.L.
             </Typography>
         </React.Fragment>

@@ -41,7 +41,7 @@ export default function HomeProductCard({ product }) {
             <Divider sx={{ marginTop: '20px', color: '#ffa26cd7' }} />
 
             <Box sx={{ width: '100%', }}>
-                <CardContent sx={{ flex: '1 0 auto' }}>
+                <CardContent sx={{ flex: '1 0 auto', color: '#003633' }}>
                     <Typography component="div" variant="h5"  >
                         {product.productName}
                     </Typography>

@@ -198,7 +198,7 @@ const PayOnlinePopup = ({ open, close, payCredit }) => {
                                                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                                                 <CardMedia
                                                                     component="img"
-                                                                    sx={{ width: 100, marginTop: 0 }}
+                                                                    sx={{ width: 100, marginTop: 0, marginLeft: '10px' }}
                                                                     image={product?.image}
                                                                     alt={product.productName}
                                                                 />

@@ -122,11 +122,11 @@ export default function ProductDetails() {
                     </div>
                 </Grid>
                 <Grid item md={8} sm={8} xs={12} sx={{ paddingTop: '60px', paddingLeft: '50px' }}>
-                    <Typography component="div" variant="h3" sx={{ color: '#019890', marginBottom: '20px' }}  >
-                        {product.productName}
+                    <Typography component="div" variant="h4" sx={{ color: '#00a49c', marginBottom: '20px' }}  >
+                        <b>{product.productName}</b> from {pharmacy.pharmacyName} {pharmacy.city}
                     </Typography>
-                    <Typography component="div" variant="h5"  >
-                        <b>{product.price} L.L. </b>from<b> {pharmacy.pharmacyName} {pharmacy.city}</b>
+                    <Typography component="div" variant="h5" sx={{ color: '#00B8B0', fontSize: '30px' }} >
+                        <b>{product.price} L.L. </b>
                     </Typography>
                     {/* <Grid container sx={{ marginTop: '10px' }}>
                         <Typography component="div" variant="h6"  >
@@ -141,17 +141,17 @@ export default function ProductDetails() {
                     <br />
 
 
-                    <Typography component="div" variant="h6" sx={{ width: '90%' }} >
+                    <Typography component="div" variant="h6" sx={{ width: '90%',color: '#003633' }} >
                         {product.description}
                     </Typography>
 
-                    <Typography component="div" variant="h5" sx={{ color: '#ffa26c', marginTop: '20px' }}  >
+                    <Typography component="div" variant="h5" sx={{ color: '#00B8B0', marginTop: '20px' }}  >
                         <b>Product Information:</b>
                     </Typography>
                     <Grid container sx={{ paddingTop: '20px' }}>
 
                         <Box sx={{ width: '90%', marginBottom: '20px' }}>
-                            <Paper elevation={3} sx={{ padding: '30px', height: '100%' }}>
+                            <Paper elevation={3} sx={{ padding: '30px', height: '100%', color: '#003633' }}>
 
                                 <Typography component="div" variant="h6"  >
                                     Maximum Purchase Quantity: <span style={{ float: 'right' }}><b>{product.quantity}</b></span>

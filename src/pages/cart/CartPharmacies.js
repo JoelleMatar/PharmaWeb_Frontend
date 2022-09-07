@@ -38,6 +38,7 @@ const CartPharmacies = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [prescription, setPrescription] = useState("");
 
+    const [paylist, setPayList] = useState([])
     const handlePrescription = async (event, cartId) => {
         // setPrescription([{ prescription: event.target.files[0], loaded: 0 }])
         // setFileName(event.target.files[0].name);
@@ -106,7 +107,6 @@ const CartPharmacies = ({ navigation }) => {
     }
 
 
-    const [paylist, setPayList] = useState([])
     var payCredit = [];
     const payOnline = (e, cartId) => {
         // debugger;
@@ -157,14 +157,14 @@ const CartPharmacies = ({ navigation }) => {
         <>
             <Navbar />
             <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '7%' }}>
-                <Typography variant="h3" sx={{ color: '#00B8B0', fontSize: '2.125rem', fontWeight: '400' }} gutterBottom>
+                <Typography variant="h3" sx={{ color: '#00a49c', fontSize: '2.125rem', fontWeight: '400' }} gutterBottom>
                     Your Items in Cart
                 </Typography>
                 <Typography color="text.secondary" sx={{ fontSize: '14px', fontWeight: '400' }} gutterBottom>
                     Check the products with the checkbox next to them then click on the Pay Online Button to pay them online. Or simply press Confirm Product to pay it on delivery.
                 </Typography>
             </Grid>
-            <div style={{ width: '90%', marginLeft: '5%', marginBottom: '50px' }}>
+            <div style={{ width: '90%', marginLeft: '7%', marginBottom: '50px' }}>
                 {
                     cart.map(data => {
                         return (
@@ -175,7 +175,7 @@ const CartPharmacies = ({ navigation }) => {
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header">
-                                        <Typography variant='h5'><b>{data.pharmacyName}</b></Typography>
+                                        <Typography variant='h5'  sx={{color: '#003633'}}><b>{data.pharmacyName}</b></Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         {
@@ -204,7 +204,7 @@ const CartPharmacies = ({ navigation }) => {
                                                                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                                                                         <CardMedia
                                                                                             component="img"
-                                                                                            sx={{ width: 100, marginTop: 0 }}
+                                                                                            sx={{ width: 100, marginTop: 0, marginLeft: '10px' }}
                                                                                             image={product?.image}
                                                                                             alt={product.productName}
                                                                                         />
@@ -214,7 +214,7 @@ const CartPharmacies = ({ navigation }) => {
                                                                                         <Grid container>
                                                                                             <Grid item md={5} sm={5} xs={5}>
                                                                                                 <CardContent sx={{ flex: '1 0 auto' }}>
-                                                                                                    <Typography component="div" variant="h5">
+                                                                                                    <Typography component="div" variant="h5" sx={{color: '#003633'}}>
                                                                                                         {product.productName}
                                                                                                     </Typography>
                                                                                                     <Typography variant="subtitle1" color="text.secondary" component="div">
@@ -227,7 +227,7 @@ const CartPharmacies = ({ navigation }) => {
                                                                                             </Grid>
 
                                                                                             <Grid item md={5} sm={5} xs={5}>
-                                                                                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                                                                                <CardContent sx={{ flex: '1 0 auto', marginTop: '10px' }}>
                                                                                                     {
                                                                                                         product?.category ? (
                                                                                                             <div>
@@ -281,7 +281,7 @@ const CartPharmacies = ({ navigation }) => {
                     })
                 }
             </div>
-            <Button variant="contained" disabled={!cart.length} className='btnAdd' sx={{ width: '80%', height: '40px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#00B8B0', marginLeft: '10%' }} onClick={() => handleClickOpen()} >Pay Online</Button>
+            <Button variant="contained" disabled={!paylist.length} className='btnAdd' sx={{ width: '80%', height: '40px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#00B8B0', marginLeft: '10%' }} onClick={() => handleClickOpen()} >Pay Online</Button>
 
             <PayOnlinePopup open={open} close={closeDialog} payCredit={paylist} />
 

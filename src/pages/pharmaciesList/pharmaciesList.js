@@ -26,7 +26,7 @@ const PharmaciesList = () => {
         <Grid container sx={{width: '90%', marginBottom: '80px'}}>
             <Navbar />
             <Grid item md={12} sm={12} xs={12} sx={{ paddingTop: "120px", textAlign: 'left', marginLeft: '6%' }}>
-                <Typography variant="h4" sx={{color: '#00B8B0',}} gutterBottom>
+                <Typography variant="h4" sx={{color: '#00a49c',}} gutterBottom>
                     Phamracies List
                 </Typography>
             </Grid>

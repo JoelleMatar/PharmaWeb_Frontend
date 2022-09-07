@@ -38,11 +38,13 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
                 <Grid item md={12} sm={12} xs={12}>
 
                     <List>
-                        <ListItem disablePadding sx={{ textAlign: 'center', fontSize: '20px' }}>
-                            <ListItemText><b>Pharmacy Name</b></ListItemText>
-                            <ListItemText><b>Location</b></ListItemText>
-                            <ListItemText><b>Product Price</b></ListItemText>
-                        </ListItem>
+                        <Grid container>
+                            <ListItem disablePadding sx={{ textAlign: 'center', fontSize: '20px', color: '#003633' }}>
+                                <Grid item md={4} sm={4}><ListItemText><b>Pharmacy Name</b></ListItemText></Grid>
+                                <Grid item md={4} sm={4}><ListItemText><b>Location</b></ListItemText></Grid>
+                                <Grid item md={4} sm={4}><ListItemText><b>Product Price</b></ListItemText></Grid>
+                            </ListItem>
+                        </Grid>
                     </List>
                     {
                         suggestions?.products?.map(prod => {
@@ -53,11 +55,14 @@ const SearchedProductSuggestions = ({ searchedProduct }) => {
                                             return (
                                                 <List>
                                                     <ListItem disablePadding>
-                                                        <ListItemButton key={prod._id} onClick={() => goToProductDetail(prod._id)} className='listItem' sx={{ width: '300px', textAlign: 'center', fontSize: '20px' }}>
-                                                            <ListItemText primary={pharmacy.pharmacyName} />
-                                                            <ListItemText primary={pharmacy.city} />
-                                                            <ListItemText primary={prod.price} />
-                                                        </ListItemButton>
+                                                        <Grid container>
+                                                            <ListItemButton key={prod._id} onClick={() => goToProductDetail(prod._id)} className='listItem' sx={{ width: '300px', textAlign: 'center', fontSize: '20px' }}>
+                                                                <Grid item md={4} sm={4}><ListItemText sx={{ textAlign: 'center' }} primary={pharmacy.pharmacyName} /></Grid>
+                                                                <Grid item md={4} sm={4}><ListItemText sx={{ textAlign: 'center' }} primary={pharmacy.city} /></Grid>
+                                                                <Grid item md={4} sm={4}><ListItemText sx={{ textAlign: 'center' }} primary={prod.price} /></Grid>
+                                                            </ListItemButton>
+                                                        </Grid>
+
                                                     </ListItem>
                                                 </List>
                                             )

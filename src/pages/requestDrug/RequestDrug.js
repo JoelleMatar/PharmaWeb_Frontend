@@ -79,7 +79,7 @@ const RequestDrug = () => {
             <Grid container >
                 <Grid item md={6} sm={12} xs={12}>
                     <Typography className='text' variant="h5" gutterBottom component="div">Didn't find your Product?</Typography>
-                    <Typography className='text2' variant="h6" gutterBottom component="div">Request a product by filling the form below. This will notify all the registered pharmacies that this item is in demand.</Typography>
+                    <Typography className='text2' variant="h6" gutterBottom component="div" sx={{width: '680px', textAlign: 'justify'}}>Request a product by filling the form below. This will notify all the registered pharmacies that this item is in demand.</Typography>
 
                     <form style={{ textAlign: 'center' }} onSubmit={formik.handleSubmit}>
                         <TextField

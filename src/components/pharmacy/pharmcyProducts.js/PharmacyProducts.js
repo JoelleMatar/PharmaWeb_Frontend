@@ -245,9 +245,6 @@ export default function PharmacyProducts() {
 
     setProductsList(products.data);
 
-    // const generalProdInformation = await getProductbyName(products.data.data.productName);
-    // setgeneralProdInfo(generalProdInformation.data);
-
   }, [state]);
 
 
@@ -429,7 +426,10 @@ export default function PharmacyProducts() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        <PharmacyProductDetails open={open} close={closeDialog} product={selectedProduct} />
+        {
+          open ? <PharmacyProductDetails open={open} close={closeDialog} product={selectedProduct} /> : ''
+        }
+        
       </Paper>
     </Box>
   );

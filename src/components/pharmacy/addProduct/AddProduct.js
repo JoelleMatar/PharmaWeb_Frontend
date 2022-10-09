@@ -275,7 +275,7 @@ const AddProduct = () => {
     return (
         <form onSubmit={formik.handleSubmit} >
             <Typography variant="h4" sx={{ marginBottom: '20px', color: '#00a49c',  }}>Add New Product</Typography>
-            <Grid container sx={{ textAlign: 'center' }}>
+            <Grid container sx={{ textAlign: 'center', backgroundColor: 'white', padding: '20px', borderRadius: '5px' }}>
                 <Grid item md={6} sm={6} xs={12} sx={{ textAlign: 'center' }}>
                     <div>
                         <Autocomplete

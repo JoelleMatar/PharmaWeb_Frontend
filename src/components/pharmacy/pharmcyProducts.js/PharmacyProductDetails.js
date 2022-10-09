@@ -45,7 +45,7 @@ export default function PharmacyProductDetails({ open, close, product }) {
     };
 
     useEffect(async () => {
-        const res = await getProductDetails(product._id)
+        const res = await getProductDetails(product?._id)
 
         setSelectedProduct(res?.data?.data[0])
     }, [])

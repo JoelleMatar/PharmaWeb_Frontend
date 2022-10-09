@@ -133,10 +133,8 @@ const PayOnlinePopup = ({ open, close, payCredit }) => {
         payCredit.map(async(id) => {
             console.log("id", id)
            const updateStatus = await updateOrderStatus(id, {status: 2});
-           
+           console.log("updated", updateStatus)
         })
-
-        window.location.reload()
 
     };
 
@@ -160,10 +158,6 @@ const PayOnlinePopup = ({ open, close, payCredit }) => {
         axios.post('http://localhost:5000/carts/stripe/pay', values)
             .then(successPayment)
             .catch(errorPayment);
-
-
-
-    console.log("cart", cart, pharmacyList, products)
 
 
     return (

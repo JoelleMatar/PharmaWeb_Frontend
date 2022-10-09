@@ -112,7 +112,6 @@ function AppProducts({ item }) {
             <RelatedProducts
                 recommendClient={recommendClient}
                 indexName={indexName}
-                // objectIDs={['62b853342230af32158c385d']}
                 objectIDs={[item.productName]}
                 itemComponent={RelatedItem}
                 view={HorizontalSlider}

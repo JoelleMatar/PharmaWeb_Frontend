@@ -2,7 +2,8 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import "./homeSearchBar.css";
-import homeBG from "../../assets/homepage.jpg";
+// import homeBG from "../../assets/homepage.jpg";
+import homeBG from "../../assets/6 - Copy.jpg";
 import { Typography } from '@mui/material';
 import Typewriter from "typewriter-effect";
 import { useState, useEffect, useRef } from 'react';
@@ -56,7 +57,7 @@ const HomeSearchBar = (props) => {
     return (
         <div className="searchArea">
             {/* <img src="https://img.freepik.com/free-vector/pharmacy-medical-shop-concept_74855-7815.jpg?w=1060&t=st=1652301307~exp=1652301907~hmac=8cda76f71ca72686366ae34780e35b40d12ecbf80f6017c97d2f02f0a66baf6f" style={{ opacity: '0.6' }} /> */}
-            <img src={homeBG} style={{ opacity: '0.4' }} />
+            <img src={homeBG} style={{ opacity: '0.4', marginTop: '60px' }} />
             <div className="text">
                 <Typewriter
 

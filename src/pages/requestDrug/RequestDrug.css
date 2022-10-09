@@ -2,16 +2,16 @@
     height: 80%;
 }
 
-.text {
+.textDidnt {
     font-size: 30px;
-    padding-left: 5%;
-    margin-bottom: 60px;
+    padding-left: 10%;
+    margin-bottom: 40px;
     color: #00a49c;
+    margin-top: 150px;
 }
 
 .text2 {
     font-size: 20px;
-    margin-top: 220px;
     padding-left: 10%;
     color: #003633;
 }

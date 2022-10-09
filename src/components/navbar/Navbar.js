@@ -28,7 +28,7 @@ const Navbar = () => {
         if (loggedUser) {
             const res = await getCustomerCartUnconfirmed(loggedUser._id)
             setCartItems(res.data.data)
-    console.log("cartItems", res)
+            console.log("loggedUser", loggedUser)
 
         }
     }, [])
@@ -84,19 +84,24 @@ const Navbar = () => {
                                     }
 
                                 </li>
-                                <li className="menu-item is-active menu-item--play">
-                                    {
-                                        window.location.href === "http://localhost:3000/home/request-drug" ? (
-                                            <a href="/home/request-drug" className="menu-link" style={{ color: 'white', fontWeight: 'bold', borderBottomStyle: 'solid', borderBottomBolor: 'white' }}>
-                                                Request Drug
-                                            </a>
-                                        ) : (
-                                            <a href="/home/request-drug" className="menu-link">
-                                                Request Drug
-                                            </a>
-                                        )
-                                    }
-                                </li>
+                                {
+                                    loggedUser.role != 1 ? (
+                                        <li className="menu-item is-active menu-item--play">
+                                            {
+                                                window.location.href === "http://localhost:3000/home/request-drug" ? (
+                                                    <a href="/home/request-drug" className="menu-link" style={{ color: 'white', fontWeight: 'bold', borderBottomStyle: 'solid', borderBottomBolor: 'white' }}>
+                                                        Request Drug
+                                                    </a>
+                                                ) : (
+                                                    <a href="/home/request-drug" className="menu-link">
+                                                        Request Drug
+                                                    </a>
+                                                )
+                                            }
+                                        </li>
+                                    ) : <></>
+                                }
+
                                 <li className="menu-item is-active menu-item--play">
                                     {
                                         window.location.href === "http://localhost:3000/home/donate-medication" ? (
@@ -110,23 +115,28 @@ const Navbar = () => {
                                         )
                                     }
                                 </li>
-                                <li className="menu-item is-active menu-item--play">
-                                    {
-                                        window.location.href === "http://localhost:3000/home/cart" ? (
-                                            <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
-                                                <StyledBadge badgeContent={cartItems?.length}>
-                                                    <ShoppingCartIcon sx={{ color: 'white' }} />
-                                                </StyledBadge>
-                                            </a>
-                                        ) : (
-                                            <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px' }}>
-                                                <StyledBadge badgeContent={cartItems?.length}>
-                                                    <ShoppingCartIcon sx={{ color: 'white' }} />
-                                                </StyledBadge>
-                                            </a>
-                                        )
-                                    }
-                                </li>
+                                {
+                                    loggedUser.role != 1 ? (
+                                        <li className="menu-item is-active menu-item--play">
+                                            {
+                                                window.location.href === "http://localhost:3000/home/cart" ? (
+                                                    <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px', borderBottomStyle: 'solid', borderBottomBolor: '#00B8B0' }}>
+                                                        <StyledBadge badgeContent={cartItems?.length}>
+                                                            <ShoppingCartIcon sx={{ color: 'white' }} />
+                                                        </StyledBadge>
+                                                    </a>
+                                                ) : (
+                                                    <a href="/home/cart" className="menu-link" sx={{ marginTop: '20px' }}>
+                                                        <StyledBadge badgeContent={cartItems?.length}>
+                                                            <ShoppingCartIcon sx={{ color: 'white' }} />
+                                                        </StyledBadge>
+                                                    </a>
+                                                )
+                                            }
+                                        </li>
+                                    ) : <></>
+                                }
+
                                 {
                                     isLogged ? (
                                         <li className="menu-item is-active menu-item--play">

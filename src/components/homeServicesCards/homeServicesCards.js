@@ -7,7 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import donateD from "../../assets/donateDrugs.jpg";
-import requestDrugs from "../../assets/requestDrugs.jpg";
+import purchase from "../../assets/4.jpg";
+import requestDrugs from "../../assets/5.jpg";
 import pharmacies from "../../assets/pharmacies.jpg";
 import "./homeServicesCards.css";
 import { useNavigate } from 'react-router';
@@ -20,7 +21,7 @@ const HomeServicesCards = () => {
     }
 
     return (
-        <div className="homeServicesCards"  style={{marginBottom: '80px'}}>
+        <div className="homeServicesCards"  style={{marginBottom: '80px', marginTop: '100px'}}>
             <Typography className='suggestions' variant="h5" gutterBottom component="div" sx={{color: '#003633'}}>Available Services</Typography>
             <Grid container sx={{  paddingLeft: '30px' }}>
 
@@ -50,7 +51,7 @@ const HomeServicesCards = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            sx={{ marginTop: 0 }}
+                            sx={{ marginTop: 0, height: '345px', objectFit: 'fill' }}
                             image={requestDrugs}
                         />
                         <CardContent>
@@ -70,8 +71,8 @@ const HomeServicesCards = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            sx={{ marginTop: 0 }}
-                            image={donateD}
+                            sx={{ marginTop: 0 , height: '345px', objectFit: 'scale-down'}}
+                            image={purchase}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div" sx={{color: '#003633'}}>
@@ -90,7 +91,7 @@ const HomeServicesCards = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            sx={{ marginTop: 0 }}
+                            sx={{ marginTop: 0, minHeight: '345px' }}
                             image={pharmacies}
                         />
                         <CardContent>

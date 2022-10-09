@@ -234,7 +234,7 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    const datee = new Date(row.createdAt)
+                                    const datee = new Date(row.updatedAt)
                                     // console.log("rpw", row)
                                     return (
                                         <>
@@ -392,7 +392,7 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    const datee = new Date(row.createdAt)
+                                    const datee = new Date(row.updatedAt)
 
                                     if (row.status === 2) {
                                         return (
@@ -447,16 +447,16 @@ export default function PharmacyOrders() {
                                                                                         open={open}
                                                                                         onClose={handleClose}
                                                                                     >
-                                                                                        <MenuItem onClick={(e) => statusChange(5, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(5, idtest)} disableRipple>
                                                                                             Accept
                                                                                         </MenuItem>
-                                                                                        <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(3, idtest)} disableRipple>
                                                                                             Delivered
                                                                                         </MenuItem>
-                                                                                        <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(4, idtest)} disableRipple>
                                                                                             PickedUp
                                                                                         </MenuItem>
-                                                                                        <MenuItem onClick={(e) => statusChange(6, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(6, idtest)} disableRipple>
                                                                                             Reject
                                                                                         </MenuItem>
                                                                                     </StyledMenu>
@@ -500,7 +500,7 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    const datee = new Date(row.createdAt)
+                                    const datee = new Date(row.updatedAt)
 
                                     if (row.status === 5) {
                                         return (
@@ -555,10 +555,10 @@ export default function PharmacyOrders() {
                                                                                         open={open}
                                                                                         onClose={handleClose}
                                                                                     >
-                                                                                        <MenuItem onClick={(e) => statusChange(3, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(3, idtest)} disableRipple>
                                                                                             Delivered
                                                                                         </MenuItem>
-                                                                                        <MenuItem onClick={(e) => statusChange(4, row._id)} disableRipple>
+                                                                                        <MenuItem onClick={(e) => statusChange(4, idtest)} disableRipple>
                                                                                             PickedUp
                                                                                         </MenuItem>
                                                                                     </StyledMenu>
@@ -602,7 +602,7 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    const datee = new Date(row.createdAt)
+                                    const datee = new Date(row.updatedAt)
 
                                     if (row.status === 3) {
                                         return (
@@ -684,7 +684,7 @@ export default function PharmacyOrders() {
                             </TableHead>
                             <TableBody>
                                 {orders?.cartPharma?.map((row, index) => {
-                                    const datee = new Date(row.createdAt)
+                                    const datee = new Date(row.updatedAt)
 
                                     if (row.status === 4) {
                                         return (

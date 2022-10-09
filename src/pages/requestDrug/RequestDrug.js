@@ -2,7 +2,7 @@ import React, { useState, } from "react";
 import "./RequestDrug.css";
 import Navbar from "../../components/navbar/Navbar";
 import Grid from "@mui/material/Grid";
-import requestD from "../../assets/request.jpg";
+import requestD from "../../assets/8.jpg";
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@mui/material/Typography';
@@ -76,9 +76,9 @@ const RequestDrug = () => {
         <div >
             <Navbar />
 
-            <Grid container >
+            <Grid container sx={{marginBottom: '50px'}}>
                 <Grid item md={6} sm={12} xs={12}>
-                    <Typography className='text' variant="h5" gutterBottom component="div">Didn't find your Product?</Typography>
+                    <Typography className='textDidnt' variant="h5" gutterBottom component="div">Didn't find your Product?</Typography>
                     <Typography className='text2' variant="h6" gutterBottom component="div" sx={{width: '680px', textAlign: 'justify'}}>Request a product by filling the form below. This will notify all the registered pharmacies that this item is in demand.</Typography>
 
                     <form style={{ textAlign: 'center' }} onSubmit={formik.handleSubmit}>
@@ -123,7 +123,7 @@ const RequestDrug = () => {
                     </form>
                 </Grid>
                 <Grid item md={6} sm={12} xs={12}>
-                    <img src={requestD} className="img" />
+                    <img src={requestD} className="img" style={{marginTop: '150px'}} />
                 </Grid>
             </Grid>
             <Footer />

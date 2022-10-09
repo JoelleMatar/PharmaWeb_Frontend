@@ -2,7 +2,7 @@ import React, { useState, } from "react";
 import "./DonateMedication.css";
 import Navbar from "../../components/navbar/Navbar";
 import Grid from "@mui/material/Grid";
-import donateD from "../../assets/donate.jpg";
+import donateD from "../../assets/7.jpg";
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@mui/material/Typography';
@@ -83,7 +83,7 @@ const DonateMedication = () => {
 
             <Grid container sx={{marginBottom: '80px'}}>
                 <Grid item md={6} sm={12} xs={12}>
-                    <Typography className='text' variant="h5" gutterBottom component="div">Do you have medication that you don't need?</Typography>
+                    <Typography className='textDidnt' variant="h5" gutterBottom component="div">Do you have medication that you don't need?</Typography>
                     <Typography className='text2' variant="h6" gutterBottom component="div" sx={{textAlign: 'justify', width: '680px'}}>Kindly fill the form below to donate your medication to someone in need. People will be able to contact you via the entered email and phone number as all registered users will be notified of your donation.</Typography>
 
                     <form style={{ textAlign: 'center' }} onSubmit={formik.handleSubmit}>
@@ -154,8 +154,8 @@ const DonateMedication = () => {
                         <Button type="submit" variant="contained" className='btnAdd' sx={{ width: '80%', height: '50px', backgroundColor: '#00B8B0', marginTop: '40px' }} >Send Notification</Button>
                     </form>
                 </Grid>
-                <Grid item md={6} sm={12} xs={12} sx={{marginTop: '80px'}}>
-                    <img src={donateD} className="img" />
+                <Grid item md={6} sm={12} xs={12}>
+                    <img src={donateD}  style={{marginTop: '30px', objectFit: 'scale-down', paddingRight: '30px'}}  />
                 </Grid>
             </Grid>
             <Footer />

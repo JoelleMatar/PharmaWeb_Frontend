@@ -192,6 +192,7 @@ function ProductsContent() {
 
         if (res.status === 200) {
             setOpenSnack3(true);
+            window.location.reload();
             setTimeout(() => {
                 navigate("/pharmacy/products");
             }, 2000)
@@ -239,7 +240,7 @@ function ProductsContent() {
                             <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={addProduct}>Add Product</Button>
                             {/* <Button variant="contained" className='btnAdd' sx={{ marginRight: '0', float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} color="primary" onClick={uploadBulk}>Product Bulk Upload</Button> */}
                             <label htmlFor="contained-button-file">
-                                <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginBottom: '20px', backgroundColor: '#00B8B0', }} component="span" >
+                                <Button variant="contained" className='btnAdd' sx={{ float: 'right', marginRight: '20px', marginBottom: '20px', backgroundColor: '#00B8B0', }} component="span" >
                                     Product Bulk Upload
                                 </Button>
                             </label>

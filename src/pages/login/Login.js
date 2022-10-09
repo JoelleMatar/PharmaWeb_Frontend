@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import loginImg from '../../assets/medical_care_movn.svg';
+import loginImg from '../../assets/loginPhoto.jpeg';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
@@ -87,7 +87,7 @@ const Login = () => {
 
     return (
         <div className="container">
-            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column', overflowY: 'scroll' }}>
+            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column' }}>
                 <Grid container md={12} sm={12} xs={12}>
                     <Grid item md={6} sm={6} xs={12}>
                         <Box sx={{ display: 'flex', marginTop: '30px' }}>
@@ -158,7 +158,7 @@ const Login = () => {
                     <Grid item md={6} sm={6} xs={12}>
                         <CardMedia
                             component="img"
-                            sx={{ width: '100%', margin: 'auto', maxWidth: '100%', height: 'auto' }}
+                            sx={{ width: '100%', margin: 'auto', maxWidth: '100%', height: '100%', objectFit: 'contain' }}
                             image={loginImg}
                             alt="Live from space album cover"
                         />

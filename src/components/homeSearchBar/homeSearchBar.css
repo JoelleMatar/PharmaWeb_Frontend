@@ -14,7 +14,8 @@ img {
 }
 
 .text {
-    top: 50px;
+    top: 115px;
+    width: 600px;
     left: 0;
     right: 0;
     position: absolute;

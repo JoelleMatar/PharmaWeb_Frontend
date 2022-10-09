@@ -5,13 +5,12 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import signUpImg from '../../assets/medical_care_movn.svg';
+import signUpImg from '../../assets/loginPhoto.jpeg';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -20,16 +19,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { signUpBuyer } from "../../api/index";
 import { useNavigate } from "react-router";
 
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
 
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import PharmacyRegistration from "./PharmacyRegistration";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 const SignUp = () => {
     const theme = useTheme();
@@ -40,6 +37,16 @@ const SignUp = () => {
     const [deliveryOption, setDeliveryOption] = useState([]);
     const [paymentOption, setPaymentOption] = useState([]);
     const [file, setFile] = useState(null);
+    const [openSnack3, setOpenSnack3] = useState(false);
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnack3(false);
+    };
+
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -83,9 +90,12 @@ const SignUp = () => {
 
         try {
             const success = await signUpBuyer(form);
-            console.log("succ",success);
-            if (success.data.result == true) {
-                navigate("/home");
+            console.log("succ", success);
+            if (success.status == 201) {
+                setOpenSnack3(true);
+                setTimeout(() => {
+                    navigate("/auth/login");
+                }, 2000)
             }
         }
         catch (error) {
@@ -209,6 +219,7 @@ const SignUp = () => {
         console.log(e.target.files[0]);
         setFile(e.target.files[0]);
     };
+
 
     return (
         <div className="container">
@@ -349,18 +360,24 @@ const SignUp = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="button" >Sign Up</Button>
+                                    <Button type="submit" variant="contained" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} className="btnAdd" >Sign Up</Button>
 
                                 </form>
-                                <a style={{ cursor: 'pointer', marginRight: '50px', float: 'right', marginTop: '20px', color: '#F8AF86' }} onClick={goToLogin}>Already have an account?</a>
+                                <a style={{ cursor: 'pointer', marginRight: '50px', float: 'right', marginTop: '20px', color: '#F8AF86', marginBottom: '20px' }} onClick={goToLogin}>Already have an account?</a>
                             </div>
+                            <Snackbar open={openSnack3} autoHideDuration={6000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="success" sx={{ width: '100%', backgroundColor: '#019890' }}>
+                                    User registered successfully !
+                                </Alert>
+                            </Snackbar>
+
                         </Card>
                     ) :
                     registerP ? (
                         <PharmacyRegistration />
                     ) :
                         (
-                            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column', overflowY: 'scroll' }}>
+                            <Card sx={{ display: 'flex', width: '60%', height: '60%', flexDirection: 'column' }}>
                                 <Grid container md={12} sm={12} xs={12}>
                                     <Grid item md={6} sm={6} xs={12}>
                                         <Box sx={{ display: 'flex', marginTop: '30px' }}>
@@ -387,7 +404,7 @@ const SignUp = () => {
                                                                     <Button type="submit" variant="contained" className="btnAdd" sx={{ width: '70%', marginTop: '20px', backgroundColor: '#00B8B0' }} onClick={registerPharmacy}>Pharmacy</Button>
                                                                 </Grid>
                                                             </Grid>
-                                                            <a style={{ cursor: 'pointer', marginLeft: '200px', color: '#F8AF86' }} onClick={goToLogin}>Already have an account?</a>
+                                                            <a style={{ cursor: 'pointer', marginLeft: '200px', color: '#F8AF86', marginBottom: '20px' }} onClick={goToLogin}>Already have an account?</a>
 
                                                         </CardContent>
                                                     </Grid>
@@ -398,7 +415,7 @@ const SignUp = () => {
                                     <Grid item md={6} sm={6} xs={12}>
                                         <CardMedia
                                             component="img"
-                                            sx={{  maxWidth: '100%', height: 'auto'}}
+                                            sx={{ maxWidth: '100%', height: '100%', objectFit: 'contain' }}
                                             image={signUpImg}
                                             alt="Live from space album cover"
                                         />
